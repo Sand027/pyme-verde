@@ -1,0 +1,81 @@
+<%
+  const t = resumen.totales;
+  const maxDest = Math.max(1, ...resumen.destinos.map((d) => d.generado || 0));
+  const p = resumen.periodo;
+%>
+<%- include('../partials/app-inicio', {
+  titulo: 'Residuos y economía circular', seccion: 'residuos',
+  intro: `Del ${f.fechaLarga(p.desde)} al ${f.fechaLarga(p.hasta)}: cuánto residuo se generó, cuánto se aprovechó y a qué destino fue.`,
+  accionesTop: puede(P.REGISTROS_CREAR) ? '<a class="btn btn--primary btn--sm" href="/panel/registros?nuevo=1">Registrar residuo</a>' : '',
+}) %>
+
+<section class="ap-caja ap-caja--suave" aria-labelledby="per-h">
+  <h2 class="sr-only" id="per-h">Periodo</h2>
+  <form class="ap-filtros" method="get" action="/panel/residuos">
+    <div class="field"><label for="p-desde">Desde</label><input id="p-desde" name="desde" type="date" value="<%= p.desde %>" required></div>
+    <div class="field"><label for="p-hasta">Hasta</label><input id="p-hasta" name="hasta" type="date" value="<%= p.hasta %>" required></div>
+    <div class="btn-row"><button class="btn btn--secondary btn--sm" type="submit">Ver periodo</button></div>
+  </form>
+</section>
+
+<div class="ap-resultado">
+  <div class="ap-cifra"><span>Residuo generado</span><b><%= f.numero(t.generado, 1) %> kg</b></div>
+  <div class="ap-cifra"><span>Residuo aprovechado</span><b><%= f.numero(t.aprovechado, 1) %> kg</b></div>
+  <div class="ap-cifra"><span>Porcentaje de aprovechamiento</span><b><%= f.numero(t.porcentaje, 1) %> %</b><small>Aprovechado entre generado, por cien.</small></div>
+  <div class="ap-cifra"><span>Sin aprovechar</span><b><%= f.numero(Math.max(0, t.generado - t.aprovechado), 1) %> kg</b></div>
+</div>
+
+<div class="ap-grid">
+  <section class="ap-caja ap-c7" aria-labelledby="cat-h">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="cat-h">Por tipo de residuo</h2><p class="ap-nota"><%= resumen.categorias.length %> conceptos</p></div>
+    <div class="ap-tabla-envoltura">
+      <table class="ap-tabla">
+        <thead><tr><th scope="col">Residuo</th><th scope="col" class="ocultar-tel">Clasificación</th><th scope="col" class="num">Generado</th><th scope="col" class="num">Aprovechado</th><th scope="col" class="num">%</th><th scope="col" class="num ocultar-tel">Con evidencia</th></tr></thead>
+        <tbody>
+          <% if (!resumen.categorias.length) { %><tr class="ap-tabla__vacia"><td colspan="6">No hay residuos registrados en este periodo.</td></tr><% } %>
+          <% for (const c of resumen.categorias) { %>
+          <tr>
+            <td><%= c.categoria %></td>
+            <td class="ocultar-tel"><%= c.clasificacionEtiqueta %></td>
+            <td class="num"><%= f.numero(c.generado, 1) %> <%= c.unidad %></td>
+            <td class="num"><%= f.numero(c.aprovechado, 1) %> <%= c.unidad %></td>
+            <td class="num"><%= f.numero(c.porcentaje, 1) %></td>
+            <td class="num ocultar-tel"><%= c.exigeEvidencia ? `${c.conEvidencia} de ${c.registros}` : 'no se exige' %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ap-caja ap-c5" aria-labelledby="dest-h">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="dest-h">Por destino</h2></div>
+    <div class="ap-comparar" role="list">
+      <% for (const d of resumen.destinos) { %>
+      <div class="ap-comparar__fila" role="listitem">
+        <span><%= d.etiqueta %></span>
+        <span class="ap-comparar__barra" aria-hidden="true"><i class="b" style="--k:<%= ((d.generado || 0) / maxDest).toFixed(3) %>"></i></span>
+        <span class="num"><%= f.numero(d.generado, 1) %> kg</span>
+      </div>
+      <% } %>
+      <% if (!resumen.destinos.length) { %><p class="ap-nota">Sin datos en el periodo.</p><% } %>
+    </div>
+  </section>
+</div>
+
+<section class="ap-caja" aria-labelledby="guia-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="guia-h">Guía de destinos por clasificación</h2><p class="ap-nota">La aplicación rechaza un destino que no corresponde a la clasificación del residuo.</p></div>
+  <div class="ap-kpis">
+    <% for (const g of guia) { %>
+    <article class="ap-kpi">
+      <h3 class="ap-kpi__nombre"><%= g.etiqueta %></h3>
+      <p class="ap-kpi__exp"><b>Aprovechamiento:</b> <%= g.destinosAprovechamiento.map((d) => d.etiqueta).join(', ') || 'ninguno' %></p>
+      <p class="ap-kpi__exp"><b>Sin aprovechar:</b> <%= g.destinoDisposicion.etiqueta %></p>
+      <p class="ap-kpi__exp"><b>Evidencia:</b> <%= g.exigeEvidencia ? 'obligatoria (manifiesto o constancia)' : 'opcional' %></p>
+      <% if (g.recomendaciones && g.recomendaciones.length) { %><p class="ap-nota"><%= g.recomendaciones[0] %></p><% } %>
+    </article>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/app-fin') %>

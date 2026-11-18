@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1130" height="800" viewBox="0 0 1130 800"><defs>
+      <marker id="flecha" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a7d71"/></marker>
+      <marker id="abierta" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#8a7d71" stroke-width="1.4"/></marker>
+      <marker id="herencia" viewBox="0 0 14 14" refX="14" refY="7" markerWidth="14" markerHeight="14" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L14,7 L0,14 z" fill="#fff" stroke="#2b241e" stroke-width="1.3"/></marker>
+      <marker id="rombo" viewBox="0 0 16 10" refX="16" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,5 L8,0 L16,5 L8,10 z" fill="#2b241e"/></marker>
+    </defs><rect width="100%" height="100%" fill="#ffffff"/>
+<path d="M30,145 L280,145" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M400,157 L700,157" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M820,138 L1100,138" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M280,130 L400,130" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M700,130 L820,130" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M30,336 L200,336" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M212,336 L382,336" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M394,336 L564,336" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M576,336 L746,336" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M758,336 L928,336" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M940,336 L1110,336" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M960,270 L960,182" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<path d="M115,270 L1025,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M115,300 L115,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M297,300 L297,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M479,300 L479,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M661,300 L661,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M843,300 L843,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M1025,300 L1025,270" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M30,498 L280,498" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M400,517 L700,517" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M820,498 L1100,498" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M280,490 L400,490" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M700,490 L820,490" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M30,735 L285,735" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M302,735 L557,735" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M574,735 L829,735" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M846,735 L1101,735" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M960,650 L960,576" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<path d="M157.5,650 L973.5,650" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M157.5,680 L157.5,650" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M429.5,680 L429.5,650" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M701.5,680 L701.5,650" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M973.5,680 L973.5,650" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<rect x="30" y="90" width="250" height="99" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="90" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="400" y="90" width="300" height="111" rx="0" fill="#f1f4f7" stroke="#2b241e" stroke-width="1.2" />
+<rect x="400" y="90" width="300" height="40" rx="0" fill="#e2eaf1" stroke="#2b241e" stroke-width="1.2" />
+<rect x="820" y="90" width="280" height="92" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="820" y="90" width="280" height="40" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="300" width="170" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="300" width="170" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="212" y="300" width="170" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="212" y="300" width="170" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="394" y="300" width="170" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="394" y="300" width="170" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="576" y="300" width="170" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="576" y="300" width="170" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="758" y="300" width="170" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="758" y="300" width="170" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="940" y="300" width="170" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="940" y="300" width="170" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="450" width="250" height="75" rx="0" fill="#f1f4f7" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="450" width="250" height="40" rx="0" fill="#e2eaf1" stroke="#2b241e" stroke-width="1.2" />
+<rect x="400" y="450" width="300" height="94" rx="0" fill="#f1f4f7" stroke="#2b241e" stroke-width="1.2" />
+<rect x="400" y="450" width="300" height="40" rx="0" fill="#e2eaf1" stroke="#2b241e" stroke-width="1.2" />
+<rect x="820" y="450" width="280" height="126" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="820" y="450" width="280" height="40" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="680" width="255" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="680" width="255" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="302" y="680" width="255" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="302" y="680" width="255" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="574" y="680" width="255" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="574" y="680" width="255" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="846" y="680" width="255" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="846" y="680" width="255" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<text x="30" y="36" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="start">Patrones Strategy y Factory</text>
+<text x="30" y="58" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">Indicadores: cada fórmula es una estrategia. Residuos: cada clasificación decide los destinos válidos.</text>
+<text x="155" y="109" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">IndicadorService</text>
+<text x="38" y="134" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- repos, parametros</text>
+<text x="38" y="161" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(usuario, periodo)</text>
+<text x="38" y="178" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ serie(id, meses)</text>
+<text x="550" y="105" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«factory»</text>
+<text x="550" y="122" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">IndicadorStrategyFactory</text>
+<text x="408" y="146" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- #registro: Map&lt;clave, estrategia&gt;</text>
+<text x="408" y="173" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ para(clave) «static»</text>
+<text x="408" y="190" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ disponibles() «static»</text>
+<text x="960" y="105" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«abstract»</text>
+<text x="960" y="122" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="italic" fill="#2b241e"  text-anchor="middle">IndicadorStrategy</text>
+<text x="828" y="154" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(contexto) «abstract»</text>
+<text x="828" y="171" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ sumar(), dividir(), redondear()</text>
+<text x="340" y="122" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">pide la estrategia</text>
+<text x="760" y="122" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">crea</text>
+<text x="115" y="319" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">TasaAprovechamiento</text>
+<text x="38" y="352" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(ctx)</text>
+<text x="297" y="319" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">IntensidadPorPar</text>
+<text x="220" y="352" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(ctx)</text>
+<text x="479" y="319" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">PromedioMensual</text>
+<text x="402" y="352" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(ctx)</text>
+<text x="661" y="319" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">CostoDesperdicio</text>
+<text x="584" y="352" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(ctx)</text>
+<text x="843" y="319" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">AvancePlan</text>
+<text x="766" y="352" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(ctx)</text>
+<text x="1025" y="319" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">CapacitacionPorColaborador</text>
+<text x="948" y="352" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ calcular(ctx)</text>
+<text x="30" y="400" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">Sufijo Strategy omitido en las cajas. Agregar un indicador nuevo = agregar una clase y registrarla en la fábrica, sin tocar el servicio.</text>
+<text x="155" y="465" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«factory»</text>
+<text x="155" y="482" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">RegistroFactory</text>
+<text x="38" y="514" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ crear(datos, categoria) «static»</text>
+<text x="550" y="465" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«factory»</text>
+<text x="550" y="482" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">DestinoStrategyFactory</text>
+<text x="408" y="506" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- #registro: Map&lt;clasificacion, …&gt;</text>
+<text x="408" y="533" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ para(clasificacion) «static»</text>
+<text x="960" y="465" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«abstract»</text>
+<text x="960" y="482" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="italic" fill="#2b241e"  text-anchor="middle">DestinoResiduoStrategy</text>
+<text x="828" y="514" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ destinosAprovechamiento()</text>
+<text x="828" y="531" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ destinoDisposicion()</text>
+<text x="828" y="548" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ exigeEvidencia(): bool</text>
+<text x="828" y="565" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validar(datos): errores</text>
+<text x="340" y="482" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">según la clasificación</text>
+<text x="157.5" y="699" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">ReutilizableStrategy</text>
+<text x="38" y="724" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">reutilización, donación</text>
+<text x="429.5" y="699" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">ReciclableStrategy</text>
+<text x="310" y="724" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">reciclaje</text>
+<text x="701.5" y="699" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">ManejoEspecialStrategy</text>
+<text x="582" y="724" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">coprocesamiento; exige evidencia</text>
+<text x="973.5" y="699" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">NoAprovechableStrategy</text>
+<text x="854" y="724" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">relleno sanitario</text>
+<text x="30" y="784" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">RegistroFactory también elige la subclase de Registro (Consumo, Producción, Social, Residuo) según el tipo de categoría.</text></svg>

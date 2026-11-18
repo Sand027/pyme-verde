@@ -1,0 +1,92 @@
+<%
+  const ESTADOS = { cumple: 'Cumple la meta', cerca: 'Cerca de la meta', lejos: 'Lejos de la meta', sin_dato: 'Sin datos' };
+  const hayDemo = recientes.some((r) => r.origenDato === 'demostracion');
+  const mesSel = periodo.meses.length === 1 ? periodo.meses[0] : periodo.desde.slice(0, 7);
+  const rango = periodo.meses.length === 1 ? f.mes(periodo.meses[0]) : `${f.fecha(periodo.desde)} a ${f.fecha(periodo.hasta)}`;
+  const porDim = {};
+  for (const i of indicadores) (porDim[i.dimensionEtiqueta] ||= []).push(i);
+  const unidad = (u) => (u === '%' ? '%' : u);
+  const escala = (i) => Math.max(i.meta * 1.6, (i.valor || 0) * 1.1, 0.0001);
+  const totalAcc = Object.values(conteo).reduce((a, b) => a + b, 0);
+%>
+<%- include('../partials/app-inicio', {
+  titulo: 'Tablero', seccion: 'tablero',
+  intro: `${pyme.nombre}: indicadores de ${rango}, calculados con los registros del periodo.`,
+  accionesTop: `<form class="ap-periodo" method="get" action="/panel"><label class="sr-only" for="mes-tablero">Mes</label><input class="ap-input-mes" id="mes-tablero" type="month" name="mes" value="${mesSel}" max="${new Date().toISOString().slice(0, 7)}"><button class="btn btn--secondary btn--sm" type="submit">Ver mes</button></form>` + (puede(P.REGISTROS_CREAR) ? '<a class="btn btn--primary btn--sm" href="/panel/registros?nuevo=1">Nuevo registro</a>' : ''),
+}) %>
+
+<% if (hayDemo) { %>
+<p class="ap-aviso" role="note"><span class="ap-chip ap-chip--demo">Demostración</span> Los registros cargados son datos de demostración, marcados así en la base de datos. No describen la operación real del taller.</p>
+<% } %>
+
+<% for (const [dim, lista] of Object.entries(porDim)) { %>
+<section class="ap-caja ap-caja--suave" aria-labelledby="dim-<%= dim %>">
+  <div class="ap-caja__cab">
+    <h2 class="ap-h2" id="dim-<%= dim %>">Dimensión <%= dim.toLowerCase() %></h2>
+    <p class="ap-nota"><%= lista.length %> indicador<%= lista.length === 1 ? '' : 'es' %></p>
+  </div>
+  <div class="ap-kpis">
+    <% for (const i of lista) { const e = escala(i); const est = i.valor === null ? 'sin_dato' : i.estado; %>
+    <article class="ap-kpi" aria-labelledby="kpi-<%= i.id %>">
+      <div class="ap-kpi__cab">
+        <h3 class="ap-kpi__nombre" id="kpi-<%= i.id %>"><%= i.nombre %></h3>
+        <span class="ap-chip" data-estado="<%= est %>"><%= ESTADOS[est] %></span>
+      </div>
+      <div class="ap-kpi__valor"><%= f.numero(i.valor, i.unidad === '%' ? 1 : 3) %><small><%= i.valor === null ? '' : unidad(i.unidad) %></small></div>
+      <div class="ap-barra" data-estado="<%= est %>" style="--k:<%= Math.min(1, (i.valor || 0) / e).toFixed(3) %>;--m:<%= Math.min(1, i.meta / e).toFixed(3) %>" aria-hidden="true"><i></i><b></b></div>
+      <div class="ap-kpi__meta"><span>Meta: <%= f.numero(i.meta, 3) %> <%= unidad(i.unidad) %> <%= i.sentido === 'mayor' ? 'o más' : 'o menos' %></span></div>
+      <p class="ap-kpi__exp"><%= i.explicacion %></p>
+      <button class="ap-btn-txt ap-kpi__ver" type="button" data-serie="<%= i.id %>" data-nombre="<%= i.nombre %>" data-meta="<%= i.meta %>" data-unidad="<%= unidad(i.unidad) %>">Ver seis meses</button>
+    </article>
+    <% } %>
+  </div>
+</section>
+<% } %>
+
+<div class="ap-grid">
+  <section class="ap-caja ap-c8" aria-labelledby="serie-h">
+    <div class="ap-caja__cab">
+      <h2 class="ap-h2" id="serie-h" data-serie-titulo>Seis meses de <%= indicadores[0] ? indicadores[0].nombre.toLowerCase() : 'indicador' %></h2>
+      <label class="field ap-sel-serie"><span class="sr-only">Indicador</span>
+        <select data-serie-select>
+          <% for (const i of indicadores) { %><option value="<%= i.id %>" data-meta="<%= i.meta %>" data-unidad="<%= unidad(i.unidad) %>"><%= i.nombre %></option><% } %>
+        </select>
+      </label>
+    </div>
+    <div class="ap-grafica" data-grafica data-hasta="<%= periodo.hasta %>"><p class="ap-nota">Cargando la serie…</p></div>
+    <div class="ap-leyenda" aria-hidden="true"><span><i class="ok"></i>Cumple</span><span><i class="cerca"></i>Cerca</span><span><i></i>Lejos</span><span><i class="meta"></i>Meta</span></div>
+  </section>
+
+  <section class="ap-caja ap-c4" aria-labelledby="plan-h">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="plan-h">Plan de acciones</h2><a class="ap-btn-txt" href="/panel/acciones">Abrir</a></div>
+    <ul class="ap-supuestos">
+      <li><span><span class="ap-chip" data-estado="pendiente">Pendientes</span></span><span><%= conteo.pendiente || 0 %></span></li>
+      <li><span><span class="ap-chip" data-estado="en_proceso">En proceso</span></span><span><%= conteo.en_proceso || 0 %></span></li>
+      <li><span><span class="ap-chip" data-estado="completada">Completadas</span></span><span><%= conteo.completada || 0 %></span></li>
+      <li><span>Total</span><span><%= totalAcc %></span></li>
+    </ul>
+  </section>
+</div>
+
+<section class="ap-caja" aria-labelledby="recientes-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="recientes-h">Últimos registros</h2><a class="ap-btn-txt" href="/panel/registros">Ver todos</a></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Fecha</th><th scope="col">Concepto</th><th scope="col" class="num">Cantidad</th><th scope="col" class="ocultar-tel">Origen</th><th scope="col" class="ocultar-tel">Capturó</th></tr></thead>
+      <tbody>
+        <% if (!recientes.length) { %><tr class="ap-tabla__vacia"><td colspan="5">Todavía no hay registros.</td></tr><% } %>
+        <% for (const r of recientes) { %>
+        <tr>
+          <td><%= f.fecha(r.fecha) %></td>
+          <td><%= r.categoria %></td>
+          <td class="num"><%= f.numero(r.cantidad, 2) %> <%= r.unidad %></td>
+          <td class="ocultar-tel"><% if (r.origenDato === 'demostracion') { %><span class="ap-chip ap-chip--demo">Demostración</span><% } else { %><%= r.origenEtiqueta %><% } %></td>
+          <td class="ocultar-tel"><%= r.autor %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('../partials/app-fin', { scripts: ['tablero.js'] }) %>

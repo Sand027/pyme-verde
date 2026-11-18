@@ -1,0 +1,114 @@
+<%
+  const SECCIONES = [
+    { id: 'empresa', texto: 'Empresa', permiso: P.CONFIGURACION_ADMINISTRAR },
+    { id: 'supuestos', texto: 'Supuestos', permiso: P.CONFIGURACION_ADMINISTRAR },
+    { id: 'metas', texto: 'Metas de indicadores', permiso: P.INDICADORES_ADMINISTRAR },
+    { id: 'categorias', texto: 'Conceptos que se miden', permiso: P.CATALOGOS_ADMINISTRAR },
+  ];
+  const sec = SECCIONES.some((s) => s.id === seccion) ? seccion : 'empresa';
+  const v = (k, base) => (valores[k] !== undefined ? valores[k] : base);
+%>
+<%- include('../partials/app-inicio', {
+  titulo: 'Configuración', seccion: 'configuracion',
+  intro: 'Datos de la empresa, supuestos de la calculadora, metas de los indicadores y catálogo de conceptos.',
+}) %>
+
+<nav class="ap-pestanas" aria-label="Secciones de configuración">
+  <% for (const s of SECCIONES) { if (!puede(s.permiso)) continue; %>
+  <a class="ap-pestana" href="/admin/configuracion?seccion=<%= s.id %>" <%- s.id === sec ? 'aria-current="page"' : '' %>><%= s.texto %></a>
+  <% } %>
+</nav>
+
+<% if (sec === 'empresa') { %>
+<section class="ap-caja" aria-labelledby="emp-h" style="max-width: 860px">
+  <h2 class="ap-h2" id="emp-h" style="margin-bottom: var(--s-4)">Datos de la empresa</h2>
+  <form class="form" method="post" action="/admin/configuracion/empresa" data-fix="Revisa {n} campo(s) marcados." novalidate>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <%- include('../partials/campo', { id: 'c-nombre', nombre: 'nombre', etiqueta: 'Nombre', valor: v('nombre', pyme.nombre), attrs: 'required minlength="3" maxlength="120"', error: errores.nombre }) %>
+    <%- include('../partials/campo', { id: 'c-giro', nombre: 'giro', etiqueta: 'Giro', valor: v('giro', pyme.giro), attrs: 'required minlength="3" maxlength="120"', error: errores.giro }) %>
+    <%- include('../partials/campo', { id: 'c-ubic', nombre: 'ubicacionGeneral', etiqueta: 'Ubicación general', ayuda: 'ciudad o zona, sin domicilio', valor: v('ubicacionGeneral', pyme.ubicacionGeneral), attrs: 'required minlength="3" maxlength="160"', error: errores.ubicacionGeneral }) %>
+    <%- include('../partials/campo', { id: 'c-num', nombre: 'numColaboradores', etiqueta: 'Colaboradores', tipo: 'number', valor: v('numColaboradores', pyme.numColaboradores), attrs: 'required min="1" max="250" step="1"', error: errores.numColaboradores }) %>
+    <%- include('../partials/campo', { id: 'c-desc', nombre: 'descripcion', etiqueta: 'Descripción', tipo: 'textarea', valor: v('descripcion', pyme.descripcion), attrs: 'maxlength="2000"', error: errores.descripcion, completo: true }) %>
+    <%- include('../partials/campo', { id: 'c-prob', nombre: 'problematica', etiqueta: 'Problemática ambiental o social', tipo: 'textarea', valor: v('problematica', pyme.problematica), attrs: 'maxlength="2000"', error: errores.problematica, completo: true }) %>
+    <%- include('../partials/campo', { id: 'c-obj', nombre: 'objetivo', etiqueta: 'Objetivo de mejora', tipo: 'textarea', valor: v('objetivo', pyme.objetivo), attrs: 'maxlength="1000"', error: errores.objetivo, completo: true }) %>
+    <div class="btn-row"><button class="btn btn--primary" type="submit">Guardar datos</button></div>
+    <p class="form__status" data-form-status></p>
+  </form>
+</section>
+<% } %>
+
+<% if (sec === 'supuestos') { %>
+<section class="ap-caja" aria-labelledby="sup-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="sup-h">Supuestos de cálculo</h2><p class="ap-nota">La calculadora y los indicadores económicos usan estos valores. Anota la fuente de cada uno.</p></div>
+  <div style="display:grid; gap: var(--s-4)">
+    <% for (const p of parametros) { const err = locals.parametroConError === p.id ? errores : {}; const val = locals.parametroConError === p.id ? valores : {}; %>
+    <form class="form ap-fila-form" method="post" action="/admin/configuracion/parametros/<%= p.id %>" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <p class="field--full ap-h3" style="margin:0"><%= p.nombre %> <span class="ap-nota">(<%= p.clave %>)</span></p>
+      <%- include('../partials/campo', { id: `p-val-${p.id}`, nombre: 'valor', etiqueta: `Valor en ${p.unidad}`, tipo: 'number', valor: val.valor ?? p.valor, attrs: 'required min="0" step="any"', error: err.valor }) %>
+      <%- include('../partials/campo', { id: `p-fue-${p.id}`, nombre: 'fuente', etiqueta: 'Fuente', valor: val.fuente ?? p.fuente, attrs: 'maxlength="300"', error: err.fuente }) %>
+      <div class="btn-row"><button class="btn btn--secondary btn--sm" type="submit">Guardar</button></div>
+    </form>
+    <% } %>
+  </div>
+</section>
+<% } %>
+
+<% if (sec === 'metas') { %>
+<section class="ap-caja" aria-labelledby="met-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="met-h">Metas de los indicadores</h2><p class="ap-nota">Marca como público el indicador que aparece en la página de inicio.</p></div>
+  <div style="display:grid; gap: var(--s-4)">
+    <% for (const i of indicadores) { const err = locals.indicadorConError === i.id ? errores : {}; %>
+    <form class="form ap-fila-form" method="post" action="/admin/configuracion/indicadores/<%= i.id %>" novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="field--full"><p class="ap-h3" style="margin:0"><%= i.nombre %> <span class="ap-nota">· <%= i.dimensionEtiqueta %> · <%= i.sentido === 'mayor' ? 'más es mejor' : 'menos es mejor' %></span></p>
+        <p class="ap-nota" style="margin: 4px 0 0">Fórmula: <%= i.formula %></p></div>
+      <%- include('../partials/campo', { id: `m-${i.id}`, nombre: 'meta', etiqueta: `Meta en ${i.unidad}`, tipo: 'number', valor: i.meta, attrs: 'required min="0" step="any"', error: err.meta }) %>
+      <div class="field"><span>Visibilidad</span><label class="field--check"><input type="checkbox" name="publico" <%= i.publico ? 'checked' : '' %>> Mostrar en la página pública</label></div>
+      <div class="btn-row"><button class="btn btn--secondary btn--sm" type="submit">Guardar</button></div>
+    </form>
+    <% } %>
+  </div>
+</section>
+<% } %>
+
+<% if (sec === 'categorias') { %>
+<section class="ap-caja" aria-labelledby="cat-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="cat-h">Conceptos que se miden</h2><p class="ap-nota">Un concepto con registros no se borra: se desactiva para que no aparezca en altas nuevas.</p></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Concepto</th><th scope="col">Tipo</th><th scope="col">Unidad</th><th scope="col" class="ocultar-tel">Clasificación</th><th scope="col">Estado</th><th scope="col" class="acc"><span class="sr-only">Acciones</span></th></tr></thead>
+      <tbody>
+        <% for (const c of categorias) { %>
+        <tr>
+          <td><%= c.nombre %></td><td><%= c.tipoEtiqueta %></td><td><%= c.unidad %></td><td class="ocultar-tel"><%= c.clasificacionEtiqueta || '' %></td>
+          <td><span class="ap-chip" data-estado="<%= c.activa ? 'completada' : 'pendiente' %>"><%= c.activa ? 'Activa' : 'Inactiva' %></span></td>
+          <td class="acc">
+            <form method="post" action="/admin/configuracion/categorias/<%= c.id %>" style="display:inline">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="hidden" name="nombre" value="<%= c.nombre %>">
+              <input type="hidden" name="descripcion" value="<%= c.descripcion || '' %>">
+              <% if (!c.activa) { %><input type="hidden" name="activa" value="on"><% } %>
+              <button class="ap-btn-txt" type="submit"><%= c.activa ? 'Desactivar' : 'Activar' %></button>
+            </form>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="ap-h3" style="margin: var(--s-6) 0 var(--s-3)">Agregar concepto</h3>
+  <form class="form" method="post" action="/admin/configuracion/categorias" data-fix="Revisa {n} campo(s) marcados." novalidate data-form-categoria>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <%- include('../partials/campo', { id: 'k-nombre', nombre: 'nombre', etiqueta: 'Nombre', valor: valores.nombre, attrs: 'required minlength="3" maxlength="80"', error: errores.nombre }) %>
+    <%- include('../partials/campo', { id: 'k-tipo', nombre: 'tipo', etiqueta: 'Tipo', tipo: 'select', valor: valores.tipo, opciones: [{ valor: '', texto: 'Elige el tipo' }, ...Object.entries(tipos).map(([k, t]) => ({ valor: k, texto: t }))], attrs: 'required', error: errores.tipo }) %>
+    <%- include('../partials/campo', { id: 'k-unidad', nombre: 'unidad', etiqueta: 'Unidad', ayuda: 'kg, kWh, m3, pares, h', valor: valores.unidad, attrs: 'required maxlength="20"', error: errores.unidad }) %>
+    <%- include('../partials/campo', { id: 'k-clas', nombre: 'clasificacion', etiqueta: 'Clasificación del residuo', ayuda: 'solo para residuos', tipo: 'select', valor: valores.clasificacion, opciones: [{ valor: '', texto: 'No aplica' }, ...Object.entries(clasificaciones).map(([k, t]) => ({ valor: k, texto: t }))], error: errores.clasificacion }) %>
+    <%- include('../partials/campo', { id: 'k-desc', nombre: 'descripcion', etiqueta: 'Descripción', tipo: 'textarea', valor: valores.descripcion, attrs: 'maxlength="300"', error: errores.descripcion, completo: true }) %>
+    <div class="btn-row"><button class="btn btn--primary" type="submit">Agregar concepto</button></div>
+    <p class="form__status" data-form-status></p>
+  </form>
+</section>
+<% } %>
+
+<%- include('../partials/app-fin', { scripts: ['configuracion.js'] }) %>

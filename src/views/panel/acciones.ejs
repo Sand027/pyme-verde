@@ -1,0 +1,71 @@
+<%- include('../partials/app-inicio', {
+  titulo: 'Plan de acciones', seccion: 'acciones',
+  intro: 'Cada acción tiene responsable, fecha objetivo, meta e indicador al que apunta. El responsable actualiza el avance y sube las evidencias.',
+  accionesTop: puede(P.ACCIONES_ADMINISTRAR) ? '<button class="btn btn--primary btn--sm" type="button" data-nueva>Nueva acción</button>' : '',
+}) %>
+
+<section class="ap-caja ap-caja--suave" aria-labelledby="fa-h">
+  <h2 class="sr-only" id="fa-h">Filtros del plan</h2>
+  <form class="ap-filtros" data-filtros-acc>
+    <div class="field"><label for="fa-resp">Responsable</label>
+      <select id="fa-resp" name="responsableId"><option value="">Todas las personas</option><% for (const r of responsables) { %><option value="<%= r.id %>"><%= r.nombre %></option><% } %></select></div>
+    <div class="field"><label for="fa-ind">Indicador</label>
+      <select id="fa-ind" name="indicadorId"><option value="">Todos</option><% for (const i of indicadores) { %><option value="<%= i.id %>"><%= i.nombre %></option><% } %></select></div>
+    <label class="field--check"><input type="checkbox" name="soloVencidas"> Solo vencidas</label>
+    <label class="field--check"><input type="checkbox" name="soloMias"> Solo las mías</label>
+  </form>
+</section>
+
+<div class="ap-tablero" data-tablero>
+  <% for (const [k, etiqueta] of Object.entries(estados)) { %>
+  <section class="ap-col" aria-labelledby="col-<%= k %>" data-col="<%= k %>">
+    <div class="ap-col__cab"><h2 class="ap-h3" id="col-<%= k %>"><span class="ap-chip" data-estado="<%= k %>"><%= etiqueta %></span></h2><span class="ap-col__n" data-n></span></div>
+    <div class="ap-col__lista" data-lista style="display:grid; gap: var(--s-3)"></div>
+  </section>
+  <% } %>
+</div>
+
+<script type="application/json" id="datos-acciones" nonce="<%= cspNonce %>"><%- JSON.stringify({ acciones, usuarioId: usuario.id, estados }).replace(/</g, '\\u003c') %></script>
+
+<div class="ap-fondo" data-fondo hidden></div>
+<aside class="ap-panel" data-panel aria-labelledby="pa-h" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="ap-panel__cab"><h2 class="ap-h2" id="pa-h" data-panel-titulo>Acción</h2><button class="ap-btn-txt" type="button" data-panel-cerrar>Cerrar</button></div>
+  <div class="ap-panel__cuerpo" style="display:grid; gap: var(--s-6)">
+    <% if (puede(P.ACCIONES_ADMINISTRAR)) { %>
+    <form class="form" data-form-accion novalidate>
+      <input type="hidden" name="id">
+      <div class="field field--full"><label for="a-tit">Título</label><input id="a-tit" name="titulo" required minlength="5" maxlength="140" data-error="Entre 5 y 140 caracteres."></div>
+      <div class="field field--full"><label for="a-meta">Meta de la acción</label><input id="a-meta" name="meta" required minlength="5" maxlength="200" placeholder="Por ejemplo: bajar el recorte a 0.20 kg por par" data-error="Describe la meta en 5 a 200 caracteres."></div>
+      <div class="field field--full"><label for="a-desc">Descripción <span class="ap-ayuda">opcional</span></label><textarea id="a-desc" name="descripcion" maxlength="1000" rows="3"></textarea></div>
+      <div class="field"><label for="a-resp">Responsable</label><select id="a-resp" name="responsableId"><option value="">Sin asignar</option><% for (const r of responsables) { %><option value="<%= r.id %>"><%= r.nombre %></option><% } %></select></div>
+      <div class="field"><label for="a-ind">Indicador</label><select id="a-ind" name="indicadorId"><option value="">Ninguno</option><% for (const i of indicadores) { %><option value="<%= i.id %>"><%= i.nombre %></option><% } %></select></div>
+      <div class="field"><label for="a-ini">Inicio</label><input id="a-ini" name="fechaInicio" type="date" required data-error="Indica la fecha de inicio."></div>
+      <div class="field"><label for="a-obj">Fecha objetivo</label><input id="a-obj" name="fechaObjetivo" type="date" required data-error="Indica la fecha objetivo."></div>
+      <div class="btn-row"><button class="btn btn--primary" type="submit">Guardar acción</button><button class="btn btn--secondary ap-btn-txt--peligro" type="button" data-eliminar hidden>Eliminar</button></div>
+      <p class="form__status" data-estado-accion role="status"></p>
+    </form>
+    <% } %>
+    <div data-seguimiento hidden style="display:grid; gap: var(--s-5)">
+      <form class="form" data-form-avance novalidate>
+        <h3 class="ap-h3 field--full">Avance</h3>
+        <div class="field field--full"><label for="s-av">Avance: <output data-av-out>0</output> %</label><input id="s-av" name="avance" type="range" min="0" max="100" step="5" style="height:auto; padding:0; border:0"></div>
+        <div class="btn-row"><button class="btn btn--primary btn--sm" type="submit">Guardar avance</button></div>
+        <p class="ap-nota field--full">0 % deja la acción pendiente, 100 % la marca completada.</p>
+      </form>
+      <div>
+        <h3 class="ap-h3" style="margin-bottom: var(--s-3)">Evidencias</h3>
+        <ul class="ap-evidencias" data-evidencias></ul>
+      </div>
+      <form class="form" data-form-evidencia novalidate>
+        <h3 class="ap-h3 field--full">Agregar evidencia</h3>
+        <div class="field"><label for="e-fecha">Fecha</label><input id="e-fecha" name="fecha" type="date" required max="<%= new Date().toISOString().slice(0, 10) %>" data-error="Indica una fecha que no sea futura."></div>
+        <div class="field"><label for="e-enl">Enlace <span class="ap-ayuda">opcional, https://</span></label><input id="e-enl" name="enlace" type="url" maxlength="300" pattern="https?://.+" data-error="Usa una dirección que empiece con http:// o https://."></div>
+        <div class="field field--full"><label for="e-desc">Qué se hizo</label><textarea id="e-desc" name="descripcion" required minlength="10" maxlength="600" rows="3" data-error="Describe la evidencia en 10 a 600 caracteres."></textarea></div>
+        <div class="btn-row"><button class="btn btn--secondary btn--sm" type="submit">Agregar evidencia</button></div>
+        <p class="form__status" data-estado-evid role="status"></p>
+      </form>
+    </div>
+  </div>
+</aside>
+
+<%- include('../partials/app-fin', { scripts: ['acciones.js'] }) %>

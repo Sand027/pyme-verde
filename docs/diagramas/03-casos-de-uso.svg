@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1316" viewBox="0 0 1000 1316"><defs>
+      <marker id="flecha" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a7d71"/></marker>
+      <marker id="abierta" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#8a7d71" stroke-width="1.4"/></marker>
+      <marker id="herencia" viewBox="0 0 14 14" refX="14" refY="7" markerWidth="14" markerHeight="14" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L14,7 L0,14 z" fill="#fff" stroke="#2b241e" stroke-width="1.3"/></marker>
+      <marker id="rombo" viewBox="0 0 16 10" refX="16" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,5 L8,0 L16,5 L8,10 z" fill="#2b241e"/></marker>
+    </defs><rect width="100%" height="100%" fill="#ffffff"/><rect x="300" y="70" width="400" height="1192" rx="6" fill="#fbf8f4" stroke="#2b241e" stroke-width="1.2" />
+<path d="M146,226 L315,130" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,226 L315,180" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,226 L315,230" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,226 L315,280" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,226 L315,330" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,404" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,454" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,504" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,554" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,604" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,654" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,704" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,754" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M146,600 L315,804" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,878" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,928" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,978" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,1028" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,1078" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,1128" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M854,1024 L685,1178" fill="none" stroke="#8a7d71" stroke-width="1.1"   />
+<path d="M70,564 L70,290" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<path d="M880,1090 L880,1302 L120,1302 L120,666" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<ellipse cx="500" cy="130" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="180" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="230" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="280" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="330" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<g stroke="#2b241e" stroke-width="1.6" fill="none"><circle cx="120" cy="196" r="11" fill="#fff"/><path d="M120,207 V238 M100,218 H140 M120,238 L105,262 M120,238 L135,262"/></g>
+<ellipse cx="500" cy="404" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="454" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="504" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="554" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="604" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="654" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="704" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="754" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="804" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<g stroke="#2b241e" stroke-width="1.6" fill="none"><circle cx="120" cy="570" r="11" fill="#fff"/><path d="M120,581 V612 M100,592 H140 M120,612 L105,636 M120,612 L135,636"/></g>
+<ellipse cx="500" cy="878" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="928" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="978" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="1028" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="1078" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="1128" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<ellipse cx="500" cy="1178" rx="185" ry="20" fill="#fff" stroke="#2b241e" stroke-width="1.2"/>
+<g stroke="#2b241e" stroke-width="1.6" fill="none"><circle cx="880" cy="994" r="11" fill="#fff"/><path d="M880,1005 V1036 M860,1016 H900 M880,1036 L865,1060 M880,1036 L895,1060"/></g>
+<text x="30" y="36" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="start">Diagrama de casos de uso</text>
+<text x="500" y="92" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Sistema PyME Verde</text>
+<text x="500" y="134" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Consultar la presentación de la PyME</text>
+<text x="500" y="184" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Ver indicadores públicos y su serie</text>
+<text x="500" y="234" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Leer recomendaciones y preguntas</text>
+<text x="500" y="284" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Leer aviso de privacidad</text>
+<text x="500" y="334" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Iniciar sesión</text>
+<text x="120" y="282" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Visitante</text>
+<text x="500" y="408" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Registrar consumo, residuo o producción</text>
+<text x="500" y="458" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Consultar y filtrar registros</text>
+<text x="500" y="508" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Editar sus propios registros</text>
+<text x="500" y="558" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Ver el tablero de indicadores</text>
+<text x="500" y="608" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Consultar residuos y destinos</text>
+<text x="500" y="658" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Comparar escenarios en la calculadora</text>
+<text x="500" y="708" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Actualizar el avance de sus acciones</text>
+<text x="500" y="758" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Agregar evidencias de avance</text>
+<text x="500" y="808" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Cambiar su contraseña</text>
+<text x="120" y="656" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Colaborador</text>
+<text x="500" y="882" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Editar o eliminar cualquier registro</text>
+<text x="500" y="932" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Crear, editar y eliminar acciones</text>
+<text x="500" y="982" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Comparar periodos, exportar CSV, imprimir</text>
+<text x="500" y="1032" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Administrar usuarios y roles</text>
+<text x="500" y="1082" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Configurar empresa, supuestos y metas</text>
+<text x="500" y="1132" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Administrar el catálogo de conceptos</text>
+<text x="500" y="1182" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="middle">Consultar la bitácora de auditoría</text>
+<text x="880" y="1080" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Administrador</text>
+<text x="70" y="427" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">hereda</text>
+<text x="150" y="953" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">hereda</text></svg>

@@ -1,0 +1,6 @@
+<%
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const filas = fotos.map((p) => `<li><a href="${esc(p.page)}" rel="noopener">${esc(p.alt)}</a>, por ${esc(p.by)}, ${esc(p.source)}, licencia <a href="${esc(p.licenceUrl)}" rel="noopener license">${esc(p.licence)}</a>. Recortada y reducida para la web.</li>`).join('');
+  const cuerpo = `<ul>${filas}</ul><p class="muted">Son fotografías de referencia de otros talleres. Se reemplazarán por fotografías del propio taller.</p>`;
+%>
+<%- include('../partials/pagina-interior', { titulo: 'Créditos de las fotografías · PyME Verde', etiqueta: 'Créditos', h1: 'Fotografías usadas en el sitio', intro: 'Todas provienen de Wikimedia Commons y se usan según su licencia.', cuerpo }) %>

@@ -1,0 +1,35 @@
+{
+ "note": "Credits for the photographs in this folder: photos.mjs credits prints the footer block for the ones the pages use.",
+ "photos": [
+  {
+   "file": "photo-f202547384.webp",
+   "files": [
+    "photo-f202547384-500.webp",
+    "photo-f202547384-960.webp",
+    "photo-f202547384.webp"
+   ],
+   "id": "f202547384",
+   "alt": "Stacked leather scraps",
+   "by": "MuslimDon",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Stacked_leather_scraps.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f41692443.webp",
+   "files": [
+    "photo-f41692443-500.webp",
+    "photo-f41692443-960.webp",
+    "photo-f41692443.webp"
+   ],
+   "id": "f41692443",
+   "alt": "Skomakerverktøy i Sjurstua på Eiktunet 2",
+   "by": "Øyvind Holmstad",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Skomakerverkt%C3%B8y_i_Sjurstua_p%C3%A5_Eiktunet_2.JPG",
+   "source": "Wikimedia Commons"
+  }
+ ]
+}

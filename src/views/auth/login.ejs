@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es-MX" data-type="software" data-radius="soft" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<%- include('../partials/kit-head', { titulo: 'Iniciar sesión en PyME Verde', descripcion: 'Acceso al panel privado de PyME Verde para las cuentas del taller.' }) %>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<%- include('../partials/nav-publica', { base: '/' }) %>
+<main id="top">
+  <section class="section pv-acceso" aria-labelledby="login-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-5 stack-5">
+          <h1 id="login-h" class="pv-acceso__h">Entrar al panel del taller</h1>
+          <p class="muted">Solo para cuentas de Contrafuerte. Si no tienes una, pídela a la administración del taller.</p>
+          <% for (const m of (locals.flash || [])) { %>
+            <p class="pv-aviso pv-aviso--<%= m.tipo %>" role="status"><%= m.texto %></p>
+          <% } %>
+          <% if (locals.avisoError) { %><p class="pv-aviso pv-aviso--error" role="alert"><%= avisoError %></p><% } %>
+          <% if (locals.salida) { %><p class="pv-aviso" role="status">Sesión cerrada.</p><% } %>
+          <form class="form pv-form" method="post" action="/login" data-fix="Revisa {n} campo(s) marcados." novalidate>
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" name="siguiente" value="<%= siguiente %>">
+            <div class="field field--full">
+              <label for="f-usuario">Usuario</label>
+              <input id="f-usuario" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="40" pattern="[a-z0-9._-]{4,40}" value="<%= valores.username || '' %>" aria-describedby="f-usuario-err" <%= errores.username ? 'aria-invalid=true' : '' %>>
+              <p class="field__error" id="f-usuario-err" <%= errores.username ? '' : 'hidden' %>><%= errores.username || 'Escribe tu usuario: minúsculas, números, punto o guion.' %></p>
+            </div>
+            <div class="field field--full">
+              <label for="f-pass">Contraseña</label>
+              <input id="f-pass" name="password" type="password" autocomplete="current-password" required maxlength="200" aria-describedby="f-pass-err" <%= errores.password ? 'aria-invalid=true' : '' %>>
+              <p class="field__error" id="f-pass-err" <%= errores.password ? '' : 'hidden' %>><%= errores.password || 'Escribe tu contraseña.' %></p>
+            </div>
+            <div class="btn-row"><button class="btn btn--primary" type="submit">Iniciar sesión</button></div>
+            <p class="form__status" data-form-status></p>
+          </form>
+          <p class="t-small muted">Tras cinco intentos fallidos la cuenta se bloquea 15 minutos. La sesión se cierra sola tras dos horas sin actividad.</p>
+        </div>
+        <div class="frame frame--photo frame--split span-6 start-7 pv-acceso__foto">
+          <img class="frame__img" src="/assets/img/photo-f41692443.webp" srcset="/assets/img/photo-f41692443-500.webp 500w, /assets/img/photo-f41692443-960.webp 960w, /assets/img/photo-f41692443.webp 1280w" sizes="(max-width: 1023px) 100vw, 50vw" width="1280" height="853" alt="Banco de zapatero con martillos, hormas de madera y botines de piel" data-source="stand-in" data-subject="banco de trabajo de un taller de calzado">
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer-publico', { base: '/', cierre: false }) %>
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+</body>
+</html>

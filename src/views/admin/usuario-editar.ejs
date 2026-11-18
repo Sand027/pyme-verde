@@ -1,0 +1,32 @@
+<%
+  const opRoles = roles.map((r) => ({ valor: r.nombre, texto: r.etiqueta }));
+  const val = (k) => (valores[k] !== undefined ? valores[k] : cuenta[k]);
+  const esYo = cuenta.id === usuario.id;
+%>
+<%- include('../partials/app-inicio', {
+  titulo: `Editar a ${cuenta.nombre}`, seccion: 'usuarios',
+  intro: `Usuario ${cuenta.username}. Los cambios quedan en la bitácora.`,
+  accionesTop: '<a class="btn btn--secondary btn--sm" href="/admin/usuarios">Volver a usuarios</a>',
+}) %>
+
+<section class="ap-caja" aria-labelledby="ed-h" style="max-width: 760px">
+  <h2 class="sr-only" id="ed-h">Datos de la cuenta</h2>
+  <form class="form" method="post" action="/admin/usuarios/<%= cuenta.id %>" data-fix="Revisa {n} campo(s) marcados." novalidate>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <%- include('../partials/campo', { id: 'e-nombre', nombre: 'nombre', etiqueta: 'Nombre completo', valor: val('nombre'), attrs: 'required minlength="3" maxlength="120"', error: errores.nombre }) %>
+    <%- include('../partials/campo', { id: 'e-correo', nombre: 'correo', etiqueta: 'Correo', tipo: 'email', valor: val('correo'), attrs: 'required maxlength="160"', error: errores.correo }) %>
+    <%- include('../partials/campo', { id: 'e-rol', nombre: 'rol', etiqueta: 'Rol', tipo: 'select', valor: val('rol'), opciones: opRoles, attrs: 'required', error: errores.rol }) %>
+    <div class="field">
+      <span>Estado</span>
+      <label class="field--check"><input type="checkbox" name="activo" <%= (valores.activo !== undefined ? valores.activo === 'on' : cuenta.activo) ? 'checked' : '' %>> Cuenta activa</label>
+      <% if (cuenta.bloqueado) { %><label class="field--check"><input type="checkbox" name="desbloquear"> Desbloquear (tiene intentos fallidos)</label><% } %>
+      <% if (errores.activo) { %><p class="field__error"><%= errores.activo %></p><% } %>
+    </div>
+    <% if (esYo) { %><p class="ap-nota field--full" id="e-rol-nota">No puedes quitarte el rol de administración ni desactivar tu propia cuenta.</p><% } %>
+    <%- include('../partials/campo', { id: 'e-pass', nombre: 'password', etiqueta: 'Restablecer contraseña', ayuda: 'opcional; déjalo vacío para no cambiarla', tipo: 'password', attrs: 'minlength="10" maxlength="200" autocomplete="new-password" pattern="(?=.*[A-Za-z])(?=.*\\d).{10,}" data-error="Al menos 10 caracteres, con letras y números."', error: errores.password, completo: true }) %>
+    <div class="btn-row"><button class="btn btn--primary" type="submit">Guardar cambios</button><a class="btn btn--secondary" href="/admin/usuarios">Cancelar</a></div>
+    <p class="form__status" data-form-status></p>
+  </form>
+</section>
+
+<%- include('../partials/app-fin') %>

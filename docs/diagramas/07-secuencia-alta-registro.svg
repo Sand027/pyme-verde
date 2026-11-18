@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1130" height="904" viewBox="0 0 1130 904"><defs>
+      <marker id="flecha" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a7d71"/></marker>
+      <marker id="abierta" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#8a7d71" stroke-width="1.4"/></marker>
+      <marker id="herencia" viewBox="0 0 14 14" refX="14" refY="7" markerWidth="14" markerHeight="14" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L14,7 L0,14 z" fill="#fff" stroke="#2b241e" stroke-width="1.3"/></marker>
+      <marker id="rombo" viewBox="0 0 16 10" refX="16" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,5 L8,0 L16,5 L8,10 z" fill="#2b241e"/></marker>
+    </defs><rect width="100%" height="100%" fill="#ffffff"/>
+<path d="M75,106 L75,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M197,106 L197,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M319,106 L319,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M441,106 L441,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M563,106 L563,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M685,106 L685,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M807,106 L807,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M929,106 L929,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M1051,106 L1051,106" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M75,140 L195,140" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M197,180 L237,180 L237,200 L201,200" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M197,224 L317,224" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M319,264 L439,264" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M441,304 L561,304" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M563,344 L683,344" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M685,384 L565,384" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M563,424 L443,424" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M441,464 L805,464" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M807,504 L927,504" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M929,544 L809,544" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M441,584 L1049,584" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M1051,624 L931,624" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M441,664 L321,664" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M319,704 L77,704" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<path d="M75,744 L115,744 L115,764 L79,764" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#flecha)" />
+<path d="M75,106 L75,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M197,106 L197,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M319,106 L319,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M441,106 L441,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M563,106 L563,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M685,106 L685,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M807,106 L807,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M929,106 L929,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<path d="M1051,106 L1051,794" fill="none" stroke="#8a7d71" stroke-width="1" stroke-dasharray="4 4"  />
+<rect x="20" y="60" width="110" height="46" rx="4" fill="#e2eaf1" stroke="#2b241e" stroke-width="1.2" />
+<rect x="142" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="264" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="386" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="508" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="630" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="752" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="874" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="996" y="60" width="110" height="46" rx="4" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="40" y="794" width="1050" height="96" rx="6" fill="#fff7f2" stroke="#a4472a" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text x="30" y="36" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="start">Diagrama de secuencia: alta de un registro de residuo</text>
+<text x="75" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Navegador</text>
+<text x="75" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">(registros.js)</text>
+<text x="197" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Rutas +</text>
+<text x="197" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">middleware</text>
+<text x="319" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">RegistroApi</text>
+<text x="319" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Controller</text>
+<text x="441" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Registro</text>
+<text x="441" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Service</text>
+<text x="563" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Registro</text>
+<text x="563" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Factory</text>
+<text x="685" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Destino</text>
+<text x="685" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Strategy</text>
+<text x="807" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Registro</text>
+<text x="807" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Repository</text>
+<text x="929" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">PostgreSQL</text>
+<text x="1051" y="79" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">EventBus +</text>
+<text x="1051" y="95" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Observer</text>
+<text x="136" y="134" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">POST /api/registros  JSON + X-CSRF-Token</text>
+<text x="243" y="194" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="start">requiereSesion · verificarToken · requierePermiso</text>
+<text x="258" y="218" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">crear(req, res)</text>
+<text x="380" y="258" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">crear(usuario, req.body, ip)</text>
+<text x="502" y="298" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">crear(datos, categoria)</text>
+<text x="624" y="338" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">validar(cantidad, aprovechada, destino)</text>
+<text x="624" y="378" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">errores = {}</text>
+<text x="502" y="418" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">RegistroResiduo</text>
+<text x="624" y="458" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">insertar(registro)</text>
+<text x="868" y="498" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">INSERT INTO registro … VALUES ($1 … $n)</text>
+<text x="868" y="538" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">id</text>
+<text x="746" y="578" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">publicar('registro.creado', detalle)</text>
+<text x="990" y="618" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">INSERT INTO bitacora …</text>
+<text x="380" y="658" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">registro</text>
+<text x="197" y="698" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">201 Created  { data }  Location: /api/registros/:id</text>
+<text x="121" y="758" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" font-style="normal" fill="#2b241e" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="start">actualiza la tabla y muestra el aviso</text>
+<text x="56" y="816" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" font-style="normal" fill="#a4472a"  text-anchor="start">alt  [datos inválidos]</text>
+<text x="56" y="838" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">Si la estrategia o el modelo devuelven errores, el servicio lanza ValidacionError y la API responde 422 { error: { codigo, mensaje, campos } };</text>
+<text x="56" y="858" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">el navegador marca cada campo con su mensaje. Sin sesión: 401. Sin permiso: 403. Token CSRF ausente o distinto: 403 CSRF.</text></svg>

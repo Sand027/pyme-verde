@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es-MX" data-type="software" data-radius="soft" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<%- include('../partials/kit-head', { titulo: `${titulo} · PyME Verde` }) %>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<%- include('../partials/nav-publica', { base: '/' }) %>
+<main id="top">
+  <section class="section pv-interior" aria-labelledby="error-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-8 stack-5">
+          <p class="t-label muted">Error <%= status %></p>
+          <h1 id="error-h" class="pv-interior__h"><%= titulo %></h1>
+          <p class="t-lead"><%= mensaje %></p>
+          <div class="btn-row">
+            <% if (locals.usuario) { %>
+              <a class="btn btn--primary" href="/panel">Volver al panel</a>
+            <% } else { %>
+              <a class="btn btn--primary" href="/">Volver al inicio</a>
+              <a class="btn btn--secondary" href="/login">Iniciar sesión</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer-publico', { base: '/', cierre: false }) %>
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+</body>
+</html>

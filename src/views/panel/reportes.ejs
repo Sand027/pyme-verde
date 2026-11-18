@@ -1,0 +1,98 @@
+<%
+  const r = reporte;
+  const q = consulta;
+  const per = (p) => `${f.fecha(p.desde)} a ${f.fecha(p.hasta)}`;
+  const qs = new URLSearchParams({ aDesde: r.periodoA.desde, aHasta: r.periodoA.hasta, bDesde: r.periodoB.desde, bHasta: r.periodoB.hasta }).toString();
+  const varTxt = (v) => (v === null ? 'sin base' : `${v > 0 ? '+' : ''}${f.numero(v, 1)} %`);
+  const ESTADOS = { cumple: 'Cumple', cerca: 'Cerca', lejos: 'Lejos', sin_dato: 'Sin datos' };
+%>
+<%- include('../partials/app-inicio', {
+  titulo: 'Reportes', seccion: 'reportes',
+  intro: 'Compara dos periodos del mismo número de meses: indicadores, consumos, residuos y avance del plan.',
+  accionesTop: `<a class="btn btn--secondary btn--sm" href="/api/reportes/registros.csv?desde=${r.periodoB.desde}&hasta=${r.periodoB.hasta}">CSV de registros del periodo B</a><a class="btn btn--primary btn--sm" href="/panel/reportes/imprimir?${qs}" target="_blank" rel="noopener">Versión para imprimir</a>`,
+}) %>
+
+<section class="ap-caja ap-caja--suave" aria-labelledby="rp-h">
+  <h2 class="sr-only" id="rp-h">Periodos a comparar</h2>
+  <form class="ap-filtros" method="get" action="/panel/reportes" data-form-periodos>
+    <div class="field"><label for="ra-d">Periodo A, desde</label><input id="ra-d" type="date" name="aDesde" value="<%= r.periodoA.desde %>" required></div>
+    <div class="field"><label for="ra-h">Periodo A, hasta</label><input id="ra-h" type="date" name="aHasta" value="<%= r.periodoA.hasta %>" required></div>
+    <div class="field"><label for="rb-d">Periodo B, desde</label><input id="rb-d" type="date" name="bDesde" value="<%= r.periodoB.desde %>" required></div>
+    <div class="field"><label for="rb-h">Periodo B, hasta</label><input id="rb-h" type="date" name="bHasta" value="<%= r.periodoB.hasta %>" required></div>
+    <div class="btn-row"><button class="btn btn--primary btn--sm" type="submit">Comparar</button></div>
+  </form>
+  <p class="ap-nota" style="margin-top: var(--s-3)">Atajos: <button class="ap-btn-txt" type="button" data-atajo="mes">mes contra mes anterior</button> <button class="ap-btn-txt" type="button" data-atajo="trimestre">trimestre contra trimestre anterior</button></p>
+</section>
+
+<div class="ap-resultado">
+  <div class="ap-cifra"><span>Periodo A</span><b style="font-size:18px"><%= per(r.periodoA) %></b><small><%= r.periodoA.meses %> mes<%= r.periodoA.meses === 1 ? '' : 'es' %></small></div>
+  <div class="ap-cifra"><span>Periodo B</span><b style="font-size:18px"><%= per(r.periodoB) %></b><small><%= r.periodoB.meses %> mes<%= r.periodoB.meses === 1 ? '' : 'es' %></small></div>
+  <div class="ap-cifra"><span>Residuo aprovechado en B</span><b><%= f.numero(r.residuos.porcentaje, 1) %> %</b><small><%= f.numero(r.residuos.aprovechado, 1) %> de <%= f.numero(r.residuos.generado, 1) %> kg</small></div>
+  <div class="ap-cifra"><span>Acciones completadas</span><b><%= r.acciones.completadas %> de <%= r.acciones.total %></b><small><%= r.acciones.vencidas %> vencida<%= r.acciones.vencidas === 1 ? '' : 's' %></small></div>
+</div>
+
+<section class="ap-caja" aria-labelledby="ri-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="ri-h">Indicadores</h2>
+    <div class="ap-leyenda" aria-hidden="true"><span><i style="background:var(--muted)"></i>Periodo A</span><span><i style="background:var(--accent)"></i>Periodo B</span></div></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla" data-tabla-ind>
+      <thead><tr><th scope="col">Indicador</th><th scope="col" class="ocultar-tel">Dimensión</th><th scope="col" class="num">A</th><th scope="col" class="num">B</th><th scope="col" class="num">Variación</th><th scope="col" class="num ocultar-tel">Meta</th><th scope="col">Estado en B</th><th scope="col" class="ocultar-tel" style="min-width:160px">Comparación</th></tr></thead>
+      <tbody>
+        <% for (const i of r.indicadores) { const tope = Math.max(i.a || 0, i.b || 0, i.meta || 0) || 1; %>
+        <tr>
+          <td><%= i.nombre %></td>
+          <td class="ocultar-tel"><%= i.dimension %></td>
+          <td class="num"><%= f.numero(i.a, 2) %> <%= i.unidad === '%' ? '%' : '' %></td>
+          <td class="num"><%= f.numero(i.b, 2) %> <%= i.unidad === '%' ? '%' : '' %></td>
+          <td class="num <%= i.mejora === null ? '' : i.mejora ? 'ap-mejora' : 'ap-empeora' %>"><%= varTxt(i.variacion) %><span class="sr-only"><%= i.mejora === null ? '' : i.mejora ? ' mejora' : ' empeora' %></span></td>
+          <td class="num ocultar-tel"><%= f.numero(i.meta, 3) %> <%= i.sentido === 'mayor' ? 'o más' : 'o menos' %></td>
+          <td><span class="ap-chip" data-estado="<%= i.b === null ? 'sin_dato' : i.estado %>"><%= ESTADOS[i.b === null ? 'sin_dato' : i.estado] %></span></td>
+          <td class="ocultar-tel"><div style="display:grid; gap:3px" aria-hidden="true"><span class="ap-comparar__barra"><i style="--k:<%= ((i.a || 0) / tope).toFixed(3) %>"></i></span><span class="ap-comparar__barra"><i class="b" style="--k:<%= ((i.b || 0) / tope).toFixed(3) %>"></i></span></div></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <p class="ap-nota" style="margin-top: var(--s-3)">Verde: la variación va en el sentido de la meta. Rojo: va en contra.</p>
+</section>
+
+<section class="ap-caja" aria-labelledby="rc-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="rc-h">Consumos, producción y residuos por concepto</h2>
+    <label class="field"><span class="sr-only">Filtrar por tipo</span><select data-filtro-tipo style="height:38px; font-size:14px"><option value="">Todos los tipos</option><% for (const t of [...new Set(r.categorias.map((c) => c.tipo))]) { %><option value="<%= t %>"><%= ({ consumo: 'Consumo de recursos', materia: 'Materia prima', residuo: 'Residuo', produccion: 'Producción', social: 'Social' })[t] || t %></option><% } %></select></label></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla" data-tabla-cat>
+      <thead><tr><th scope="col"><button class="ap-btn-txt" type="button" data-ordenar="0">Concepto</button></th><th scope="col" class="num"><button class="ap-btn-txt" type="button" data-ordenar="1">A</button></th><th scope="col" class="num"><button class="ap-btn-txt" type="button" data-ordenar="2">B</button></th><th scope="col" class="num"><button class="ap-btn-txt" type="button" data-ordenar="3">Variación</button></th><th scope="col" class="num ocultar-tel">Costo A</th><th scope="col" class="num ocultar-tel">Costo B</th></tr></thead>
+      <tbody>
+        <% for (const c of r.categorias) { %>
+        <tr data-tipo="<%= c.tipo %>">
+          <td data-v="<%= c.categoria %>"><%= c.categoria %></td>
+          <td class="num" data-v="<%= c.a %>"><%= f.numero(c.a, 2) %> <%= c.unidad %></td>
+          <td class="num" data-v="<%= c.b %>"><%= f.numero(c.b, 2) %> <%= c.unidad %></td>
+          <td class="num" data-v="<%= c.variacion === null ? '' : c.variacion %>"><%= varTxt(c.variacion) %></td>
+          <td class="num ocultar-tel"><%= f.dinero(c.costoA) %></td>
+          <td class="num ocultar-tel"><%= f.dinero(c.costoB) %></td>
+        </tr>
+        <% } %>
+        <% if (!r.categorias.length) { %><tr class="ap-tabla__vacia"><td colspan="6">No hay registros en estos periodos.</td></tr><% } %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="ap-caja" aria-labelledby="ra-acc-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="ra-acc-h">Plan de acciones al cierre de B</h2><p class="ap-nota"><%= r.acciones.enProceso %> en proceso, <%= r.acciones.pendientes %> pendientes</p></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Acción</th><th scope="col" class="ocultar-tel">Responsable</th><th scope="col">Fecha objetivo</th><th scope="col" class="num">Avance</th><th scope="col">Estado</th></tr></thead>
+      <tbody>
+        <% for (const a of r.acciones.lista) { %>
+        <tr><td><%= a.titulo %></td><td class="ocultar-tel"><%= a.responsable || 'Sin asignar' %></td><td><%= f.fecha(a.fechaObjetivo) %></td><td class="num"><%= a.avance %> %</td>
+          <td><span class="ap-chip" data-estado="<%= a.vencida ? 'vencida' : a.estado %>"><%= a.vencida ? 'Vencida' : a.estadoEtiqueta %></span></td></tr>
+        <% } %>
+        <% if (!r.acciones.lista.length) { %><tr class="ap-tabla__vacia"><td colspan="5">Sin acciones en el periodo.</td></tr><% } %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('../partials/app-fin', { scripts: ['reportes.js'] }) %>

@@ -1,0 +1,33 @@
+<%#
+  Envoltura de las páginas interiores públicas (privacidad, créditos, error, documentación).
+  Variables: titulo, h1, intro, cuerpo (HTML ya escapado por quien lo construye), noindex.
+%>
+<!doctype html>
+<html lang="es-MX" data-type="software" data-radius="soft" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<%- include('kit-head', { titulo, descripcion: locals.descripcion }) %>
+<% if (locals.noindex) { %><meta name="robots" content="noindex"><% } %>
+</head>
+<body>
+<%- include('nav-publica', { base: '/' }) %>
+<main id="top">
+  <section class="section pv-interior" aria-labelledby="interior-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-8 stack-5">
+          <% if (locals.etiqueta) { %><p class="t-label muted"><%= etiqueta %></p><% } %>
+          <h1 id="interior-h" class="pv-interior__h"><%= h1 %></h1>
+          <% if (locals.intro) { %><p class="t-lead"><%= intro %></p><% } %>
+        </div>
+      </div>
+      <div class="pv-prosa">
+        <%- cuerpo %>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('footer-publico', { base: '/', cierre: false }) %>
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+</body>
+</html>

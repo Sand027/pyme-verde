@@ -1,0 +1,26 @@
+<% const cuerpo = `
+<h2>Responsable</h2>
+<p>El responsable del tratamiento es el taller Contrafuerte, en el Barrio de San Miguel, León, Guanajuato. Para cualquier solicitud escribe a <a href="mailto:privacidad@contrafuerte.example">privacidad@contrafuerte.example</a>.</p>
+
+<h2>Qué datos se guardan</h2>
+<ul>
+  <li>De las cuentas del taller: nombre visible, usuario, correo de trabajo, rol y la contraseña cifrada con bcrypt. Nunca se guarda la contraseña en texto.</li>
+  <li>De la actividad: la bitácora registra quién creó, cambió o borró un registro, una acción o una meta, la fecha y la dirección IP de la petición.</li>
+  <li>De la sesión: una cookie llamada <code>pv.sid</code> que solo identifica la sesión. Es HttpOnly, viaja solo por HTTPS en producción y caduca tras dos horas sin actividad.</li>
+</ul>
+<p>Los visitantes de la sección pública no dejan datos personales: no hay formularios de contacto, analítica ni cookies de terceros.</p>
+
+<h2>Para qué se usan</h2>
+<p>Para autenticar a las personas del taller, aplicar los permisos de cada rol y dejar constancia de quién hizo cada cambio. Los datos de consumo, producción y residuos son del taller, no de personas, y se usan para calcular los indicadores.</p>
+
+<h2>Con quién se comparten</h2>
+<p>Con nadie. La aplicación corre en un servidor externo (Render) y la base de datos en Neon; ambos actúan como encargados y no usan los datos para fines propios.</p>
+
+<h2>Tus derechos</h2>
+<p>Puedes pedir acceso, rectificación, cancelación u oposición sobre tus datos (derechos ARCO) en el correo de arriba. La administración del taller puede desactivar una cuenta; la bitácora se conserva para la trazabilidad de los indicadores.</p>
+
+<h2>Datos de demostración</h2>
+<p>Mientras el taller no cargue sus propios pesajes, los registros, las acciones y los manifiestos que se muestran son datos de demostración y así lo indica cada registro en su campo de origen. Las cuentas de demostración no corresponden a personas reales.</p>
+<p class="muted">Última actualización: 17 de noviembre de 2026.</p>
+`; %>
+<%- include('../partials/pagina-interior', { titulo: 'Aviso de privacidad de PyME Verde', descripcion: 'Qué datos guarda PyME Verde, para qué y cómo ejercer tus derechos.', etiqueta: 'Aviso de privacidad', h1: 'Qué datos guardamos y para qué', intro: 'PyME Verde guarda lo mínimo para que el taller registre sus datos con responsables claros.', cuerpo }) %>

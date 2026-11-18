@@ -1,0 +1,34 @@
+<%# footer.closing: close-type + footer-columns (deal). Variables: base, cierre (bool: muestra el cierre) %>
+<% const b = locals.base ?? '/'; %>
+<footer class="footer closing" id="contact" aria-labelledby="<%= locals.cierre === false ? 'pie-h' : 'close-h' %>">
+  <div class="wrap">
+    <% if (locals.cierre !== false) { %>
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Revisa cómo cerró octubre el taller</h2>
+        <p class="t-small muted">Cinco indicadores públicos con su meta y su fórmula. Datos de demostración.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="<%= b %>#indicadores">Ver los indicadores<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <% } else { %>
+    <h2 id="pie-h" class="sr-only">Pie de página</h2>
+    <% } %>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="<%= b || '#top' %>"><span class="mark" data-mark="ring" aria-hidden="true"></span>PyME Verde</a>
+          <p class="footer__lede">Indicadores verdes de un taller de León</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Indicadores</h3><ul><li><a href="<%= b %>#indicadores">Residuo aprovechado</a></li><li><a href="<%= b %>#indicadores">Energía por par</a></li><li><a href="<%= b %>#indicadores">Capacitación</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Registro</h3><ul><li><a href="<%= b %>#registro">Registros</a></li><li><a href="<%= b %>#destinos">Destinos</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Preguntas</h3><ul><li><a href="<%= b %>#preguntas">Sobre los datos</a></li><li><a href="/api/docs">API pública</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Acceso</h3><ul><li><a href="/login">Iniciar sesión</a></li><li><a href="mailto:contacto@contrafuerte.example">Contacto</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; <%= anio %> PyME Verde &nbsp; <a href="/privacidad">Aviso de privacidad</a> &nbsp; Proyecto final de Programación Web, TecNM campus León</span>
+        <div class="socials"></div>
+        <a class="credits" href="/creditos">Fotografías vía Wikimedia Commons</a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1130" height="1080" viewBox="0 0 1130 1080"><defs>
+      <marker id="flecha" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a7d71"/></marker>
+      <marker id="abierta" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#8a7d71" stroke-width="1.4"/></marker>
+      <marker id="herencia" viewBox="0 0 14 14" refX="14" refY="7" markerWidth="14" markerHeight="14" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L14,7 L0,14 z" fill="#fff" stroke="#2b241e" stroke-width="1.3"/></marker>
+      <marker id="rombo" viewBox="0 0 16 10" refX="16" refY="5" markerWidth="16" markerHeight="10" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,5 L8,0 L16,5 L8,10 z" fill="#2b241e"/></marker>
+    </defs><rect width="100%" height="100%" fill="#ffffff"/>
+<path d="M30,173 L280,173" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M305,207 L555,207" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M580,173 L830,173" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M855,173 L1105,173" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M250,427 L530,427" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M390,330 L390,360" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<path d="M155,330 L980,330" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M155,217 L155,330" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M430,285 L430,330" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M705,217 L705,330" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M980,200 L980,330" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M660,432 L900,432" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M535,285 L535,346 L780,346 L780,360" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#abierta)" />
+<path d="M30,678 L280,678" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M305,666 L555,666" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M580,666 L830,666" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M855,649 L1105,649" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M390,530 L390,488" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<path d="M155,530 L980,530" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M155,560 L155,530" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M430,560 L430,530" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M705,560 L705,530" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M980,560 L980,530" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M855,630 L830,630" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#rombo)" />
+<path d="M580,630 L555,630" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#abierta)" />
+<path d="M20,856 L220,856" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M235,856 L435,856" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M450,856 L640,856" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M655,892 L905,892" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M155,795 L155,739" fill="none" stroke="#2b241e" stroke-width="1.4"  marker-end="url(#herencia)" />
+<path d="M120,795 L780,795" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M120,820 L120,795" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M335,820 L335,795" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M545,820 L545,795" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M780,820 L780,795" fill="none" stroke="#2b241e" stroke-width="1.4"   />
+<path d="M905,998 L1105,998" fill="none" stroke="#2b241e" stroke-width="1"   />
+<path d="M780,919 L780,990 L905,990" fill="none" stroke="#2b241e" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)" />
+<rect x="30" y="84" width="250" height="133" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="84" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="305" y="84" width="250" height="201" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="305" y="84" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="580" y="84" width="250" height="133" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="580" y="84" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="855" y="84" width="250" height="116" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="855" y="84" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="250" y="360" width="280" height="128" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="250" y="360" width="280" height="40" rx="0" fill="#e2d6c6" stroke="#2b241e" stroke-width="1.2" />
+<rect x="660" y="360" width="240" height="116" rx="0" fill="#f1f4f7" stroke="#2b241e" stroke-width="1.2" />
+<rect x="660" y="360" width="240" height="28" rx="0" fill="#e2eaf1" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="560" width="250" height="179" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="30" y="560" width="250" height="40" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="305" y="560" width="250" height="167" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="305" y="560" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="580" y="560" width="250" height="167" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="580" y="560" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="855" y="560" width="250" height="116" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="855" y="560" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="20" y="820" width="200" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="20" y="820" width="200" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="235" y="820" width="200" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="235" y="820" width="200" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="450" y="820" width="190" height="63" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="450" y="820" width="190" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="655" y="820" width="250" height="99" rx="0" fill="#f6f1ea" stroke="#2b241e" stroke-width="1.2" />
+<rect x="655" y="820" width="250" height="28" rx="0" fill="#e9dfd2" stroke="#2b241e" stroke-width="1.2" />
+<rect x="905" y="950" width="200" height="75" rx="0" fill="#f1f4f7" stroke="#2b241e" stroke-width="1.2" />
+<rect x="905" y="950" width="200" height="40" rx="0" fill="#e2eaf1" stroke="#2b241e" stroke-width="1.2" />
+<text x="30" y="36" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="start">Diagrama de clases: modelo de dominio (src/models)</text>
+<text x="30" y="58" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">Atributos privados (#) con acceso por getters; cada clase valida sus datos al crearse o modificarse.</text>
+<text x="155" y="103" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Pyme</text>
+<text x="38" y="128" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- nombre, giro: string</text>
+<text x="38" y="145" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- ubicacionGeneral: string</text>
+<text x="38" y="162" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- numColaboradores: int</text>
+<text x="38" y="189" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ actualizar(datos)</text>
+<text x="38" y="206" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ toJSON()</text>
+<text x="430" y="103" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Usuario</text>
+<text x="313" y="128" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- username, correo: string</text>
+<text x="313" y="145" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- passwordHash: string</text>
+<text x="313" y="162" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- rol: Rol</text>
+<text x="313" y="179" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- intentosFallidos: int</text>
+<text x="313" y="196" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- bloqueadoHasta: Date</text>
+<text x="313" y="223" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ verificarPassword(p): bool</text>
+<text x="313" y="240" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ cambiarPassword(actual, nueva)</text>
+<text x="313" y="257" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ puede(permiso): bool</text>
+<text x="313" y="274" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ estaBloqueado(): bool</text>
+<text x="705" y="103" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Categoria</text>
+<text x="588" y="128" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- nombre, unidad: string</text>
+<text x="588" y="145" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- tipo: consumo|residuo|…</text>
+<text x="588" y="162" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- clasificacion: string</text>
+<text x="588" y="189" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ esResiduo(): bool</text>
+<text x="588" y="206" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ actualizar(datos)</text>
+<text x="980" y="103" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Parametro</text>
+<text x="863" y="128" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- clave, nombre: string</text>
+<text x="863" y="145" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- valor: number</text>
+<text x="863" y="162" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- unidad, fuente: string</text>
+<text x="863" y="189" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ actualizar(valor, fuente)</text>
+<text x="390" y="375" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«abstract»</text>
+<text x="390" y="392" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="italic" fill="#2b241e"  text-anchor="middle">Entidad</text>
+<text x="258" y="416" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start"># id: int</text>
+<text x="258" y="443" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ esNueva(): bool</text>
+<text x="258" y="460" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ asignarId(id)</text>
+<text x="258" y="477" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ toJSON()</text>
+<text x="780" y="379" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Rol</text>
+<text x="668" y="404" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- nombre, etiqueta: string</text>
+<text x="668" y="421" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- permisos: Set</text>
+<text x="668" y="448" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ puede(permiso): bool</text>
+<text x="668" y="465" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ desdeNombre(n) «static»</text>
+<text x="788" y="356" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">1</text>
+<text x="541" y="301" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">N</text>
+<text x="155" y="575" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«abstract»</text>
+<text x="155" y="592" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="italic" fill="#2b241e"  text-anchor="middle">Registro</text>
+<text x="38" y="616" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- categoria: Categoria</text>
+<text x="38" y="633" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- fecha: date</text>
+<text x="38" y="650" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- cantidad, costo: number</text>
+<text x="38" y="667" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- origenDato: string</text>
+<text x="38" y="694" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ costoUnitario(): number</text>
+<text x="38" y="711" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ cambiarOrigen(origen)</text>
+<text x="38" y="728" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validarEspecifico() «abstract»</text>
+<text x="430" y="579" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Indicador</text>
+<text x="313" y="604" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- clave, formula, unidad</text>
+<text x="313" y="621" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- meta: number</text>
+<text x="313" y="638" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- sentido: mayor|menor</text>
+<text x="313" y="655" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- publico: bool</text>
+<text x="313" y="682" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ evaluar(valor): estado</text>
+<text x="313" y="699" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ brecha(valor): number</text>
+<text x="313" y="716" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ actualizarMeta(meta)</text>
+<text x="705" y="579" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">AccionSustentable</text>
+<text x="588" y="604" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- titulo, meta: string</text>
+<text x="588" y="621" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- fechaObjetivo: date</text>
+<text x="588" y="638" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- estado: pendiente|…</text>
+<text x="588" y="655" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- avance: 0..100</text>
+<text x="588" y="682" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ actualizarAvance(n)</text>
+<text x="588" y="699" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ cambiarEstado(e)</text>
+<text x="588" y="716" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ estaVencida(): bool</text>
+<text x="980" y="579" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">Evidencia</text>
+<text x="863" y="604" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- fecha: date</text>
+<text x="863" y="621" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- descripcion: string</text>
+<text x="863" y="638" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- enlace: url</text>
+<text x="863" y="665" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ crear(datos) «static»</text>
+<text x="834" y="648" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">1</text>
+<text x="851" y="622" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="end">0..*</text>
+<text x="567.5" y="622" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55" stroke="#fff" stroke-width="4" paint-order="stroke" stroke-linejoin="round" text-anchor="middle">0..1</text>
+<text x="120" y="839" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">RegistroConsumo</text>
+<text x="28" y="872" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validarEspecifico()</text>
+<text x="335" y="839" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">RegistroProduccion</text>
+<text x="243" y="872" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validarEspecifico()</text>
+<text x="545" y="839" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">RegistroSocial</text>
+<text x="458" y="872" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validarEspecifico()</text>
+<text x="780" y="839" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">RegistroResiduo</text>
+<text x="663" y="864" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- cantidadAprovechada: number</text>
+<text x="663" y="881" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">- destino, evidenciaDestino</text>
+<text x="663" y="908" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validarEspecifico()</text>
+<text x="1005" y="965" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="middle">«interface»</text>
+<text x="1005" y="982" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" font-style="normal" fill="#2b241e"  text-anchor="middle">DestinoResiduoStrategy</text>
+<text x="913" y="1014" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#2b241e"  text-anchor="start">+ validar(datos): errores</text>
+<text x="788" y="949" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">usa</text>
+<text x="30" y="1066" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" font-style="normal" fill="#6b5f55"  text-anchor="start">Pyme se relaciona 1..* con Usuario, Categoria, Registro, Indicador, AccionSustentable y Parametro (ver el modelo entidad-relación).</text></svg>

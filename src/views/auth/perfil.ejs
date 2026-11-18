@@ -1,0 +1,29 @@
+<%- include('../partials/app-inicio', { titulo: 'Mi cuenta', seccion: 'perfil', intro: 'Tus datos de acceso y el cambio de contraseña.' }) %>
+
+<div class="ap-grid">
+  <section class="ap-caja ap-c5" aria-labelledby="cuenta-h">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="cuenta-h">Datos de la cuenta</h2></div>
+    <ul class="ap-supuestos">
+      <li><span>Nombre</span><span><%= usuario.nombre %></span></li>
+      <li><span>Usuario</span><span><%= usuario.username %></span></li>
+      <li><span>Correo</span><span><%= usuario.correo %></span></li>
+      <li><span>Rol</span><span><%= usuario.rolEtiqueta %></span></li>
+      <li><span>Último acceso</span><span><%= usuario.ultimoAcceso ? f.fechaHora(usuario.ultimoAcceso) : 'primer acceso' %></span></li>
+    </ul>
+    <p class="ap-nota" style="margin-top: var(--s-4)">Para cambiar tu nombre, correo o rol, pídelo a la administración del taller.</p>
+  </section>
+
+  <section class="ap-caja ap-c7" aria-labelledby="pass-h">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="pass-h">Cambiar contraseña</h2></div>
+    <form class="form" method="post" action="/perfil/contrasena" data-fix="Revisa {n} campo(s) marcados." novalidate>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <%- include('../partials/campo', { id: 'p-actual', nombre: 'actual', etiqueta: 'Contraseña actual', tipo: 'password', attrs: 'required autocomplete="current-password" maxlength="200"', error: errores.actual, completo: true }) %>
+      <%- include('../partials/campo', { id: 'p-nueva', nombre: 'nueva', etiqueta: 'Contraseña nueva', ayuda: 'al menos 10 caracteres, con letras y números', tipo: 'password', attrs: 'required autocomplete="new-password" minlength="10" maxlength="200" pattern="(?=.*[A-Za-z])(?=.*\\d).{10,}" data-error="Al menos 10 caracteres, con letras y números."', error: errores.nueva }) %>
+      <%- include('../partials/campo', { id: 'p-conf', nombre: 'confirmacion', etiqueta: 'Repite la contraseña nueva', tipo: 'password', attrs: 'required autocomplete="new-password" maxlength="200"', error: errores.confirmacion }) %>
+      <div class="btn-row"><button class="btn btn--primary" type="submit">Cambiar contraseña</button></div>
+      <p class="form__status" data-form-status></p>
+    </form>
+  </section>
+</div>
+
+<%- include('../partials/app-fin') %>

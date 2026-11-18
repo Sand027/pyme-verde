@@ -1,0 +1,54 @@
+<%# nav-mega (deal). base: '' en la página de inicio, '/' en las páginas interiores. %>
+<% const b = locals.base ?? '/'; %>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Saltar al contenido</a>
+    <a class="nav__logo" href="<%= b || '#top' %>"><span class="mark" data-mark="ring" aria-hidden="true"></span>PyME Verde</a>
+    <nav class="nav__links" aria-label="Principal">
+      <div class="nav__item">
+        <a class="nav__link" href="<%= b %>#indicadores">Indicadores <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Ambientales</p>
+              <a href="<%= b %>#indicadores">Residuo aprovechado<span>Meta: 40 % de lo generado</span></a>
+              <a href="<%= b %>#indicadores">Residuo por par<span>Kilos de residuo por par</span></a>
+              <a href="<%= b %>#indicadores">Energía por par<span>Kilowatts hora por par</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Sociales</p>
+              <a href="<%= b %>#indicadores">Avance del plan<span>Acciones con responsable</span></a>
+              <a href="<%= b %>#indicadores">Capacitación<span>Horas por persona al mes</span></a>
+            </div>
+            <a class="menu-card span-3 start-10" href="<%= b %>#registro">
+              <div class="panel" role="img" aria-label="Un registro de 15 kilos de recorte de piel con 6.3 kilos donados">
+                <div class="ui pv-mini" aria-hidden="true">
+                  <span class="pv-mini__k">Recorte de piel</span>
+                  <span class="pv-mini__v">15&nbsp;kg</span>
+                  <span class="pv-mini__bar"><i style="--k:.42"></i></span>
+                  <span class="pv-mini__k">6.3&nbsp;kg a donación</span>
+                </div>
+              </div>
+              <span class="t-card">Registro semanal</span>
+              <span class="t-small muted">Cada sábado se pesa el recorte</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="<%= b %>#registro">Registro</a></div>
+      <div class="nav__item"><a class="nav__link" href="<%= b %>#destinos">Destinos</a></div>
+      <div class="nav__item"><a class="nav__link" href="<%= b %>#preguntas">Preguntas</a></div>
+    </nav>
+    <div class="nav__actions">
+      <% if (locals.usuario) { %>
+        <a class="nav__link" href="/panel">Ir al panel</a>
+      <% } else { %>
+        <a class="nav__link" href="/login">Iniciar sesión</a>
+      <% } %>
+      <a class="btn btn--primary" href="<%= b %>#indicadores">Ver <span class="pv-tel-oculto">los </span>indicadores</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menú">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>

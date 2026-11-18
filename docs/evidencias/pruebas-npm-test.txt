@@ -1,0 +1,79 @@
+
+> pyme-verde@1.0.0 test
+> node --test --test-concurrency=1 tests/
+
+▶ Datos públicos y documentación
+  ✔ P01 GET /api/publico/pyme devuelve la empresa sin sesión (5.9043ms)
+  ✔ P02 GET /api/publico/indicadores devuelve solo indicadores públicos (128.2547ms)
+  ✔ P03 GET /api/docs/openapi.json publica la especificación OpenAPI 3 (5.9474ms)
+✔ Datos públicos y documentación (2465.3143ms)
+▶ Seguridad: sesión, CSRF, cabeceras y bloqueo
+  ✔ S01 sin sesión la API responde 401 con el formato de error (5.1568ms)
+  ✔ S02 una escritura sin token CSRF se rechaza con 403 (11.0477ms)
+  ✔ S03 credenciales incorrectas no inician sesión (401) (358.6039ms)
+  ✔ S04 cinco intentos fallidos bloquean la cuenta 15 minutos (1669.7763ms)
+  ✔ S05 las respuestas llevan CSP, nosniff y la cookie de sesión HttpOnly (6.9184ms)
+  ✔ S06 un id que no es entero responde 404 (6.7673ms)
+✔ Seguridad: sesión, CSRF, cabeceras y bloqueo (2059.0823ms)
+▶ Servicio 1: registros (CRUD)
+  ✔ R01 crea un registro de consumo (201 y Location) (19.8116ms)
+  ✔ R02 lee el registro y lo encuentra en la lista filtrada (16.8594ms)
+  ✔ R03 actualiza el registro (200) (8.6105ms)
+  ✔ R04 rechaza datos inválidos con 422 y los campos con error (6.0829ms)
+  ✔ R05 un residuo de manejo especial no puede ir a relleno sanitario (422) (5.8612ms)
+  ✔ R06 un residuo reutilizable acepta un destino de aprovechamiento de su clasificación (18.9735ms)
+  ✔ R07 un colaborador no puede borrar registros (403) (5.3728ms)
+  ✔ R08 la administración lo elimina (204) y deja de existir (404) (18.0168ms)
+✔ Servicio 1: registros (CRUD) (100.1762ms)
+▶ Servicio 2: indicadores
+  ✔ I01 lista los indicadores calculados con estado frente a la meta (24.0032ms)
+  ✔ I02 la serie mensual devuelve un punto por mes (31.1055ms)
+  ✔ I03 solo la administración cambia metas (403 para colaborador, 200 para admin) (23.4788ms)
+✔ Servicio 2: indicadores (78.8766ms)
+▶ Servicio 3: plan de acciones
+  ✔ A01 la administración crea una acción con responsable (201) (8.7041ms)
+  ✔ A02 un colaborador no puede crear acciones (403) (5.024ms)
+  ✔ A03 fechas incoherentes se rechazan (422) (6.1089ms)
+  ✔ A04 el responsable actualiza el avance; 100 % la marca completada (17.1695ms)
+  ✔ A05 el responsable agrega una evidencia (7.9501ms)
+  ✔ A06 un colaborador no puede actualizar una acción de otra persona (403) (14.4882ms)
+  ✔ A07 la administración elimina la acción (204) (12.1587ms)
+✔ Servicio 3: plan de acciones (72.0955ms)
+▶ Servicios 4 y 5: residuos y calculadora
+  ✔ C01 el resumen de residuos cuadra: aprovechado <= generado y porcentaje entre 0 y 100 (13.1684ms)
+  ✔ C02 la calculadora estima el ahorro con los supuestos guardados (11.161ms)
+  ✔ C03 un escenario inválido responde 422 (5.4591ms)
+✔ Servicios 4 y 5: residuos y calculadora (30.0977ms)
+▶ Servicio 6: reportes
+  ✔ E01 la administración compara dos periodos (136.3506ms)
+  ✔ E02 exporta CSV con encabezados (22.9464ms)
+  ✔ E03 un colaborador no puede generar reportes (403) (10.2348ms)
+✔ Servicio 6: reportes (169.8021ms)
+▶ Strategy + Factory: indicadores
+  ✔ U01 la estrategia abstracta no se puede instanciar (1.0297ms)
+  ✔ U02 la fábrica entrega la estrategia de cada clave y rechaza claves desconocidas (0.2997ms)
+  ✔ U03 tasa de aprovechamiento = aprovechado / generado × 100 (22.0047ms)
+  ✔ U04 sin datos el indicador vale null, no cero (0.3553ms)
+✔ Strategy + Factory: indicadores (25.0748ms)
+▶ Strategy + Factory: destino de residuos
+  ✔ U05 un residuo de manejo especial no puede ir al relleno sanitario (0.6936ms)
+  ✔ U06 un recorte reutilizable acepta reutilización y no permite aprovechar más de lo generado (1.2561ms)
+  ✔ U07 hay una estrategia por clasificación (0.2729ms)
+✔ Strategy + Factory: destino de residuos (2.7348ms)
+▶ Observer: bus de eventos
+  ✔ U08 notifica a los suscriptores del evento y a los comodín (0.587ms)
+  ✔ U09 un observador que falla no detiene a los demás (0.2284ms)
+  ✔ U10 suscribir devuelve la función para cancelar (0.2521ms)
+✔ Observer: bus de eventos (1.3517ms)
+▶ Calculadora (cálculo puro)
+  ✔ U11 ahorro, retorno de inversión y emisiones evitadas (0.5231ms)
+  ✔ U12 valida el escenario antes de calcular (0.2477ms)
+✔ Calculadora (cálculo puro) (0.8974ms)
+ℹ tests 45
+ℹ suites 11
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6200.5146

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es-MX" data-type="software" data-radius="soft" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<%- include('../partials/kit-head', { titulo: 'API de PyME Verde', descripcion: 'Documentación de los servicios web REST de PyME Verde, generada desde su especificación OpenAPI 3.' }) %>
+</head>
+<%
+  const METODOS = ['get', 'post', 'put', 'patch', 'delete'];
+  const porTag = {};
+  for (const [ruta, ops] of Object.entries(spec.paths)) {
+    for (const m of METODOS) {
+      if (!ops[m]) continue;
+      const op = ops[m];
+      const tag = (op.tags && op.tags[0]) || 'Otros';
+      (porTag[tag] = porTag[tag] || []).push({ ruta, metodo: m, op, params: [...(ops.parameters || []), ...(op.parameters || [])] });
+    }
+  }
+  const ref = (r) => (r && r.$ref ? r.$ref.split('/').pop() : null);
+  const slug = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const seguridad = (op) => {
+    const s = op.security;
+    if (Array.isArray(s) && s.length === 0) return 'Pública';
+    const req = (s || []).flatMap((x) => Object.keys(x));
+    return req.includes('csrf') ? 'Sesión + CSRF' : 'Sesión';
+  };
+%>
+<body>
+<%- include('../partials/nav-publica', { base: '/' }) %>
+<main id="top">
+  <section class="section pv-interior" aria-labelledby="api-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-8 stack-5">
+          <p class="t-label muted">Servicios web · OpenAPI <%= spec.openapi %></p>
+          <h1 id="api-h" class="pv-interior__h">La API REST de PyME Verde</h1>
+          <p class="t-lead"><%= spec.info.description || 'Seis servicios con JSON sobre HTTPS.' %></p>
+          <div class="btn-row">
+            <a class="btn btn--primary" href="/api/docs/openapi.json">Descargar openapi.json</a>
+            <a class="btn btn--secondary" href="#probar">Probar los servicios públicos</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pv-api">
+        <nav class="pv-api__toc" aria-label="Servicios">
+          <p class="t-label muted">Servicios</p>
+          <ul>
+            <% for (const t of spec.tags) { if (!porTag[t.name]) continue; %>
+            <li><a href="#<%= slug(t.name) %>"><%= t.name %></a></li>
+            <% } %>
+          </ul>
+          <p class="t-label muted">Autenticación</p>
+          <p class="t-small">Las rutas privadas usan la cookie de sesión <code>pv.sid</code>. Las que cambian datos piden además la cabecera <code>X-CSRF-Token</code>, que entrega <code>GET /api/sesion</code>.</p>
+        </nav>
+        <div class="pv-api__body">
+          <% for (const t of spec.tags) { const lista = porTag[t.name]; if (!lista) continue; %>
+          <section class="pv-api__tag" id="<%= slug(t.name) %>" aria-labelledby="tag-<%= slug(t.name) %>">
+            <h2 id="tag-<%= slug(t.name) %>"><%= t.name %></h2>
+            <% if (t.description) { %><p class="muted"><%= t.description %></p><% } %>
+            <% for (const e of lista) { %>
+            <article class="pv-op">
+              <header class="pv-op__head">
+                <span class="pv-op__m pv-op__m--<%= e.metodo %>"><%= e.metodo.toUpperCase() %></span>
+                <code class="pv-op__ruta">/api<%= e.ruta %></code>
+                <span class="pv-op__seg"><%= seguridad(e.op) %></span>
+              </header>
+              <p class="pv-op__sum"><%= e.op.summary %></p>
+              <% if (e.op.description) { %><p class="t-small muted"><%= e.op.description %></p><% } %>
+              <% if (e.params.length) { %>
+              <table class="pv-op__tabla">
+                <caption class="sr-only">Parámetros de <%= e.metodo.toUpperCase() %> <%= e.ruta %></caption>
+                <thead><tr><th scope="col">Parámetro</th><th scope="col">En</th><th scope="col">Tipo</th><th scope="col">Descripción</th></tr></thead>
+                <tbody>
+                <% for (const p of e.params) { const pp = p.$ref ? (spec.components.parameters || {})[ref(p)] || {} : p; %>
+                  <tr><td><code><%= pp.name %></code><%= pp.required ? ' *' : '' %></td><td><%= pp.in %></td><td><%= (pp.schema && (pp.schema.type || ref(pp.schema))) || '' %><%= pp.schema && pp.schema.enum ? ': ' + pp.schema.enum.join(', ') : '' %></td><td><%= pp.description || '' %></td></tr>
+                <% } %>
+                </tbody>
+              </table>
+              <% } %>
+              <% if (e.op.requestBody) { const c = e.op.requestBody.content || {}; const tipo = Object.keys(c)[0]; const sch = tipo && c[tipo].schema; %>
+              <p class="t-small"><b>Cuerpo:</b> <code><%= tipo %></code><%= sch ? ' · ' + (ref(sch) || sch.type || '') : '' %></p>
+              <% } %>
+              <p class="t-small pv-op__resp"><b>Respuestas:</b> <% for (const [cod, r] of Object.entries(e.op.responses || {})) { %><span><code><%= cod %></code> <%= r.description || ref(r) || '' %></span><% } %></p>
+            </article>
+            <% } %>
+          </section>
+          <% } %>
+
+          <section class="pv-api__tag" id="probar" aria-labelledby="probar-h">
+            <h2 id="probar-h">Probar los servicios públicos</h2>
+            <p class="muted">Estas tres rutas no piden sesión. El resultado se pide al servidor en este momento.</p>
+            <div class="pv-probar" data-probar>
+              <div class="pv-probar__botones">
+                <button class="btn btn--secondary" type="button" data-url="/api/publico/pyme">GET /api/publico/pyme</button>
+                <button class="btn btn--secondary" type="button" data-url="/api/publico/indicadores">GET /api/publico/indicadores</button>
+                <button class="btn btn--secondary" type="button" data-url="/api/publico/indicadores/1/serie?meses=6">GET /api/publico/indicadores/1/serie</button>
+              </div>
+              <p class="t-small muted" data-estado role="status">Elige una ruta.</p>
+              <pre class="pv-probar__json" tabindex="0" aria-label="Respuesta JSON"><code data-salida>{}</code></pre>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<%- include('../partials/footer-publico', { base: '/', cierre: false }) %>
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script src="/js/api-docs.js" defer></script>
+</body>
+</html>

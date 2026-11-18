@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es-MX" data-type="software" data-radius="soft" data-ground="sand" data-buttons="pill" data-motion>
+<head>
+<%- include('../partials/kit-head', { titulo, descripcion: 'PyME Verde registra los residuos, la energía y el agua de Contrafuerte, un taller de calzado de León, y calcula cada mes sus indicadores de sustentabilidad contra una meta.', momentos: ['letters-assemble', 'liquid-hover'], ui: ['window'] }) %>
+</head>
+<%
+  const ind = Object.fromEntries(indicadores.map((i) => [i.clave, i]));
+  const ESTADOS = { cumple: 'Cumple la meta', cerca: 'Cerca de la meta', lejos: 'Lejos de la meta', sin_datos: 'Sin datos' };
+  const nombreMes = f.mes(periodo.meses[0]);
+  const NB = '\u00a0';
+  const valor = (i, d = 2) => (i && i.valor !== null ? f.numero(i.valor, d) : 'sin dato');
+  const TITULO = { RESIDUO_POR_PAR: 'Residuo del taller por par', ENERGIA_POR_PAR: 'Energía del taller por par', AVANCE_PLAN: 'Avance del plan del taller', CAPACITACION_COLABORADOR: 'Capacitación en el taller' };
+  const conNB = (t) => String(t).replace(/(\d) (%|kg|kWh|h|pares|colaboradores|mes|meses)(?![\p{L}])/gu, `$1${NB}$2`);
+  const unidadCorta = (u) => u.replace('h/persona/mes', 'h por persona').replace('kg/par', 'kg por par').replace('kWh/par', 'kWh por par');
+  const metaTexto = (i) => `${f.numero(i.meta, 3)}${NB}${i.unidad === '%' ? '%' : unidadCorta(i.unidad)} ${i.sentido === 'mayor' ? 'o más' : 'o menos'}`;
+  const iniciales = (t) => t.split(/\s+/).filter((p) => p.length > 2).slice(0, 2).map((p) => p[0].toUpperCase()).join('');
+  const TONO = { reutilizable: 1, reciclable: 3, peligroso: 2, no_aprovechable: 5 };
+  const ESTADO_FILA = { reutilizacion: 'is-done', donacion: 'is-done', reciclaje: 'is-done', coprocesamiento: 'is-done', manejo_especial: 'is-you', relleno_sanitario: '' };
+  const abierto = recientes.find((r) => r.clasificacion === 'reutilizable') || recientes[0];
+  const guiaPor = Object.fromEntries(guia.map((g) => [g.clasificacion, g]));
+  const tasa = ind.TASA_APROVECHAMIENTO;
+  const puntos = serie ? serie.puntos : [];
+%>
+<body>
+<!-- type: software
+     deal: hero centred, nav nav-mega, close close-type, footer footer-columns, rhythm space, buttons pill, mark ring, grounds none
+     palette flour-terracotta (el blanco cálido y el rojo terracota recuerdan la piel curtida de un taller), type host, radius soft
+     effect: grain-gradient en el marco del héroe
+     moments: letters-assemble (#enunciado), liquid-hover (#destinos) -->
+<%- include('../partials/nav-publica', { base: '' }) %>
+
+<main id="top">
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#preguntas"><span>Datos de demostración</span><span class="muted">Qué significa</span></a>
+        <h1 id="hero-h">Un taller de calzado mide su huella</h1>
+        <p class="hero__lead">PyME Verde registra la luz, el agua, la piel y los residuos de <%= pyme.nombre %>, un taller de <%= pyme.numColaboradores %>&nbsp;personas en León, y calcula cada mes siete indicadores contra su meta.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#indicadores">Ver los indicadores<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          <a class="btn btn--secondary" href="#registro">Cómo se registra</a>
+        </div>
+      </div>
+      <div class="hero__window" data-fx="grain-gradient" data-fx-seed="14" role="img" aria-label="Tablero de PyME Verde con los indicadores de <%= nombreMes %>: residuo aprovechado <%= valor(tasa, 1) %> %, energía por par <%= valor(ind.ENERGIA_POR_PAR) %> kWh, capacitación <%= valor(ind.CAPACITACION_COLABORADOR) %> horas por persona">
+        <div class="ly-piece ui pv-win" aria-hidden="true">
+          <div class="pv-win__bar">
+            <span class="pv-dots"><i></i><i></i><i></i></span>
+            <span class="pv-crumb"><span class="mark" data-mark="ring"></span><%= pyme.nombre %> <i>/</i> <b>Tablero</b></span>
+            <span class="pv-sp"></span>
+            <span class="pv-chip"><%= nombreMes %></span>
+            <span class="pv-chip pv-chip--demo">Demostración</span>
+          </div>
+          <div class="pv-win__body">
+            <nav class="pv-side">
+              <span class="is-on">Tablero</span><span>Registros</span><span>Residuos</span><span>Calculadora</span><span>Plan de acciones</span><span>Reportes</span>
+            </nav>
+            <div class="pv-main">
+              <div class="pv-tiles">
+                <% for (const clave of ['TASA_APROVECHAMIENTO', 'ENERGIA_POR_PAR', 'CAPACITACION_COLABORADOR']) { const i = ind[clave]; if (!i) continue; %>
+                <div class="pv-tile" data-estado="<%= i.estado %>">
+                  <span class="pv-tile__name"><%= i.nombre %></span>
+                  <span class="pv-tile__value"><%= valor(i, clave === 'TASA_APROVECHAMIENTO' ? 1 : 2) %><small><%= i.unidad === '%' ? ' %' : ' ' + i.unidad %></small></span>
+                  <span class="pv-tile__meta"><i></i><%= ESTADOS[i.estado] %><span class="pv-tile__m"> · meta <%= f.numero(i.meta, 3) %></span></span>
+                </div>
+                <% } %>
+              </div>
+              <div class="pv-chart">
+                <span class="pv-chart__title">Residuo aprovechado por mes</span>
+                <div class="pv-bars">
+                  <% for (const p of puntos) { const h = Math.max(6, Math.min(100, (p.valor || 0) / 50 * 100)); %>
+                  <span class="pv-bar"><b><%= p.valor === null ? '' : f.numero(p.valor, 0) + NB + '%' %></b><span class="pv-bar__fill" style="--h:<%= h.toFixed(1) %>%"></span><em><%= p.etiqueta.slice(0, 3) %></em></span>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="registro" style="--h: 1" aria-labelledby="registro-h">
+    <div class="wrap">
+      <div class="grid">
+        <h2 id="registro-h" class="span-5">Cada kilo de recorte queda registrado</h2>
+        <div class="span-6 start-7 stack-4">
+          <p>Cada sábado el equipo pesa el recorte, el cartón y los envases con solvente. La app convierte gramos a kilos, pide el destino de cada residuo y guarda el origen de cada dato.</p>
+          <a class="link" href="#destinos">Ver los destinos permitidos</a>
+        </div>
+      </div>
+      <div class="ui app fill" role="img" aria-label="Lista de los últimos registros de residuos de <%= pyme.nombre %> junto al detalle de un registro de recorte de piel" data-ui-pause-host>
+        <div class="app__pane app__pane--list">
+          <div class="ui ui-panel ui-win" data-ui="window" data-open="Pendiente" data-work="Validando" data-done="Registrado">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb"><span class="mark pv-crumb-mark" data-mark="ring" aria-hidden="true"></span><%= pyme.nombre %> <i>/</i> <b>Residuos</b></span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">Buscar</span><span class="ui-kbd">/</span></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 9h3l1 1.5h3l1-1.5h3"/><path d="M2.5 9 4 3.5h8L13.5 9v3.5h-11z"/></svg>Todos</span>
+                <span class="ui-win__nav is-on"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg>Residuos</span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>Consumos</span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="6" r="2.5"/><path d="M3.5 13.5c.6-2.3 2.4-3.5 4.5-3.5s3.9 1.2 4.5 3.5"/></svg>Producción</span>
+                <span class="ui-win__label">Clasificación</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Reutilizable</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Manejo especial</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>Categoría</span><span>Cantidad</span><span>Destino</span><span>Fecha</span></div>
+                <ul class="ui-win__rows">
+                  <% for (const r of recientes) { %>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="<%= TONO[r.clasificacion] || 4 %>"><%= iniciales(r.categoria) %></span><span class="ui-win__who"><%= r.categoria %></span><span class="ui-win__sub"><%= f.numero(r.cantidad, 1) %> <%= r.unidad %><%= r.cantidadAprovechada > 0 ? ` · ${f.numero(r.cantidadAprovechada, 1)} ${r.unidad} aprovechados` : '' %></span><span class="ui-win__st <%= ESTADO_FILA[r.destino] || '' %>" data-st><%= etiquetasDestino[r.destino] || 'Sin destino' %></span><span class="ui-win__age"><%= f.fecha(r.fecha).replace(/ \d{4}$/, '') %></span></li>
+                  <% } %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app__pane app__pane--open">
+          <% if (abierto) { const g = guiaPor[abierto.clasificacion]; %>
+          <div class="ui-panel pv-reg">
+            <div class="pv-reg__head">
+              <span class="pv-reg__kicker">Registro del <%= f.fechaLarga(abierto.fecha) %></span>
+              <span class="pv-chip pv-chip--demo">Demostración</span>
+            </div>
+            <h3 class="pv-reg__title"><%= abierto.categoria %></h3>
+            <p class="pv-reg__class">Residuo <%= (g && g.etiqueta || '').toLowerCase() %></p>
+            <dl class="pv-reg__rows">
+              <div><dt>Generado</dt><dd><%= f.numero(abierto.cantidad, 1) %> <%= abierto.unidad %></dd></div>
+              <div><dt>Aprovechado</dt><dd><%= f.numero(abierto.cantidadAprovechada, 1) %> <%= abierto.unidad %> · <%= f.numero(abierto.porcentajeAprovechado, 1) %> %</dd></div>
+              <div><dt>Destino</dt><dd><%= etiquetasDestino[abierto.destino] %></dd></div>
+              <div><dt>Sin aprovechar</dt><dd><%= f.numero(abierto.cantidad - abierto.cantidadAprovechada, 1) %> <%= abierto.unidad %> · <%= g ? g.destinoDisposicion.etiqueta : '' %></dd></div>
+              <div><dt>Origen del dato</dt><dd>Demostración</dd></div>
+            </dl>
+            <% if (g) { %>
+            <div class="pv-reg__rule">
+              <span>Destinos válidos para un residuo <%= g.etiqueta.toLowerCase() %></span>
+              <div class="pv-reg__chips"><% for (const d of g.destinosAprovechamiento) { %><span class="<%= d.valor === abierto.destino ? 'is-on' : '' %>"><%= d.etiqueta %></span><% } %></div>
+            </div>
+            <% } %>
+            <div class="pv-reg__acts"><span>Guardar cambios</span><span>Ver historial</span></div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2" id="indicadores" aria-labelledby="indicadores-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="indicadores-h">Cinco indicadores del taller, con su meta. <span class="muted"><%= nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1) %>. Datos de demostración.</span></h2>
+        </div>
+        <div class="grid">
+          <% if (tasa) { %>
+          <article class="card card--open span-12 m-nolift pv-ancha" id="ind-aprovechamiento">
+            <h3><%= tasa.nombre %> en el taller, <%= puntos.length ? puntos[0].etiqueta.slice(0, 3) : '' %> a <%= puntos.length ? puntos[puntos.length - 1].etiqueta.slice(0, 3) : '' %></h3>
+            <p><%= conNB(tasa.explicacion.replace(/\.$/, '')) %> en <%= nombreMes.split(' ')[0] %>: <%= valor(tasa, 1) %><%= NB %>%. La meta es <%= metaTexto(tasa) %>.</p>
+            <a class="card__link" href="#preguntas">Leer cómo se calcula cada indicador</a>
+            <div class="panel" role="img" aria-label="Residuo aprovechado por mes: <%= puntos.map((p) => p.etiqueta + ' ' + (p.valor === null ? 'sin dato' : f.numero(p.valor, 1) + ' %')).join(', ') %>. Meta 40 %.">
+              <div class="ui pv-serie" aria-hidden="true">
+                <div class="pv-serie__plot">
+                  <% for (const p of puntos) { const h = Math.max(2, Math.min(100, (p.valor || 0) / 50 * 100)); %>
+                  <div class="pv-serie__col" data-estado="<%= p.estado %>"><b><%= p.valor === null ? '' : f.numero(p.valor, 1) + NB + '%' %></b><svg class="pv-serie__bar" viewBox="0 0 40 100" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="<%= (100 - h).toFixed(1) %>" width="40" height="<%= h.toFixed(1) %>"/></svg><em><%= p.etiqueta.slice(0, 3) %></em></div>
+                  <% } %>
+                  <span class="pv-serie__goal" style="--k-goal:<%= Math.min(1, tasa.meta / 50).toFixed(3) %>"><em>Meta <%= f.numero(tasa.meta, 0) %><%= NB %>%</em></span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <% } %>
+        </div>
+      </div>
+      <div class="grid pv-cuatro">
+        <% const pequenos = ['RESIDUO_POR_PAR', 'ENERGIA_POR_PAR', 'AVANCE_PLAN', 'CAPACITACION_COLABORADOR'].map((c) => ind[c]).filter(Boolean); %>
+        <% for (const i of pequenos) { const escala = Math.max(i.meta * 1.6, (i.valor || 0) * 1.15, 0.0001); const kv = Math.min(1, (i.valor || 0) / escala); const km = Math.min(1, i.meta / escala); %>
+        <article class="card card--row card--open span-3 m-nolift" id="ind-<%= i.clave.toLowerCase().replace(/_/g, '-') %>">
+          <h3><%= TITULO[i.clave] || i.nombre %></h3>
+          <p><%= conNB(i.explicacion.replace(' (avance actual registrado en el plan)', '')) %></p>
+          <% const sp = (series[i.clave] ? series[i.clave].puntos : []); const tope = Math.max(escala, ...sp.map((p) => p.valor || 0)) * 1.05; %>
+          <div class="panel" role="img" aria-label="<%= i.nombre %>: <%= valor(i) %> <%= i.unidad %> en <%= nombreMes %>, meta <%= metaTexto(i) %>. <%= ESTADOS[i.estado] %>.<% if (sp.length) { %> Meses anteriores: <%= sp.map((p) => p.etiqueta + ' ' + (p.valor === null ? 'sin dato' : f.numero(p.valor, 2))).join(', ') %>.<% } %>">
+            <div class="pv-statbox">
+            <div class="ui pv-stat" data-estado="<%= i.estado %>" aria-hidden="true">
+              <span class="pv-stat__label"><%= nombreMes %></span>
+              <span class="pv-stat__value"><%= valor(i, i.unidad === '%' ? 0 : 3) %><small><%= NB + (i.unidad === '%' ? '%' : unidadCorta(i.unidad)) %></small></span>
+              <span class="pv-stat__track"><i style="--k:<%= kv.toFixed(3) %>"></i><b style="--k:<%= km.toFixed(3) %>"></b></span>
+              <span class="pv-stat__meta"><span class="pv-dot"></span><%= ESTADOS[i.estado] %></span>
+              <span class="pv-stat__label">Meta: <%= metaTexto(i) %></span>
+            </div>
+            <% if (sp.length) { %>
+            <div class="ui pv-spark" aria-hidden="true">
+              <svg class="pv-spark__svg" viewBox="0 0 120 60" preserveAspectRatio="none">
+                <% sp.forEach((p, n) => { const hh = Math.max(1.5, (p.valor || 0) / tope * 60); %>
+                <rect data-estado="<%= p.estado %>" x="<%= (n * 20 + 3).toFixed(1) %>" y="<%= (60 - hh).toFixed(1) %>" width="14" height="<%= hh.toFixed(1) %>" rx="1.5"/>
+                <% }) %>
+                <line x1="0" x2="120" y1="<%= (60 - i.meta / tope * 60).toFixed(1) %>" y2="<%= (60 - i.meta / tope * 60).toFixed(1) %>" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <span class="pv-spark__meses"><% for (const p of sp) { %><em><%= p.etiqueta.slice(0, 3) %></em><% } %></span>
+            </div>
+            <% } %>
+            </div>
+          </div>
+        </article>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="enunciado" style="--h: 1" data-moment="letters-assemble" data-moment-opts='{"spread": 1}' aria-labelledby="enunciado-h">
+    <div class="wrap">
+      <h2 id="enunciado-h" class="mo-la__type">Menos residuos del taller</h2>
+      <p class="mo-la__sub">La meta del taller para 2026: aprovechar 40&nbsp;% de sus residuos cada mes, con un plan de acciones que tiene responsable, fecha y evidencia.</p>
+      <dl class="pv-enun-datos">
+        <div><dt>meta de residuo aprovechado</dt><dd><%= tasa ? f.numero(tasa.meta, 0) : '40' %>&nbsp;%</dd></div>
+        <div><dt>personas en el taller</dt><dd><%= pyme.numColaboradores %></dd></div>
+        <div><dt>meses con registros</dt><dd><%= puntos.filter((p) => p.valor !== null).length %></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="destinos" style="--h: 1" aria-labelledby="destinos-h">
+    <div class="wrap">
+      <div class="grid fill pv-destinos">
+        <div class="span-5 stack-5">
+          <h2 id="destinos-h">Cada residuo va al destino que le toca</h2>
+          <p class="t-lead">Al registrar un residuo, la app revisa su clasificación y solo acepta los destinos que le corresponden. Los envases con solvente piden el número de manifiesto del gestor autorizado.</p>
+          <ul class="pv-facts">
+            <% for (const c of ['reutilizable', 'reciclable', 'peligroso']) { const g = guiaPor[c]; if (!g) continue; %>
+            <li><b><%= g.etiqueta %>:</b> <%= g.destinosAprovechamiento.map((d) => d.etiqueta.toLowerCase()).join(', ') || g.destinoDisposicion.etiqueta.toLowerCase() %></li>
+            <% } %>
+          </ul>
+          <a class="link" href="#preguntas">Leer cómo se calcula</a>
+        </div>
+        <figure class="frame frame--photo frame--fill span-6 start-7 pv-destinos__foto" data-moment="liquid-hover" data-moment-opts='{"strength": 0.7}'>
+          <img class="frame__img" src="/assets/img/photo-f202547384.webp" srcset="/assets/img/photo-f202547384-500.webp 500w, /assets/img/photo-f202547384-960.webp 960w, /assets/img/photo-f202547384.webp 1280w" sizes="(max-width: 1023px) 100vw, 50vw" width="1280" height="1707" alt="Recortes de piel apilados en un estante de madera" loading="lazy" decoding="async" data-source="stand-in" data-subject="recortes de piel">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2m" id="preguntas" style="--h: 1" aria-labelledby="preguntas-h">
+    <div class="wrap">
+      <div class="grid fill pv-preguntas">
+        <div class="span-5 stack-4 pv-preguntas__lado">
+          <h2 id="preguntas-h">Preguntas sobre los registros del taller</h2>
+          <p>Lo que suelen preguntar quienes revisan los indicadores.</p>
+          <a class="link" href="/privacidad">Leer el aviso de privacidad</a>
+          <div class="frame frame--photo pv-preguntas__foto">
+            <img class="frame__img" src="/assets/img/photo-f41692443.webp" srcset="/assets/img/photo-f41692443-500.webp 500w, /assets/img/photo-f41692443-960.webp 960w, /assets/img/photo-f41692443.webp 1280w" sizes="(max-width: 1023px) 100vw, 40vw" width="1280" height="853" alt="Banco de zapatero con martillos, hormas de madera y botines de piel" loading="lazy" decoding="async" data-source="stand-in" data-subject="banco de trabajo de un taller de calzado">
+          </div>
+        </div>
+        <div class="faq span-6 start-7">
+          <div class="faq__item"><h3>¿Los registros de esta página son reales?</h3><p>Todavía no: son datos de demostración y cada registro guarda ese origen. Al cargar los pesajes reales, la página mostrará esos.</p></div>
+          <div class="faq__item"><h3>¿Quién puede hacer registros en el taller?</h3><p>Solo las cuentas del taller. Quien colabora registra lo suyo; la administración edita todo y fija las metas.</p></div>
+          <div class="faq__item"><h3>¿Cómo se calcula el residuo aprovechado?</h3><p>Kilos aprovechados entre kilos generados en el mes, por cien, y solo con destinos que corresponden al residuo.</p></div>
+          <div class="faq__item"><h3>¿Puedo consultar los registros desde otro sistema?</h3><p>Sí, con la API REST. Los indicadores públicos no piden sesión; su documentación está en <a href="/api/docs">/api/docs</a>.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer-publico', { base: '' }) %>
+
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script type="module" src="/assets/layout/layout.js"></script>
+</body>
+</html>

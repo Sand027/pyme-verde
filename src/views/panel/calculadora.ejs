@@ -1,0 +1,57 @@
+<%- include('../partials/app-inicio', {
+  titulo: 'Calculadora de ahorro', seccion: 'calculadora',
+  intro: 'Estima cuánto ahorraría el taller al reducir un consumo o un residuo. El resultado es una estimación con los supuestos de abajo, no una medición.',
+}) %>
+
+<div class="ap-grid">
+  <section class="ap-caja ap-c5" aria-labelledby="esc-h">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="esc-h">Escenario</h2></div>
+    <form class="form" data-calc novalidate>
+      <div class="field field--full"><label for="c-concepto">Qué quieres reducir</label>
+        <select id="c-concepto" name="concepto" required data-error="Elige un concepto.">
+          <% for (const [k, c] of Object.entries(supuestos.conceptos)) { %><option value="<%= k %>" data-unidad="<%= c.unidad %>" data-param="<%= c.parametroPrecio %>"><%= c.nombre %> (<%= c.unidad %>)</option><% } %>
+        </select></div>
+      <div class="field field--full"><label for="c-actual">Cantidad actual al mes <span class="ap-ayuda" data-calc-unidad></span></label>
+        <input id="c-actual" name="cantidadActual" type="number" min="0.001" max="100000000" step="any" required inputmode="decimal" value="700" data-error="Escribe una cantidad mayor que cero."></div>
+      <div class="field field--full"><label for="c-red">Reducción esperada: <output data-calc-red for="c-red c-red-n">15</output> %</label>
+        <div style="display:flex; gap: var(--s-3); align-items:center">
+          <input id="c-red" type="range" min="0" max="100" step="1" value="15" aria-label="Reducción en porcentaje" style="flex:1; height:auto; padding:0; border:0">
+          <input id="c-red-n" name="reduccion" type="number" min="0" max="100" step="0.5" value="15" required style="width: 96px" aria-label="Reducción en porcentaje, número" data-error="Entre 0 y 100.">
+        </div></div>
+      <div class="field field--full"><label for="c-inv">Inversión necesaria en pesos <span class="ap-ayuda">opcional, para calcular el retorno</span></label>
+        <input id="c-inv" name="inversion" type="number" min="0" max="1000000000" step="1" value="0" inputmode="numeric"></div>
+      <div class="btn-row"><button class="btn btn--primary" type="submit">Calcular</button><button class="btn btn--secondary" type="button" data-guardar-esc>Guardar para comparar</button></div>
+      <p class="form__status" data-calc-estado role="status"></p>
+    </form>
+  </section>
+
+  <section class="ap-caja ap-c7" aria-labelledby="res-h" aria-live="polite">
+    <div class="ap-caja__cab"><h2 class="ap-h2" id="res-h">Resultado estimado</h2><span class="ap-chip ap-chip--demo">Estimación</span></div>
+    <div class="ap-resultado" data-resultado><p class="ap-nota">Calcula un escenario para ver el ahorro.</p></div>
+    <h3 class="ap-h3" style="margin: var(--s-5) 0 var(--s-3)">Supuestos usados en este cálculo</h3>
+    <ul class="ap-supuestos" data-supuestos-usados><li><span class="ap-nota">Aparecen al calcular.</span></li></ul>
+  </section>
+</div>
+
+<section class="ap-caja" aria-labelledby="comp-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="comp-h">Escenarios guardados</h2><p class="ap-nota">Se guardan solo en esta pestaña del navegador.</p></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Concepto</th><th scope="col" class="num">Actual</th><th scope="col" class="num">Reducción</th><th scope="col" class="num">Ahorro al mes</th><th scope="col" class="num">Ahorro al año</th><th scope="col" class="num ocultar-tel">Retorno</th><th scope="col" class="acc"><span class="sr-only">Acciones</span></th></tr></thead>
+      <tbody data-escenarios><tr class="ap-tabla__vacia"><td colspan="7">Aún no guardas escenarios.</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="ap-caja ap-caja--suave" aria-labelledby="sup-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="sup-h">Todos los supuestos del taller</h2>
+    <% if (puede(P.CONFIGURACION_ADMINISTRAR)) { %><a class="ap-btn-txt" href="/admin/configuracion?seccion=supuestos">Editar supuestos</a><% } %></div>
+  <ul class="ap-supuestos">
+    <% for (const s of supuestos.parametros) { %>
+    <li><span><b><%= s.nombre %></b><br><small class="ap-nota">Fuente: <%= s.fuente || 'sin fuente registrada' %></small></span><span><%= f.numero(s.valor, 4) %> <%= s.unidad %></span></li>
+    <% } %>
+  </ul>
+  <p class="ap-nota" style="margin-top: var(--s-4)">Fórmulas: ahorro mensual = cantidad actual × reducción × precio unitario; ahorro anual = ahorro mensual × 12; retorno en meses = inversión ÷ ahorro mensual; emisiones evitadas = kWh ahorrados × factor de emisión.</p>
+</section>
+
+<%- include('../partials/app-fin', { scripts: ['calculadora.js'] }) %>

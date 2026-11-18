@@ -1,0 +1,28 @@
+# Blueprint de Render para PyME Verde.
+# La base de datos vive en Neon (PostgreSQL administrado); Render solo ejecuta la aplicación.
+# Los valores marcados sync: false se capturan en el panel de Render al crear el servicio.
+services:
+  - type: web
+    name: pyme-verde
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /salud
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        sync: false          # cadena de conexión de Neon, con ?sslmode=require
+      - key: SESSION_SECRET
+        generateValue: true  # Render genera un secreto largo y aleatorio
+      - key: AUTO_SEED
+        value: "true"        # carga el caso de demostración solo si la base está vacía
+      - key: SEED_ADMIN_PASSWORD
+        sync: false          # contraseña de prueba de admin.demo (10+ caracteres, letras y números)
+      - key: SEED_COLABORADOR_PASSWORD
+        sync: false          # contraseña de prueba de colaborador.demo

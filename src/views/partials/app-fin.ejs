@@ -1,0 +1,27 @@
+<%# Cierre del armazón del panel. Variables: scripts (lista de archivos en /js). %>
+    </main>
+    <footer class="ap-pie">
+      <span>PyME Verde · <%= anio %></span>
+      <a href="/api/docs">API</a>
+      <a href="/privacidad">Aviso de privacidad</a>
+    </footer>
+  </div>
+</div>
+<div class="ap-toast" data-toast role="status" aria-live="polite" hidden></div>
+<dialog class="ap-dialogo" data-confirmar>
+  <form method="dialog" class="ap-dialogo__caja">
+    <h2 class="ap-dialogo__h" data-confirmar-titulo>¿Confirmas?</h2>
+    <p data-confirmar-texto></p>
+    <div class="btn-row">
+      <button class="btn btn--primary" value="si" data-confirmar-si>Confirmar</button>
+      <button class="btn btn--secondary" value="no">Cancelar</button>
+    </div>
+  </form>
+</dialog>
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script type="module" src="/js/app.js"></script>
+<% for (const s of (locals.scripts || [])) { %><script type="module" src="/js/<%= s %>"></script>
+<% } %>
+</body>
+</html>

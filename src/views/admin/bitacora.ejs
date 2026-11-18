@@ -1,0 +1,59 @@
+<%
+  const EVENTOS = {
+    'sesion.iniciada': 'Inicio de sesión', 'sesion.fallida': 'Intento fallido', 'sesion.bloqueada': 'Cuenta bloqueada',
+    'usuario.creado': 'Cuenta creada', 'usuario.actualizado': 'Cuenta actualizada', 'usuario.contrasena_cambiada': 'Cambio de contraseña',
+    'registro.creado': 'Registro creado', 'registro.actualizado': 'Registro editado', 'registro.eliminado': 'Registro eliminado', 'registro.origen_cambiado': 'Origen cambiado',
+    'accion.creada': 'Acción creada', 'accion.actualizada': 'Acción editada', 'accion.seguimiento': 'Avance de acción', 'accion.evidencia': 'Evidencia agregada', 'accion.eliminada': 'Acción eliminada',
+    'pyme.actualizada': 'Empresa editada', 'parametro.actualizado': 'Supuesto editado', 'indicador.meta_actualizada': 'Meta editada',
+    'categoria.creada': 'Concepto creado', 'categoria.actualizada': 'Concepto editado',
+  };
+  const detalle = (d) => {
+    if (!d || (typeof d === 'object' && !Object.keys(d).length)) return '';
+    try { const s = JSON.stringify(d); return s.length > 140 ? `${s.slice(0, 140)}…` : s; } catch { return ''; }
+  };
+  const enlace = (p) => `/admin/bitacora?pagina=${p}${filtroEvento ? `&evento=${encodeURIComponent(filtroEvento)}` : ''}`;
+%>
+<%- include('../partials/app-inicio', {
+  titulo: 'Bitácora de auditoría', seccion: 'bitacora',
+  intro: 'Quién hizo qué y cuándo: sesiones, altas, cambios y eliminaciones. No se puede editar desde la aplicación.',
+}) %>
+
+<section class="ap-caja ap-caja--suave" aria-labelledby="bf-h">
+  <h2 class="sr-only" id="bf-h">Filtro</h2>
+  <form class="ap-filtros" method="get" action="/admin/bitacora">
+    <div class="field"><label for="b-ev">Evento</label>
+      <select id="b-ev" name="evento"><option value="">Todos</option><% for (const [k, t] of Object.entries(EVENTOS)) { %><option value="<%= k %>" <%= filtroEvento === k ? 'selected' : '' %>><%= t %></option><% } %></select></div>
+    <div class="btn-row"><button class="btn btn--secondary btn--sm" type="submit">Filtrar</button></div>
+  </form>
+</section>
+
+<section class="ap-caja" aria-labelledby="bl-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="bl-h">Eventos</h2><p class="ap-nota"><%= total %> eventos</p></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Fecha</th><th scope="col">Evento</th><th scope="col">Usuario</th><th scope="col" class="ocultar-tel">Entidad</th><th scope="col" class="ocultar-tel">Detalle</th><th scope="col" class="ocultar-tel">IP</th></tr></thead>
+      <tbody>
+        <% if (!eventos.length) { %><tr class="ap-tabla__vacia"><td colspan="6">Sin eventos.</td></tr><% } %>
+        <% for (const e of eventos) { %>
+        <tr>
+          <td style="white-space:nowrap"><%= f.fechaHora(e.fecha) %></td>
+          <td><%= EVENTOS[e.evento] || e.evento %></td>
+          <td><%= e.usuario || 'sin cuenta' %></td>
+          <td class="ocultar-tel"><%= e.entidad ? `${e.entidad} ${e.entidadId || ''}` : '' %></td>
+          <td class="ocultar-tel"><code style="font-size:12px"><%= detalle(e.detalle) %></code></td>
+          <td class="ocultar-tel"><%= e.ip || '' %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <div class="ap-paginas" style="margin-top: var(--s-4)">
+    <span>Página <%= pagina %> de <%= paginas %></span>
+    <div class="ap-paginas__btns">
+      <% if (pagina > 1) { %><a class="btn btn--secondary btn--sm" href="<%= enlace(pagina - 1) %>">Anterior</a><% } %>
+      <% if (pagina < paginas) { %><a class="btn btn--secondary btn--sm" href="<%= enlace(pagina + 1) %>">Siguiente</a><% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/app-fin') %>

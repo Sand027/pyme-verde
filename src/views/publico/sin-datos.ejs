@@ -1,0 +1,5 @@
+<% const cuerpo = `
+<p>La base de datos está vacía. Ejecuta <code>npm run db:seed</code> para crear el taller, las cuentas y los datos de demostración, o carga los datos reales desde el panel.</p>
+<p><a class="link" href="/login">Iniciar sesión</a></p>
+`; %>
+<%- include('../partials/pagina-interior', { titulo: 'PyME Verde', etiqueta: 'Sin datos', h1: 'Todavía no hay un taller registrado', intro: 'La sección pública muestra los indicadores en cuanto exista una empresa con registros.', cuerpo, noindex: true }) %>

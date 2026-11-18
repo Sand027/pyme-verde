@@ -1,0 +1,19 @@
+<%#
+  Un campo de formulario con su etiqueta y su error del servidor.
+  Variables: id, nombre, etiqueta, tipo (text|email|number|password|date|textarea|select), valor, attrs (cadena),
+  error, ayuda, completo (bool), opciones ([{valor, texto}]) para select.
+%>
+<% const t = locals.tipo || 'text'; const v = locals.valor ?? ''; const err = locals.error; %>
+<div class="field<%= locals.completo ? ' field--full' : '' %>">
+  <label for="<%= id %>"><%= etiqueta %><% if (locals.ayuda) { %> <span class="ap-ayuda"><%= ayuda %></span><% } %></label>
+  <% if (t === 'textarea') { %>
+    <textarea id="<%= id %>" name="<%= nombre %>" rows="3" aria-describedby="<%= id %>-err" <%- locals.attrs || '' %> <%- err ? 'aria-invalid="true"' : '' %>><%= v %></textarea>
+  <% } else if (t === 'select') { %>
+    <select id="<%= id %>" name="<%= nombre %>" aria-describedby="<%= id %>-err" <%- locals.attrs || '' %> <%- err ? 'aria-invalid="true"' : '' %>>
+      <% for (const o of (locals.opciones || [])) { %><option value="<%= o.valor %>" <%- String(o.valor) === String(v) ? 'selected' : '' %>><%= o.texto %></option><% } %>
+    </select>
+  <% } else { %>
+    <input id="<%= id %>" name="<%= nombre %>" type="<%= t %>" value="<%= v %>" aria-describedby="<%= id %>-err" <%- locals.attrs || '' %> <%- err ? 'aria-invalid="true"' : '' %>>
+  <% } %>
+  <p class="field__error" id="<%= id %>-err" <%= err ? '' : 'hidden' %>><%= err || '' %></p>
+</div>

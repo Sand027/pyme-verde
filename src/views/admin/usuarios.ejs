@@ -1,0 +1,46 @@
+<%
+  const opRoles = roles.map((r) => ({ valor: r.nombre, texto: r.etiqueta }));
+%>
+<%- include('../partials/app-inicio', {
+  titulo: 'Usuarios', seccion: 'usuarios',
+  intro: 'Cuentas del taller. El rol decide los permisos y el servidor los verifica en cada solicitud.',
+}) %>
+
+<section class="ap-caja" aria-labelledby="us-h">
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="us-h">Cuentas</h2><p class="ap-nota"><%= usuarios.length %> cuentas</p></div>
+  <div class="ap-tabla-envoltura">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Nombre y usuario</th><th scope="col" class="ocultar-tel">Correo</th><th scope="col">Rol</th><th scope="col">Estado</th><th scope="col" class="ocultar-tel">Último acceso</th><th scope="col" class="acc"><span class="sr-only">Acciones</span></th></tr></thead>
+      <tbody>
+        <% for (const u of usuarios) { %>
+        <tr>
+          <td><%= u.nombre %><% if (u.id === usuario.id) { %> <span class="ap-nota">(tú)</span><% } %><span class="ap-sub"><%= u.username %></span></td>
+          <td class="ocultar-tel"><%= u.correo %></td>
+          <td><%= u.rolEtiqueta %></td>
+          <td><span class="ap-chip" data-estado="<%= u.bloqueado ? 'vencida' : u.activo ? 'completada' : 'pendiente' %>"><%= u.bloqueado ? 'Bloqueada' : u.activo ? 'Activa' : 'Inactiva' %></span></td>
+          <td class="ocultar-tel"><%= u.ultimoAcceso ? f.fechaHora(u.ultimoAcceso) : 'nunca' %></td>
+          <td class="acc"><a class="ap-btn-txt" href="/admin/usuarios/<%= u.id %>" aria-label="Editar la cuenta de <%= u.nombre %>">Editar</a></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="ap-caja" aria-labelledby="alta-h">
+  <details <%= locals.abrirAlta ? 'open' : '' %>>
+    <summary class="ap-h2" id="alta-h" style="cursor:pointer">Crear una cuenta</summary>
+    <form class="form" method="post" action="/admin/usuarios" data-fix="Revisa {n} campo(s) marcados." novalidate style="margin-top: var(--s-5)">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <%- include('../partials/campo', { id: 'u-nombre', nombre: 'nombre', etiqueta: 'Nombre completo', valor: valores.nombre, attrs: 'required minlength="3" maxlength="120" autocomplete="off"', error: errores.nombre }) %>
+      <%- include('../partials/campo', { id: 'u-username', nombre: 'username', etiqueta: 'Usuario', ayuda: '4 a 40: minúsculas, números, punto, guion', valor: valores.username, attrs: 'required pattern="[a-z0-9._-]{4,40}" maxlength="40" autocomplete="off" autocapitalize="none"', error: errores.username }) %>
+      <%- include('../partials/campo', { id: 'u-correo', nombre: 'correo', etiqueta: 'Correo', tipo: 'email', valor: valores.correo, attrs: 'required maxlength="160" autocomplete="off"', error: errores.correo }) %>
+      <%- include('../partials/campo', { id: 'u-rol', nombre: 'rol', etiqueta: 'Rol', tipo: 'select', valor: valores.rol || 'colaborador', opciones: opRoles, attrs: 'required', error: errores.rol }) %>
+      <%- include('../partials/campo', { id: 'u-pass', nombre: 'password', etiqueta: 'Contraseña inicial', ayuda: 'al menos 10 caracteres, con letras y números; entrégala por un canal privado', tipo: 'password', attrs: 'required minlength="10" maxlength="200" autocomplete="new-password" pattern="(?=.*[A-Za-z])(?=.*\\d).{10,}" data-error="Al menos 10 caracteres, con letras y números."', error: errores.password, completo: true }) %>
+      <div class="btn-row"><button class="btn btn--primary" type="submit">Crear cuenta</button></div>
+      <p class="form__status" data-form-status></p>
+    </form>
+  </details>
+</section>
+
+<%- include('../partials/app-fin') %>

@@ -1,0 +1,82 @@
+<%
+  const r = reporte;
+  const per = (p) => `${f.fechaLarga(p.desde)} al ${f.fechaLarga(p.hasta)}`;
+  const varTxt = (v) => (v === null ? 'sin base' : `${v > 0 ? '+' : ''}${f.numero(v, 1)} %`);
+  const ESTADOS = { cumple: 'Cumple', cerca: 'Cerca', lejos: 'Lejos', sin_dato: 'Sin datos' };
+%>
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reporte de resultados · <%= pyme.nombre %></title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/impresion.css">
+</head>
+<body>
+<div class="barra no-imprimir">
+  <a href="/panel/reportes">Volver a reportes</a>
+  <button type="button" data-imprimir>Imprimir o guardar en PDF</button>
+</div>
+<main class="hoja">
+  <header>
+    <p class="eti">PyME Verde · Reporte de resultados</p>
+    <h1><%= pyme.nombre %></h1>
+    <p><%= pyme.giro %>, <%= pyme.ubicacionGeneral %>. <%= pyme.numColaboradores %> colaboradores.</p>
+    <table class="datos">
+      <tr><th>Periodo A</th><td><%= per(r.periodoA) %></td></tr>
+      <tr><th>Periodo B</th><td><%= per(r.periodoB) %></td></tr>
+      <tr><th>Generado</th><td><%= f.fechaHora(generado) %>, por <%= usuario.nombre %></td></tr>
+    </table>
+    <p class="aviso">Los registros marcados como dato de demostración no describen la operación real del taller. Las cifras de ahorro de la calculadora son estimaciones, no forman parte de este reporte.</p>
+  </header>
+
+  <section>
+    <h2>1. Indicadores</h2>
+    <table>
+      <thead><tr><th>Indicador</th><th>Dimensión</th><th class="n">A</th><th class="n">B</th><th class="n">Variación</th><th class="n">Meta</th><th>Estado en B</th></tr></thead>
+      <tbody>
+        <% for (const i of r.indicadores) { %>
+        <tr><td><%= i.nombre %></td><td><%= i.dimension %></td><td class="n"><%= f.numero(i.a, 2) %></td><td class="n"><%= f.numero(i.b, 2) %></td>
+          <td class="n"><%= varTxt(i.variacion) %><%= i.mejora === null ? '' : i.mejora ? ' (mejora)' : ' (empeora)' %></td><td class="n"><%= f.numero(i.meta, 3) %> <%= i.unidad %></td><td><%= ESTADOS[i.b === null ? 'sin_dato' : i.estado] %></td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>2. Residuos del periodo B</h2>
+    <p>Se generaron <b><%= f.numero(r.residuos.generado, 1) %> kg</b> de residuo y se aprovecharon <b><%= f.numero(r.residuos.aprovechado, 1) %> kg</b>: <b><%= f.numero(r.residuos.porcentaje, 1) %> %</b> de aprovechamiento.</p>
+  </section>
+
+  <section>
+    <h2>3. Consumos, producción y residuos por concepto</h2>
+    <table>
+      <thead><tr><th>Concepto</th><th class="n">A</th><th class="n">B</th><th class="n">Variación</th><th class="n">Costo A</th><th class="n">Costo B</th></tr></thead>
+      <tbody>
+        <% for (const c of r.categorias) { %>
+        <tr><td><%= c.categoria %></td><td class="n"><%= f.numero(c.a, 2) %> <%= c.unidad %></td><td class="n"><%= f.numero(c.b, 2) %> <%= c.unidad %></td><td class="n"><%= varTxt(c.variacion) %></td><td class="n"><%= f.dinero(c.costoA) %></td><td class="n"><%= f.dinero(c.costoB) %></td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>4. Plan de acciones</h2>
+    <p><%= r.acciones.completadas %> completadas, <%= r.acciones.enProceso %> en proceso, <%= r.acciones.pendientes %> pendientes y <%= r.acciones.vencidas %> vencidas, de <%= r.acciones.total %> acciones.</p>
+    <table>
+      <thead><tr><th>Acción</th><th>Responsable</th><th>Fecha objetivo</th><th class="n">Avance</th><th>Estado</th><th class="n">Evidencias</th></tr></thead>
+      <tbody>
+        <% for (const a of r.acciones.lista) { %>
+        <tr><td><%= a.titulo %></td><td><%= a.responsable || 'Sin asignar' %></td><td><%= f.fecha(a.fechaObjetivo) %></td><td class="n"><%= a.avance %> %</td><td><%= a.vencida ? 'Vencida' : a.estadoEtiqueta %></td><td class="n"><%= a.evidencias.length %></td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </section>
+
+  <footer><p>Indicadores calculados por PyME Verde con los registros capturados en el sistema. Fórmulas y supuestos en el panel, sección Configuración.</p></footer>
+</main>
+<script type="module" src="/js/imprimir.js"></script>
+</body>
+</html>
