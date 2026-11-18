@@ -153,7 +153,8 @@ function portada(titulo, subtitulo) {
     linea('', 'Gonzalo Josue ______________________   No. de control ____________'),
     linea('Grupo', '__________'),
     linea('Docente', 'Angélica María Ortiz Gaucín'),
-    linea('Sitio publicado', 'https://______________________________.onrender.com'),
+    linea('Sitio publicado', 'https://pyme-verde.onrender.com'),
+    linea('Código fuente', 'https://github.com/Sand027/pyme-verde'),
     linea('Fecha de entrega', '____ de diciembre de 2026'),
   ];
 }

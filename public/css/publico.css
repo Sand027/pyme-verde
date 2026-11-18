@@ -320,3 +320,6 @@ svg.pv-serie__bar rect { fill: color-mix(in oklab, var(--accent) 38%, var(--bg))
   #contact .closing__cta .section-head > p { display: none; }
 }
 @media (min-width: 800px) and (max-width: 1023px) and (min-height: 1100px) { #indicadores .pv-ancha .panel { --p-h: 520px; } }
+
+/* Autoría: última línea de la página */
+#contact .footer__autoria { margin: var(--s-5) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--line, rgba(0,0,0,.08)); font-size: 13px; color: var(--muted); text-align: center; }

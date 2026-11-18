@@ -4,6 +4,8 @@ Aplicación web para que una pequeña empresa registre sus consumos, residuos, p
 
 Proyecto final de Programación Web y Desarrollo Sustentable, Ingeniería en Sistemas Computacionales, TecNM campus León, AGO-DIC 2026. Equipo: Oscar y Gonzalo Josue.
 
+**Sitio publicado:** https://pyme-verde.onrender.com
+
 El caso de estudio es **Contrafuerte**, un taller de calzado de piel en León, Guanajuato. **Todos los datos que trae la aplicación son de demostración**; no son mediciones reales del taller.
 
 ## Qué incluye
@@ -71,7 +73,7 @@ Las pruebas de la API usan una base separada: `TEST_DATABASE_URL`, o `pyme_verde
 3. En [render.com](https://render.com) elige **New → Blueprint** y selecciona el repositorio. Render lee `render.yaml`.
 4. Captura las variables secretas: `DATABASE_URL` (la de Neon), `SEED_ADMIN_PASSWORD` y `SEED_COLABORADOR_PASSWORD`. Usa los mismos valores que en tu `.env` para que coincidan con el documento de credenciales. `SESSION_SECRET` la genera Render.
 5. En el primer arranque la aplicación crea las tablas y, con `AUTO_SEED=true`, carga el caso de demostración. Nunca borra datos existentes.
-6. Abre `https://<nombre>.onrender.com` y prueba ambos roles.
+6. Abre la dirección del servicio (la de este proyecto es https://pyme-verde.onrender.com) y prueba ambos roles.
 
 El plan gratuito de Render suspende el servicio cuando nadie lo usa; la primera visita después tarda cerca de un minuto.
 

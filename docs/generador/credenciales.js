@@ -23,7 +23,7 @@ module.exports = function credenciales() {
     new D.Paragraph({ spacing: { before: 200, after: 120 }, children: [new D.TextRun({ text: 'PyME Verde', size: 48, bold: true, color: COLOR.verde })] }),
     new D.Paragraph({ spacing: { after: 300 }, border: { bottom: { style: D.BorderStyle.SINGLE, size: 8, color: COLOR.verde, space: 10 } }, children: [new D.TextRun({ text: 'Credenciales de prueba para la evaluación', size: 30, bold: true })] }),
     nota('**Documento confidencial.** Se entrega solo a la docente por un canal privado (plataforma institucional o correo institucional). No se publica, no se sube al repositorio y no contiene contraseñas personales de nadie: son cuentas creadas únicamente para revisar la aplicación.'),
-    p('**Sitio:** https://______________________________.onrender.com'),
+    p('**Sitio:** https://pyme-verde.onrender.com'),
     p('**Inicio de sesión:** pulsar Iniciar sesión en la página principal, o abrir /login.'),
     espacio(),
     tabla(['Rol', 'Usuario', 'Contraseña', 'Qué permite revisar'], [
