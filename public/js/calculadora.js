@@ -110,12 +110,12 @@ if (solar) {
     const kwh = Number(formSol.elements.kwh.value);
     const kwp = kwh > 0 && clima.generacionMensualPorKwp > 0 ? kwh / clima.generacionMensualPorKwp : null;
     cifras.replaceChildren(
-      cifra('Horas de sol pico al día', num(clima.horasSolPico, 2), 'promedio de los próximos 7 días'),
+      cifra('Horas de sol pico al día', num(clima.horasSolPico, 2), clima.tipo === 'medicion' ? 'promedio de los últimos 7 días medidos' : 'promedio de los próximos 7 días'),
       cifra('Generación por kWp al mes', `${num(clima.generacionMensualPorKwp, 1)} kWh`, `rendimiento supuesto ${num(clima.rendimientoSupuesto * 100, 0)} %`),
       cifra('Paneles para cubrir el consumo', kwp === null ? 'sin dato' : `${num(kwp, 2)} kWp`, `para ${num(kwh, 0)} kWh al mes`),
-      cifra('Temperatura actual', clima.temperaturaActual === null ? 'sin dato' : `${num(clima.temperaturaActual, 1)} °C`, clima.lugar),
+      cifra('Temperatura actual', clima.temperaturaActual === null ? 'sin dato' : `${num(clima.temperaturaActual, 1)} °C`, `${clima.lugar} · fuente: ${clima.fuente}`),
     );
-    estadoSol.textContent = clima.desactualizado ? 'Open-Meteo no respondió; se muestran los últimos datos obtenidos.' : '';
+    estadoSol.textContent = clima.desactualizado ? 'Los servicios de clima no respondieron; se muestran los últimos datos obtenidos.' : (clima.nota || '');
   };
 
   formSol.addEventListener('input', () => {

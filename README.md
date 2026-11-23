@@ -15,7 +15,7 @@ El caso de estudio es **Contrafuerte**, un taller de calzado de piel en León, G
 - Administración de usuarios, empresa, categorías, parámetros, metas y bitácora.
 - Roles visitante, colaborador y administrador, verificados en el servidor.
 - API REST con seis servicios y especificación OpenAPI 3 en `/api/docs`.
-- Consumo del servicio web público Open-Meteo (radiación solar de León) en la calculadora, expuesto en `/api/publico/clima`.
+- Consumo del servicio web público Open-Meteo (radiación solar de León), con NASA POWER como respaldo, en la calculadora, expuesto en `/api/publico/clima`.
 
 ## Tecnologías
 
@@ -59,7 +59,7 @@ Abre `http://localhost:3000`.
 | `npm run db:reset` | Borra los datos y vuelve a cargar el caso de demostración. |
 | `npm run db:export` | Exporta estructura y datos a `base-de-datos/pyme_verde.sql`. |
 | `npm run entrega` | Arma la carpeta de entrega y su ZIP en `entrega-privada/` (incluye credenciales; no se versiona). |
-| `npm test` | Corre las 53 pruebas automatizadas. |
+| `npm test` | Corre las 54 pruebas automatizadas. |
 
 ## Pruebas
 
@@ -67,7 +67,7 @@ Abre `http://localhost:3000`.
 npm test
 ```
 
-Las pruebas de la API usan una base separada: `TEST_DATABASE_URL`, o `pyme_verde_test` en el PostgreSQL local. Su nombre debe contener "test"; si no, las pruebas se niegan a correr para no borrar datos. La última ejecución está en `docs/evidencias/pruebas-npm-test.txt` (53 de 53 pasan).
+Las pruebas de la API usan una base separada: `TEST_DATABASE_URL`, o `pyme_verde_test` en el PostgreSQL local. Su nombre debe contener "test"; si no, las pruebas se niegan a correr para no borrar datos. La última ejecución está en `docs/evidencias/pruebas-npm-test.txt` (54 de 54 pasan).
 
 ## Publicación en Render y Neon
 

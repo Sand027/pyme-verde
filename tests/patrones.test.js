@@ -120,7 +120,7 @@ describe('Calculadora (cálculo puro)', () => {
   });
 });
 
-describe('Cliente del servicio web público Open-Meteo', () => {
+describe('Cliente de servicios web públicos: Open-Meteo y NASA POWER', () => {
   const ClimaService = require('../src/services/ClimaService');
   const { ServicioExternoError } = require('../src/utils/errores');
   // Respuesta con la forma real de https://api.open-meteo.com/v1/forecast (radiación en MJ/m²).
@@ -159,15 +159,15 @@ describe('Cliente del servicio web público Open-Meteo', () => {
     assert.equal(f.llamadas.length, 1);
   });
 
-  it('W03 si el servicio falla sin copia previa lanza ServicioExternoError (502)', async () => {
-    const s = new ClimaService({ fetchFn: fetchFalso(null, { ok: false, status: 503 }) });
+  it('W03 si Open-Meteo y NASA POWER fallan sin copia previa lanza ServicioExternoError (502)', async () => {
+    const s = new ClimaService({ fetchFn: fetchFalso(null, { ok: false, status: 503 }), registro: () => {} });
     await assert.rejects(() => s.recursoSolar(), (e) => e instanceof ServicioExternoError && e.status === 502);
   });
 
-  it('W04 si el servicio falla con copia vencida devuelve la copia marcada como desactualizada', async () => {
+  it('W04 si los servicios fallan con copia vencida devuelve la copia marcada como desactualizada', async () => {
     let falla = false;
     const f = async () => (falla ? { ok: false, status: 500, json: async () => null } : { ok: true, status: 200, json: async () => respuesta });
-    const s = new ClimaService({ fetchFn: f, ttlMs: 0 });
+    const s = new ClimaService({ fetchFn: f, ttlMs: 0, registro: () => {} });
     await s.recursoSolar();
     falla = true;
     const r = await s.recursoSolar();
@@ -177,5 +177,26 @@ describe('Cliente del servicio web público Open-Meteo', () => {
 
   it('W05 rechaza una respuesta sin datos diarios', () => {
     assert.throws(() => ClimaService.interpretar({ daily: {} }, { nombre: 'x' }));
+    assert.throws(() => ClimaService.interpretarNasa({ properties: {} }, { nombre: 'x' }));
+  });
+
+  it('W07 si Open-Meteo falla usa NASA POWER y descarta los días sin dato (-999)', async () => {
+    const nasa = { properties: { parameter: {
+      ALLSKY_SFC_SW_DWN: { 20261110: 4, 20261111: 6, 20261112: -999 },
+      T2M_MAX: { 20261110: 25, 20261111: 26, 20261112: -999 },
+      T2M_MIN: { 20261110: 9, 20261111: 10, 20261112: -999 },
+    } } };
+    const llamadas = [];
+    const f = async (url) => {
+      llamadas.push(url);
+      return url.includes('open-meteo') ? { ok: false, status: 429, json: async () => null } : { ok: true, status: 200, json: async () => nasa };
+    };
+    const r = await new ClimaService({ fetchFn: f, registro: () => {} }).recursoSolar();
+    assert.ok(llamadas[1].startsWith('https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_SFC_SW_DWN'));
+    assert.equal(r.fuente, 'NASA POWER');
+    assert.equal(r.tipo, 'medicion');
+    assert.deepEqual(r.dias.map((d) => d.fecha), ['2026-11-10', '2026-11-11']);
+    assert.equal(r.horasSolPico, 5);
+    assert.match(r.nota, /Open-Meteo no respondió/);
   });
 });
