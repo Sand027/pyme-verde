@@ -88,7 +88,7 @@ module.exports = function rubrica() {
       ['Al menos 5 tablas', 'Nueve tablas de dominio más `session`; criterio 8.'],
       ['Autenticación simple', '`/login`, `src/services/AuthService.js`, bcrypt; criterio 3.'],
       ['Orientada a objetos', 'Criterio 6.'],
-      ['Consumir al menos un servicio web público', 'Open-Meteo, en `src/services/ClimaService.js`; criterio 7.'],
+      ['Consumir al menos un servicio web público', 'Open-Meteo y NASA POWER, en `src/services/ClimaService.js`; criterio 7.'],
       ['Despliegue en un servidor remoto', 'Render y Neon; criterio 9.'],
     ], [3, 7.4], { tam: 17 }),
     espacio(),
@@ -234,23 +234,25 @@ export function el(etiqueta, attrs = {}, ...hijos) {
       ['Suficiente', 'Presenta fallas en el consumo de un servicio externo.', '2'],
       ['No suficiente', 'No crea ni consume ningún servicio.', '1'],
     ], 'Excelente', 5,
-    'Se diseñaron y crearon seis servicios REST propios (se piden dos), documentados con OpenAPI 3, y además se consume el servicio web público Open-Meteo.',
+    'Se diseñaron y crearon seis servicios REST propios (se piden dos), documentados con OpenAPI 3, y además se consumen dos servicios web públicos: Open-Meteo y, como respaldo, NASA POWER.',
     [
       ['Servicio 1: registros (CRUD)', 'GET, POST, PUT, PATCH y DELETE en `/api/registros`. Pruebas ' + ids(/^R/) + '.'],
       ['Servicio 2: indicadores', '`/api/indicadores`, `/:id`, `/:id/serie`, `/:id/meta`. Pruebas ' + ids(/^I/) + '.'],
       ['Servicios 3 a 6', 'Acciones, residuos, calculadora y reportes (CSV). Pruebas ' + ids(/^[ACE]/) + '.'],
       ['Servicios públicos', '`/api/publico/pyme`, `/api/publico/indicadores`, `/api/publico/clima`. Pruebas ' + ids(/^P/) + ', W06.'],
       ['Documentación', `${SITIO}/api/docs y \`/api/docs/openapi.json\` (\`src/docs/openapi.js\`).`],
-      ['Consumo de un servicio web público', '`src/services/ClimaService.js` consulta `https://api.open-meteo.com/v1/forecast` (radiación solar y temperatura de León), con tiempo máximo, caché de una hora y manejo de fallas (502). Se muestra en la calculadora. Pruebas ' + ids(/^W/) + '.'],
+      ['Consumo de un servicio web público', '`src/services/ClimaService.js` consulta `https://api.open-meteo.com/v1/forecast` (radiación solar y temperatura de León), con tiempo máximo y caché de una hora; si no responde, consulta NASA POWER (`https://power.larc.nasa.gov`); si ninguno responde, 502. Se muestra en la calculadora. Pruebas ' + ids(/^W/) + '.'],
       ['Formato y errores', 'JSON `{ data, meta }`; errores `{ error: { codigo, mensaje, campos } }` con 401, 403, 404, 409, 422, 423, 429, 502.'],
     ],
-    [...codigo(`GET ${SITIO}/api/publico/clima
+    [p('Respuesta real del sitio publicado el 23 de noviembre de 2026. Desde Render, Open-Meteo no respondió y se usó el respaldo; en la computadora de desarrollo responde Open-Meteo (figura siguiente).'),
+    ...codigo(`GET ${SITIO}/api/publico/clima
 
 200 OK
-{ "data": { "fuente": "Open-Meteo", "lugar": "León, Guanajuato",
-            "temperaturaActual": 20.7, "horasSolPico": 3.89,
-            "generacionMensualPorKwp": 93.4, "dias": [ ... 7 días ... ] } }`),
-    figura('capturas/26-calculadora-solar.png', 'Datos de Open-Meteo en la calculadora.', { maxAlto: 300 }),
+{ "data": { "fuente": "NASA POWER", "tipo": "medicion", "lugar": "León, Guanajuato",
+            "horasSolPico": 3.95, "generacionMensualPorKwp": 94.8,
+            "dias": [ ... 7 días ... ],
+            "nota": "Open-Meteo no respondió; se usan datos de NASA POWER." } }`),
+    figura('capturas/26-calculadora-solar.png', 'Datos de clima de servicios públicos en la calculadora.', { maxAlto: 300 }),
     figura('capturas/04-documentacion-api.png', 'Documentación de la API en /api/docs.', { maxAlto: 300 })]),
 
     // 8 ---------------------------------------------------------------------------

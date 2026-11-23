@@ -57,7 +57,8 @@ Narran Oscar (front end) y Gonzalo Josue (back end).
 - Probar en vivo GET /api/publico/indicadores desde la página de documentación.
 - Calculadora: calcular un escenario de ahorro de electricidad.
 - Bajar a "Recurso solar en León": datos que el servidor obtiene del servicio web
-  público Open-Meteo; cambiar el consumo en kWh y ver los kWp necesarios.
+  público Open-Meteo, o de NASA POWER cuando Open-Meteo no responde (en el sitio
+  publicado suele pasar; la nota debajo de las cifras lo dice); cambiar el consumo en kWh y ver los kWp necesarios.
 - Abrir /api/publico/clima para mostrar el JSON.
   [Rúbrica: Interoperabilidad 5 %]
 
@@ -79,7 +80,7 @@ Narran Oscar (front end) y Gonzalo Josue (back end).
   src/config/database.js (Singleton); src/repositories (Repository).
 - src/db/schema.sql: las nueve tablas; mostrar el diagrama entidad-relación.
 - Terminal: npm test y el resultado (todas las pruebas pasan), incluidas las de
-  inyección SQL (S07, S08) y las del servicio Open-Meteo (W01 a W06).
+  inyección SQL (S07, S08) y las de los servicios de clima (W01 a W07).
   [Rúbrica: Arquitectura y diseño 15 %, Orientación a objetos 15 %, Persistencia 15 %]
 
 ------------------------------------------------------------------------------

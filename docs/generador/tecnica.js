@@ -47,7 +47,7 @@ module.exports = function tecnica() {
       'Registro, consulta, edición y eliminación de consumos, residuos, producción y actividades sociales, con validación en cliente y servidor.',
       'Siete indicadores ambientales, sociales y económicos calculados por periodo y comparados contra su meta, con gráfica de seis meses.',
       'Clasificación de residuos con destinos permitidos por clase y evidencia obligatoria para los de manejo especial.',
-      'Calculadora de ahorro y retorno de la inversión, y estimación de paneles solares con datos del servicio web público Open-Meteo.',
+      'Calculadora de ahorro y retorno de la inversión, y estimación de paneles solares con datos de los servicios web públicos Open-Meteo y NASA POWER.',
       'Plan de acciones con responsable, fechas, avance y evidencias; reportes comparativos, versión imprimible y exportación CSV.',
       'Tres tipos de usuario (visitante, colaborador y administrador) verificados en el servidor; bitácora de eventos.',
       `API REST propia con seis servicios, documentada con OpenAPI 3, y ${N} pruebas automatizadas.`,
@@ -640,9 +640,10 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains`),
     vinetas([
       '**Cliente:** la clase `ClimaService` (`src/services/ClimaService.js`) arma la URL con la latitud y longitud de León, pide la radiación solar diaria (`shortwave_radiation_sum`), las temperaturas máxima y mínima y la temperatura actual de los próximos siete días, con un tiempo máximo de espera de 5 segundos.',
       '**Transformación:** convierte la radiación de MJ/m² a kWh/m² (÷ 3.6), calcula las horas de sol pico (promedio de kWh/m² al día) y la generación mensual por kWp instalado: horas de sol pico × 30 días × 0.8 de rendimiento.',
-      '**Caché y fallas:** guarda la respuesta una hora en memoria. Si Open-Meteo falla y hay copia, la devuelve marcada como desactualizada; si no hay copia, responde 502 con un mensaje claro (`ServicioExternoError`). El resto de la aplicación no depende de este servicio.',
+      '**Respaldo: NASA POWER.** Si Open-Meteo no responde (en el servidor de Render llegó a responder con error a la IP compartida), el cliente consulta el servicio público NASA POWER (`https://power.larc.nasa.gov/api/temporal/daily/point`), que entrega la radiación medida en kWh/m² al día; se descartan los días sin dato (valor -999) y se toman los últimos siete. La respuesta indica la fuente usada y la página lo muestra.',
+      '**Caché y fallas:** guarda la respuesta una hora en memoria. Si los dos servicios fallan y hay copia, la devuelve marcada como desactualizada; si no hay copia, responde 502 con un mensaje claro (`ServicioExternoError`). La causa de cada falla queda en el registro del servidor. El resto de la aplicación no depende de estos servicios.',
       '**Exposición:** `GET /api/publico/clima` (documentado en `/api/docs`). La calculadora lo pide con `fetch` y muestra horas de sol pico, generación por kWp, kWp necesarios para el consumo capturado, temperatura y una tabla de siete días.',
-      '**Pruebas:** W01 a W05 (caja blanca, con respuesta simulada) y W06 (caja negra, la ruta completa).',
+      '**Pruebas:** W01 a W05 y W07 (caja blanca, con respuestas simuladas de ambos servicios) y W06 (caja negra, la ruta completa).',
     ]),
     ...codigo(`// src/services/ClimaService.js (extracto)
 const res = await fetch(this.urlConsulta(), {
@@ -651,7 +652,7 @@ const res = await fetch(this.urlConsulta(), {
 });
 if (!res.ok) throw new Error(\`respondió HTTP \${res.status}\`);
 const datos = ClimaService.interpretar(await res.json(), this.#lugar);`),
-    figura('capturas/26-calculadora-solar.png', 'Recurso solar de León con datos de Open-Meteo en la calculadora.', { maxAlto: 330 }),
+    figura('capturas/26-calculadora-solar.png', 'Recurso solar de León en la calculadora.', { maxAlto: 330 }),
     h3('Servicios web propios (API REST)'),
     p('La API REST vive bajo `/api` y responde JSON. Hay seis servicios propios, más los endpoints públicos (incluido el que expone los datos de Open-Meteo) y el de sesión. La especificación OpenAPI 3 se publica en `/api/docs/openapi.json` y se puede leer en `/api/docs`.'),
     h3('Convenciones'),
