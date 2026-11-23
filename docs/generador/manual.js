@@ -79,6 +79,8 @@ module.exports = function manual() {
     ]),
     p('Debajo del resultado se listan los **Supuestos usados en este cálculo** con su fuente: por ejemplo, el precio del kWh. Son valores de referencia que la administración debe sustituir por los de los recibos del taller.'),
     pantalla('11-calculadora', 'Calculadora de consumo y ahorro.'),
+    p('Más abajo, **Recurso solar en León** muestra el pronóstico de siete días que la aplicación obtiene del servicio público Open-Meteo: horas de sol pico al día, generación mensual por kWp instalado, temperatura actual y la radiación de cada día. Al escribir el **Consumo eléctrico al mes, en kWh**, la tarjeta **Paneles para cubrir el consumo** calcula cuántos kWp harían falta. Si el servicio no responde, la sección lo indica y el resto de la calculadora funciona igual.'),
+    pantalla('26-calculadora-solar', 'Recurso solar con datos de Open-Meteo.'),
     h2('4.6 Dar seguimiento a una acción'),
     ...numerada([
       'Abrir **Plan de acciones** y pulsar la acción de la que se es responsable.',

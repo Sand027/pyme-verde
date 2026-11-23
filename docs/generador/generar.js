@@ -18,6 +18,7 @@ async function main() {
     [require('./tecnica'), path.join(DOCS, 'PyME-Verde_Documentacion-tecnica.docx')],
     [require('./manual'), path.join(DOCS, 'PyME-Verde_Manual-de-usuario.docx')],
     [require('./reporte'), path.join(DOCS, 'PyME-Verde_Reporte-tecnico.docx')],
+    [require('./rubrica'), path.join(DOCS, 'PyME-Verde_Rubrica-con-evidencias.docx')],
     [require('./credenciales'), path.join(RAIZ, 'entrega-privada', 'Credenciales_de_prueba.docx')],
   ];
   for (const [crear, destino] of piezas) {

@@ -230,7 +230,23 @@ class SesionApiController extends ApiController {
   }
 }
 
+/** Expone el dato que la aplicación obtiene del servicio web público Open-Meteo. */
+class ClimaApiController extends ApiController {
+  #servicio;
+
+  constructor(climaService) {
+    super();
+    this.#servicio = climaService;
+  }
+
+  async recursoSolar(req, res) {
+    res.set('Cache-Control', 'public, max-age=600');
+    return this.ok(res, await this.#servicio.recursoSolar());
+  }
+}
+
 module.exports = {
+  ClimaApiController,
   RegistroApiController,
   IndicadorApiController,
   AccionApiController,

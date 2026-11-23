@@ -45,4 +45,12 @@ class ConflictoError extends AppError {
   }
 }
 
-module.exports = { AppError, ValidacionError, NoAutenticadoError, ProhibidoError, NoEncontradoError, ConflictoError };
+/** Un servicio web externo no respondió o respondió algo inválido. */
+class ServicioExternoError extends AppError {
+  constructor(servicio, detalle = '') {
+    super(`El servicio ${servicio} no está disponible en este momento. Inténtalo más tarde.`, 502, 'SERVICIO_EXTERNO');
+    this.detalle = detalle;
+  }
+}
+
+module.exports = { AppError, ValidacionError, NoAutenticadoError, ProhibidoError, NoEncontradoError, ConflictoError, ServicioExternoError };

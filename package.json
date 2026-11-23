@@ -15,7 +15,9 @@
     "db:migrate": "node src/db/migrate.js",
     "db:seed": "node src/db/seed.js",
     "db:reset": "node src/db/seed.js --force",
-    "test": "node --test --test-concurrency=1 tests/"
+    "test": "node --test --test-concurrency=1 tests/",
+    "db:export": "node scripts/exportar-bd.js",
+    "entrega": "node scripts/armar-entrega.js"
   },
   "author": "Oscar y Gonzalo Josue",
   "license": "MIT",

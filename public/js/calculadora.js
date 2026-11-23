@@ -1,6 +1,6 @@
 /* Calculadora: envía el escenario a POST /api/calculadora/escenarios y muestra el resultado
    con los supuestos que usó el servidor. Los escenarios guardados viven en sessionStorage. */
-import { api, avisar, mostrarErrores, limpiarErrores, validarLocal, datosDe, num, dinero, el } from './pv.js';
+import { api, avisar, mostrarErrores, limpiarErrores, validarLocal, datosDe, num, dinero, el, fecha } from './pv.js';
 
 const form = document.querySelector('[data-calc]');
 const salida = document.querySelector('[data-resultado]');
@@ -94,3 +94,45 @@ document.querySelector('[data-guardar-esc]').addEventListener('click', async () 
 });
 pintarTabla();
 calcular();
+
+/* Recurso solar: la página pide a nuestro servidor /api/publico/clima, que a su vez consume
+   el servicio web público Open-Meteo. Con las horas de sol pico estima los kWp necesarios. */
+const solar = document.querySelector('[data-solar]');
+if (solar) {
+  const cifras = solar.querySelector('[data-solar-cifras]');
+  const dias = solar.querySelector('[data-solar-dias]');
+  const formSol = solar.querySelector('[data-solar-form]');
+  const estadoSol = solar.querySelector('[data-solar-estado]');
+  let clima = null;
+
+  const pintarSolar = () => {
+    if (!clima) return;
+    const kwh = Number(formSol.elements.kwh.value);
+    const kwp = kwh > 0 && clima.generacionMensualPorKwp > 0 ? kwh / clima.generacionMensualPorKwp : null;
+    cifras.replaceChildren(
+      cifra('Horas de sol pico al día', num(clima.horasSolPico, 2), 'promedio de los próximos 7 días'),
+      cifra('Generación por kWp al mes', `${num(clima.generacionMensualPorKwp, 1)} kWh`, `rendimiento supuesto ${num(clima.rendimientoSupuesto * 100, 0)} %`),
+      cifra('Paneles para cubrir el consumo', kwp === null ? 'sin dato' : `${num(kwp, 2)} kWp`, `para ${num(kwh, 0)} kWh al mes`),
+      cifra('Temperatura actual', clima.temperaturaActual === null ? 'sin dato' : `${num(clima.temperaturaActual, 1)} °C`, clima.lugar),
+    );
+    estadoSol.textContent = clima.desactualizado ? 'Open-Meteo no respondió; se muestran los últimos datos obtenidos.' : '';
+  };
+
+  formSol.addEventListener('input', () => {
+    limpiarErrores(formSol);
+    if (validarLocal(formSol)) pintarSolar();
+  });
+  formSol.addEventListener('submit', (e) => e.preventDefault());
+
+  api('GET', '/api/publico/clima').then((r) => {
+    clima = r.data;
+    dias.replaceChildren(...clima.dias.map((d) => el('tr', {},
+      el('td', {}, fecha(d.fecha)),
+      el('td', { class: 'num' }, num(d.radiacionKwhM2, 2)),
+      el('td', { class: 'num' }, num(d.temperaturaMax, 1)),
+      el('td', { class: 'num' }, num(d.temperaturaMin, 1)))));
+    pintarSolar();
+  }).catch((err) => {
+    cifras.replaceChildren(el('p', { class: 'ap-nota' }, err.message));
+  });
+}

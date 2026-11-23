@@ -131,6 +131,26 @@ describe('Seguridad: sesión, CSRF, cabeceras y bloqueo', () => {
   it('S06 un id que no es entero responde 404', async () => {
     await con(admin).get('/api/registros/abc').expect(404);
   });
+
+  it('S07 una inyección SQL en el inicio de sesión no entra', async () => {
+    const agente = request.agent(app);
+    const pagina = await agente.get('/login');
+    const csrf = pagina.text.match(/name="_csrf" value="([^"]+)"/)[1];
+    for (const username of ["admin.demo' --", "' OR '1'='1"]) {
+      const r = await agente.post('/login').type('form').send({ _csrf: csrf, username, password: "' OR '1'='1" });
+      assert.notEqual(r.status, 303, `no debe iniciar sesión con ${username}`);
+    }
+    await agente.get('/api/sesion').expect(401);
+  });
+
+  it('S08 una inyección SQL en filtros y orden se trata como texto y no altera la consulta', async () => {
+    const total = (await con(admin).get('/api/registros?porPagina=1').expect(200)).body.meta.total;
+    const r = await con(admin).get(`/api/registros?texto=${encodeURIComponent("x' OR '1'='1")}`).expect(200);
+    assert.equal(r.body.data.length, 0);
+    const o = await con(admin).get(`/api/registros?porPagina=1&orden=${encodeURIComponent('fecha; DROP TABLE registro; --')}`);
+    assert.ok([200, 422].includes(o.status));
+    assert.equal((await con(admin).get('/api/registros?porPagina=1').expect(200)).body.meta.total, total);
+  });
 });
 
 describe('Servicio 1: registros (CRUD)', () => {
@@ -310,5 +330,23 @@ describe('Servicio 6: reportes', () => {
   it('E03 un colaborador no puede generar reportes (403)', async () => {
     await con(colab).get('/api/reportes/comparativo').expect(403);
     await con(colab).get('/api/reportes/registros.csv').expect(403);
+  });
+});
+
+describe('Consumo del servicio web público Open-Meteo', () => {
+  it('W06 /api/publico/clima responde sin sesión con los datos convertidos', async () => {
+    const original = globalThis.fetch;
+    globalThis.fetch = async (url) => {
+      assert.match(String(url), /^https:\/\/api\.open-meteo\.com\//);
+      return { ok: true, status: 200, json: async () => ({ current: { temperature_2m: 20 }, daily: { time: ['2026-11-23'], shortwave_radiation_sum: [18], temperature_2m_max: [25], temperature_2m_min: [10] } }) };
+    };
+    try {
+      const r = await request(app).get('/api/publico/clima').expect(200);
+      assert.equal(r.body.data.fuente, 'Open-Meteo');
+      assert.equal(r.body.data.horasSolPico, 5);
+      assert.equal(r.body.data.generacionMensualPorKwp, 120);
+    } finally {
+      globalThis.fetch = original;
+    }
   });
 });

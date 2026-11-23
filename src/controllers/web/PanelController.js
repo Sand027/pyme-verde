@@ -24,7 +24,7 @@ class PanelController extends WebController {
 
   /** Mes elegido (?mes=AAAA-MM) o, por omisión, el último mes cerrado. */
   static periodoDelMes(mes) {
-    const valido = /^d{4}-(0[1-9]|1[0-2])$/.test(String(mes || ''));
+    const valido = /^\d{4}-(0[1-9]|1[0-2])$/.test(String(mes || ''));
     const base = valido ? `${mes}-01` : sumarMeses(`${hoyISO().slice(0, 7)}-01`, -1);
     return limitesDelMes(base);
   }

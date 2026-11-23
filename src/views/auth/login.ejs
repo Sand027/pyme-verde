@@ -23,7 +23,7 @@
             <input type="hidden" name="siguiente" value="<%= siguiente %>">
             <div class="field field--full">
               <label for="f-usuario">Usuario</label>
-              <input id="f-usuario" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="40" pattern="[a-z0-9._-]{4,40}" value="<%= valores.username || '' %>" aria-describedby="f-usuario-err" <%= errores.username ? 'aria-invalid=true' : '' %>>
+              <input id="f-usuario" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="40" pattern="[a-z0-9._\-]{4,40}" value="<%= valores.username || '' %>" aria-describedby="f-usuario-err" <%= errores.username ? 'aria-invalid=true' : '' %>>
               <p class="field__error" id="f-usuario-err" <%= errores.username ? '' : 'hidden' %>><%= errores.username || 'Escribe tu usuario: minúsculas, números, punto o guion.' %></p>
             </div>
             <div class="field field--full">

@@ -68,6 +68,10 @@ async function main() {
   });
   await foto(p, '10-residuos', '/panel/residuos');
   await foto(p, '11-calculadora', '/panel/calculadora');
+  // Sección que consume el servicio web público Open-Meteo (se espera a que llegue la respuesta).
+  await p.waitForFunction(() => !document.querySelector('[data-solar-cifras]')?.textContent.includes('Consultando'), { timeout: 15000 });
+  await (await p.$('[data-solar]')).screenshot({ path: path.join(OUT, '26-calculadora-solar.png') });
+  console.log('26-calculadora-solar');
   await foto(p, '12-acciones', '/panel/acciones');
   await foto(p, '13-accion-detalle', '/panel/acciones', { antes: clicEnTexto('Editar') });
   await foto(p, '14-reportes', '/panel/reportes');

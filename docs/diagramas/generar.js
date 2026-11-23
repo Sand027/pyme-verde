@@ -105,7 +105,7 @@ function arquitectura() {
 
 /* ------------------------------------------------------------ 2. despliegue */
 function despliegue() {
-  const L = new Lienzo(1000, 420);
+  const L = new Lienzo(1000, 470);
   L.texto(30, 36, 'Diagrama de despliegue', { t: 20, peso: 700 });
   const nodo = (x, y, w, h, titulo, est, lineas, color) => {
     L.rect(x + 8, y - 8, w, h, { relleno: '#ece5dc', borde: C.tinta, capa: 'fondo' });
@@ -126,6 +126,9 @@ function despliegue() {
   etiqueta(L, (render.r + neon.x) / 2, 160, 'TLS 5432');
   L.linea([[510, git.y], [510, render.b]], { color: C.tinta, guion: '6 4', fin: 'abierta' });
   etiqueta(L, 590, git.y - 6, 'autoDeploy en cada push');
+  const meteo = nodo(740, 340, 230, 100, 'Open-Meteo', 'servicio web público', ['api.open-meteo.com/v1/forecast', 'Radiación solar y temperatura'], C.azulSuave);
+  L.linea([[render.r, 290], [700, 290], [700, meteo.y + 60], [meteo.x, meteo.y + 60]], { color: C.tinta, fin: 'flecha' });
+  etiqueta(L, 700, 280, 'HTTPS GET, JSON');
   return L;
 }
 
@@ -437,6 +440,103 @@ function navegacion() {
   return L;
 }
 
+/* ------------------------------------------------------------ 10. componentes */
+function componentes() {
+  const L = new Lienzo(1000, 760);
+  L.texto(30, 36, 'Diagrama de componentes', { t: 20, peso: 700 });
+  L.texto(30, 58, 'Cada componente usa solo las interfaces del componente de abajo. Las flechas punteadas indican dependencia de uso.', { t: 13, color: C.suave });
+  const comp = (x, y, w, h, nombre, lineas = [], color = C.caja, borde = C.tinta) => {
+    L.rect(x, y, w, h, { relleno: color, borde, r: 4, grosor: 1.4 });
+    L.rect(x + w - 30, y + 8, 18, 22, { relleno: '#fff', borde });
+    L.rect(x + w - 35, y + 12, 10, 5, { relleno: '#fff', borde });
+    L.rect(x + w - 35, y + 21, 10, 5, { relleno: '#fff', borde });
+    L.texto(x + 12, y + 24, nombre, { t: 14, peso: 700 });
+    lineas.forEach((t, i) => L.texto(x + 12, y + 46 + i * 17, t, { t: 12, color: C.suave }));
+    return { x, y, w, h, cx: x + w / 2, cy: y + h / 2, r: x + w, b: y + h };
+  };
+  const usa = (pts, txt, tx, ty) => { L.linea(pts, { color: C.tinta, guion: '6 4', fin: 'abierta' }); if (txt) etiqueta(L, tx, ty, txt); };
+
+  const nav = comp(30, 80, 300, 110, 'Cliente web (navegador)', ['Vistas HTML renderizadas', 'public/js: pv.js, registros.js,', 'calculadora.js, tablero.js y otros'], C.azulSuave, C.azul);
+  const ext = comp(670, 80, 300, 110, 'Open-Meteo (externo)', ['Servicio web público', 'GET /v1/forecast', 'JSON sin clave de acceso'], '#efe9e1', C.suave);
+  const web = comp(30, 240, 300, 110, 'Rutas y controladores web', ['src/routes/web.js', 'src/controllers/web/*', 'Devuelven HTML (EJS)'], C.acentoSuave, C.acento);
+  const api = comp(350, 240, 300, 110, 'API REST', ['src/routes/api.js', 'src/controllers/api/*', 'Devuelven JSON, OpenAPI 3'], C.acentoSuave, C.acento);
+  const mid = comp(670, 240, 300, 110, 'Middleware', ['auth.js: sesión y permisos', 'csrf.js, seguridad.js (helmet)', 'errores.js'], C.acentoSuave, C.acento);
+  const srv = comp(30, 400, 620, 130, 'Servicios de negocio', ['AuthService, UsuarioService, RegistroService, IndicadorService,', 'ResiduoService, AccionService, CalculadoraService, ReporteService,', 'CatalogoService, ClimaService (cliente de Open-Meteo)', 'Modelos (src/models) y patrones Strategy, Factory, Observer'], C.verdeSuave, C.verde);
+  const ev = comp(670, 400, 300, 130, 'Eventos y bitácora', ['EventBus (Observer)', 'BitacoraObserver', 'Escucha registro.*, accion.*,', 'sesion.* y usuario.*'], C.verdeSuave, C.verde);
+  const rep = comp(30, 580, 620, 90, 'Repositorios', ['BaseRepository y 8 repositorios: SQL con parámetros $1, $2…', 'Database.getInstance() (Singleton, pool de pg)'], '#efe9e1', C.suave);
+  const db = comp(670, 580, 300, 90, 'PostgreSQL (Neon)', ['9 tablas de dominio', 'tabla session'], '#efe9e1', C.suave);
+
+  usa([[120, nav.b], [120, web.y]], 'HTTPS: páginas', 120, 222);
+  usa([[290, nav.b], [290, 215], [500, 215], [500, api.y]], 'fetch JSON + X-CSRF-Token', 400, 207);
+  usa([[web.r, 300], [api.x, 300]]);
+  usa([[mid.x, 320], [api.r, 320]], 'filtra', 660, 340);
+  usa([[180, web.b], [180, srv.y]], 'usa', 200, 378);
+  usa([[440, api.b], [440, srv.y]], 'usa', 460, 378);
+  usa([[srv.r, 465], [ev.x, 465]], 'publica', 660, 457);
+  usa([[340, srv.b], [340, rep.y]], 'usa', 360, 558);
+  usa([[ev.cx, ev.b], [ev.cx, 555], [600, 555], [600, rep.y]], 'escribe', 760, 547);
+  usa([[rep.r, 625], [db.x, 625]], 'SQL / TLS', 660, 652);
+  usa([[600, srv.y], [600, 375], [940, 375], [940, ext.b]], 'HTTPS GET', 870, 367);
+  L.texto(30, 720, 'El navegador nunca llama a Open-Meteo directamente: ClimaService lo consulta desde el servidor, guarda la respuesta una hora', { t: 12, color: C.suave });
+  L.texto(30, 740, 'y la expone en GET /api/publico/clima.', { t: 12, color: C.suave });
+  return L;
+}
+
+/* ------------------------------------------------------------ 11. diagrama de flujo */
+function flujo() {
+  const L = new Lienzo(1000, 1010);
+  L.texto(30, 36, 'Diagrama de flujo: acceso y captura de un registro', { t: 20, peso: 700 });
+  const W = 280;
+  const H = 46;
+  const caja = (cx, y, h) => ({ cx, y, b: y + h, l: cx - W / 2, r: cx + W / 2, cy: y + h / 2 });
+  const proceso = (cx, y, t) => { L.rect(cx - W / 2, y, W, H, { relleno: C.caja, r: 4 }); L.texto(cx, y + 28, t, { t: 13, ancla: 'middle' }); return caja(cx, y, H); };
+  const terminal = (cx, y, t) => { L.rect(cx - 90, y, 180, 40, { relleno: C.verdeSuave, borde: C.verde, r: 20, grosor: 1.6 }); L.texto(cx, y + 25, t, { t: 13, peso: 700, ancla: 'middle', color: C.verde }); return { cx, y, b: y + 40, l: cx - 90, r: cx + 90, cy: y + 20 }; };
+  const decision = (cx, y, t) => {
+    const w = 290;
+    const h = 70;
+    L.add('cajas', `<path d="M${cx},${y} L${cx + w / 2},${y + h / 2} L${cx},${y + h} L${cx - w / 2},${y + h / 2} z" fill="${C.acentoSuave}" stroke="${C.acento}" stroke-width="1.4"/>`);
+    L.texto(cx, y + h / 2 + 5, t, { t: 13, ancla: 'middle', peso: 700 });
+    return { cx, y, b: y + h, l: cx - w / 2, r: cx + w / 2, cy: y + h / 2 };
+  };
+  const fl = (pts, t, tx, ty) => { L.linea(pts, { color: C.tinta, fin: 'flecha' }); if (t) etiqueta(L, tx, ty, t, { peso: 700, color: C.tinta }); };
+  const X = 300;
+  const XR = 720;
+  const ini = terminal(X, 70, 'Inicio');
+  const a1 = proceso(X, 140, 'Abrir el sitio por HTTPS');
+  const a2 = proceso(X, 216, 'Ver página pública e indicadores');
+  const d1 = decision(X, 292, '¿Iniciar sesión?');
+  const a3 = proceso(X, 410, 'Escribir usuario y contraseña');
+  const d2 = decision(X, 486, '¿Credenciales válidas?');
+  const a4 = proceso(X, 594, 'Crear sesión y mostrar panel por rol');
+  const a5 = proceso(X, 670, 'Capturar un registro');
+  const d3 = decision(X, 746, '¿Datos válidos?');
+  const a6 = proceso(X, 854, 'Guardar y registrar en bitácora');
+  const fin = terminal(X, 940, 'Fin');
+  const r1 = proceso(XR, 304, 'Seguir como visitante');
+  const r2 = proceso(XR, 498, 'Sumar intento fallido');
+  const d4 = decision(XR, 576, '¿5 intentos seguidos?');
+  const r3 = proceso(XR, 686, 'Bloquear la cuenta 15 minutos');
+  // caja angosta a la izquierda para que el regreso no cruce otras flechas
+  L.rect(20, 664, 115, 58, { relleno: C.caja, r: 4 });
+  L.texto(77, 688, 'Mostrar error', { t: 12.5, ancla: 'middle' });
+  L.texto(77, 706, 'por campo', { t: 12.5, ancla: 'middle' });
+  [[ini, a1], [a1, a2], [a2, d1], [a3, d2], [a4, a5], [a5, d3], [a6, fin]].forEach(([u, v]) => fl([[X, u.b], [X, v.y]]));
+  fl([[X, d1.b], [X, a3.y]], 'Sí', X + 20, d1.b + 22);
+  fl([[X, d2.b], [X, a4.y]], 'Sí', X + 20, d2.b + 22);
+  fl([[X, d3.b], [X, a6.y]], 'Sí', X + 20, d3.b + 22);
+  fl([[d1.r, d1.cy], [r1.l, d1.cy]], 'No', d1.r + 22, d1.cy - 8);
+  fl([[r1.r, r1.cy], [975, r1.cy], [975, fin.cy], [fin.r, fin.cy]]);
+  fl([[d2.r, d2.cy], [r2.l, d2.cy]], 'No', d2.r + 22, d2.cy - 8);
+  fl([[XR, r2.b], [XR, d4.y]]);
+  fl([[XR, d4.b], [XR, r3.y]], 'Sí', XR + 20, d4.b + 22);
+  fl([[d4.r, d4.cy], [940, d4.cy], [940, 392], [X + 60, 392], [X + 60, a3.y]], 'No', d4.r + 20, d4.cy - 8);
+  fl([[r3.r, r3.cy], [975, r3.cy]]);
+  fl([[d3.l, d3.cy], [77, d3.cy], [77, 722]], 'No', d3.l - 22, d3.cy - 8);
+  fl([[135, a5.cy], [a5.l, a5.cy]]);
+  L.texto(30, 1000, 'Los datos se validan dos veces: en el navegador (atributos HTML y pv.js) y en el servidor (Validador y modelos); la base aplica además restricciones CHECK.', { t: 12, color: C.suave });
+  return L;
+}
+
 const DIAGRAMAS = {
   '01-arquitectura-capas': arquitectura,
   '02-despliegue': despliegue,
@@ -447,6 +547,8 @@ const DIAGRAMAS = {
   '07-secuencia-alta-registro': secuencia,
   '08-modelo-entidad-relacion': entidadRelacion,
   '09-mapa-navegacion': navegacion,
+  '10-componentes': componentes,
+  '11-diagrama-flujo': flujo,
 };
 
 async function main() {

@@ -206,5 +206,8 @@ module.exports = {
     '/publico/indicadores/{id}/serie': {
       get: { tags: ['Público'], summary: 'Serie mensual de un indicador público', security: [], parameters: [id], responses: { 200: ok('Serie', dataDe({ type: 'object' })), 404: R[404] } },
     },
+    '/publico/clima': {
+      get: { tags: ['Público'], summary: 'Radiación solar y temperatura en León, obtenidas del servicio web público Open-Meteo', description: 'La aplicación consume https://api.open-meteo.com/v1/forecast desde el servidor, convierte la radiación diaria de MJ/m² a kWh/m² y calcula las horas de sol pico y la generación mensual estimada por kWp instalado (rendimiento 0.8). La respuesta se guarda una hora en memoria. Si Open-Meteo no responde y no hay copia previa, devuelve 502.', security: [], responses: { 200: ok('Recurso solar de los próximos siete días', dataDe({ type: 'object', properties: { fuente: { type: 'string', example: 'Open-Meteo' }, lugar: { type: 'string', example: 'León, Guanajuato' }, temperaturaActual: { type: 'number', example: 21.4 }, horasSolPico: { type: 'number', example: 5.62 }, generacionMensualPorKwp: { type: 'number', example: 134.9 }, dias: { type: 'array', items: { type: 'object' } } } })), 502: { description: 'El servicio externo no respondió', content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } } } } },
+    },
   },
 };

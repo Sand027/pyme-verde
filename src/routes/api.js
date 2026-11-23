@@ -19,6 +19,7 @@ const calculadora = new C.CalculadoraApiController(c.calculadoraService);
 const reportes = new C.ReporteApiController(c.reporteService);
 const publico = new C.PublicoApiController(c.catalogoService, c.indicadorService);
 const sesion = new C.SesionApiController();
+const clima = new C.ClimaApiController(c.climaService);
 
 const router = express.Router();
 const a = asincrono;
@@ -34,6 +35,8 @@ router.get('/docs/openapi.json', (req, res) => res.json(openapi));
 router.get('/publico/pyme', a(publico.pyme));
 router.get('/publico/indicadores', a(publico.indicadores));
 router.get('/publico/indicadores/:id/serie', a(publico.serie));
+// Consumo del servicio web público Open-Meteo (radiación solar en León).
+router.get('/publico/clima', a(clima.recursoSolar));
 
 // --- A partir de aquí se exige sesión ----------------------------------------
 router.use(requiereSesion, asegurarToken);

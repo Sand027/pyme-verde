@@ -119,3 +119,63 @@ describe('Calculadora (cálculo puro)', () => {
     );
   });
 });
+
+describe('Cliente del servicio web público Open-Meteo', () => {
+  const ClimaService = require('../src/services/ClimaService');
+  const { ServicioExternoError } = require('../src/utils/errores');
+  // Respuesta con la forma real de https://api.open-meteo.com/v1/forecast (radiación en MJ/m²).
+  const respuesta = {
+    current: { temperature_2m: 22.4 },
+    daily: {
+      time: ['2026-11-23', '2026-11-24'],
+      shortwave_radiation_sum: [18, 21.6],
+      temperature_2m_max: [25.1, 26.0],
+      temperature_2m_min: [9.2, 10.4],
+    },
+  };
+  const fetchFalso = (cuerpo, { ok = true, status = 200 } = {}) => {
+    const llamadas = [];
+    const fn = async (url) => { llamadas.push(url); return { ok, status, json: async () => cuerpo }; };
+    fn.llamadas = llamadas;
+    return fn;
+  };
+
+  it('W01 arma la consulta con la ubicación del taller y convierte MJ/m² a horas de sol pico', async () => {
+    const f = fetchFalso(respuesta);
+    const r = await new ClimaService({ fetchFn: f }).recursoSolar();
+    assert.match(f.llamadas[0], /^https:\/\/api\.open-meteo\.com\/v1\/forecast\?latitude=21\.12&longitude=-101\.68/);
+    assert.equal(r.fuente, 'Open-Meteo');
+    assert.deepEqual(r.dias.map((d) => d.radiacionKwhM2), [5, 6]);
+    assert.equal(r.horasSolPico, 5.5);
+    assert.equal(r.generacionMensualPorKwp, 132); // 5.5 h × 30 días × 0.8
+    assert.equal(r.temperaturaActual, 22.4);
+  });
+
+  it('W02 guarda la respuesta en memoria y no repite la consulta', async () => {
+    const f = fetchFalso(respuesta);
+    const s = new ClimaService({ fetchFn: f });
+    await s.recursoSolar();
+    await s.recursoSolar();
+    assert.equal(f.llamadas.length, 1);
+  });
+
+  it('W03 si el servicio falla sin copia previa lanza ServicioExternoError (502)', async () => {
+    const s = new ClimaService({ fetchFn: fetchFalso(null, { ok: false, status: 503 }) });
+    await assert.rejects(() => s.recursoSolar(), (e) => e instanceof ServicioExternoError && e.status === 502);
+  });
+
+  it('W04 si el servicio falla con copia vencida devuelve la copia marcada como desactualizada', async () => {
+    let falla = false;
+    const f = async () => (falla ? { ok: false, status: 500, json: async () => null } : { ok: true, status: 200, json: async () => respuesta });
+    const s = new ClimaService({ fetchFn: f, ttlMs: 0 });
+    await s.recursoSolar();
+    falla = true;
+    const r = await s.recursoSolar();
+    assert.equal(r.desactualizado, true);
+    assert.equal(r.horasSolPico, 5.5);
+  });
+
+  it('W05 rechaza una respuesta sin datos diarios', () => {
+    assert.throws(() => ClimaService.interpretar({ daily: {} }, { nombre: 'x' }));
+  });
+});

@@ -26,6 +26,7 @@ const AccionService = require('./services/AccionService');
 const CalculadoraService = require('./services/CalculadoraService');
 const ReporteService = require('./services/ReporteService');
 const CatalogoService = require('./services/CatalogoService');
+const ClimaService = require('./services/ClimaService');
 
 const repos = {
   pymeRepository: new PymeRepository(),
@@ -56,4 +57,6 @@ module.exports = Object.freeze({
   calculadoraService: new CalculadoraService(deps),
   reporteService: new ReporteService({ ...deps, indicadorService, residuoService }),
   catalogoService: new CatalogoService(deps),
+  // Cliente del servicio web público Open-Meteo (no usa la base de datos).
+  climaService: new ClimaService(),
 });

@@ -15,6 +15,7 @@ El caso de estudio es **Contrafuerte**, un taller de calzado de piel en León, G
 - Administración de usuarios, empresa, categorías, parámetros, metas y bitácora.
 - Roles visitante, colaborador y administrador, verificados en el servidor.
 - API REST con seis servicios y especificación OpenAPI 3 en `/api/docs`.
+- Consumo del servicio web público Open-Meteo (radiación solar de León) en la calculadora, expuesto en `/api/publico/clima`.
 
 ## Tecnologías
 
@@ -56,7 +57,9 @@ Abre `http://localhost:3000`.
 | `npm run db:migrate` | Aplica `src/db/schema.sql`. |
 | `npm run db:seed` | Carga el caso de demostración si la base está vacía. |
 | `npm run db:reset` | Borra los datos y vuelve a cargar el caso de demostración. |
-| `npm test` | Corre las 45 pruebas automatizadas. |
+| `npm run db:export` | Exporta estructura y datos a `base-de-datos/pyme_verde.sql`. |
+| `npm run entrega` | Arma la carpeta de entrega y su ZIP en `entrega-privada/` (incluye credenciales; no se versiona). |
+| `npm test` | Corre las 53 pruebas automatizadas. |
 
 ## Pruebas
 
@@ -64,7 +67,7 @@ Abre `http://localhost:3000`.
 npm test
 ```
 
-Las pruebas de la API usan una base separada: `TEST_DATABASE_URL`, o `pyme_verde_test` en el PostgreSQL local. Su nombre debe contener "test"; si no, las pruebas se niegan a correr para no borrar datos. La última ejecución está en `docs/evidencias/pruebas-npm-test.txt` (45 de 45 pasan).
+Las pruebas de la API usan una base separada: `TEST_DATABASE_URL`, o `pyme_verde_test` en el PostgreSQL local. Su nombre debe contener "test"; si no, las pruebas se niegan a correr para no borrar datos. La última ejecución está en `docs/evidencias/pruebas-npm-test.txt` (53 de 53 pasan).
 
 ## Publicación en Render y Neon
 
@@ -85,10 +88,12 @@ Las cuentas son `admin.demo` (administrador) y `colaborador.demo` (colaborador).
 
 | Archivo | Contenido |
 |---|---|
-| `docs/PyME-Verde_Documentacion-tecnica.docx` | Requerimientos, casos de uso, arquitectura, POO, patrones, base de datos, servicios web, seguridad, pruebas, instalación, privacidad y limitaciones. |
+| `docs/PyME-Verde_Documentacion-tecnica.docx` | Documentación según la guía del proyecto: I Antecedentes, II Análisis del sistema, III Diseño del sitio, IV Desarrollo e implementación. |
+| `docs/PyME-Verde_Rubrica-con-evidencias.docx` | Cada criterio de la rúbrica con el nivel alcanzado y su evidencia en el código, el sitio y las pruebas. |
+| `docs/Guion-del-video.txt` | Guion del video de funcionamiento. |
 | `docs/PyME-Verde_Manual-de-usuario.docx` | Uso por rol con capturas. |
 | `docs/PyME-Verde_Reporte-tecnico.docx` | Contribución a Desarrollo Sustentable, indicadores, resultados del caso de demostración y guion de la demostración. |
-| `docs/diagramas/` | Arquitectura, despliegue, casos de uso, clases, patrones, secuencia, modelo entidad-relación y mapa de navegación (SVG y PNG). |
+| `docs/diagramas/` | Arquitectura, despliegue, casos de uso, clases, patrones, secuencia, modelo entidad-relación, mapa de navegación, componentes y diagrama de flujo (SVG y PNG). |
 | `docs/capturas/` | Capturas de pantalla usadas en el manual. |
 | `docs/evidencias/` | Salida de las pruebas. |
 | `/api/docs` | Documentación de la API en la aplicación. |

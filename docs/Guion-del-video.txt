@@ -1,0 +1,89 @@
+PyME Verde - Guion del video de funcionamiento
+Duración objetivo: 10 a 12 minutos. Orden: el de los criterios de la rúbrica.
+Antes de grabar: abrir https://pyme-verde.onrender.com uno o dos minutos antes
+(el plan gratuito tarda en despertar) y tener a mano las credenciales del bloc de notas.
+Narran Oscar (front end) y Gonzalo Josue (back end).
+
+------------------------------------------------------------------------------
+0. Presentación (0:00 - 0:45) - Oscar
+------------------------------------------------------------------------------
+- Nombres del equipo, materia y grupo.
+- Qué es PyME Verde: registro de residuos, energía y agua de un taller de calzado
+  de León, con indicadores contra metas y un plan de acciones.
+- Aclarar que los datos son de demostración.
+
+------------------------------------------------------------------------------
+1. Despliegue y HTTPS (0:45 - 1:30) - Gonzalo Josue
+------------------------------------------------------------------------------
+- Mostrar la barra de direcciones: https://pyme-verde.onrender.com y el candado.
+- Abrir /salud y /api/publico/indicadores para mostrar que el servidor responde.
+- Mencionar: Render (aplicación) y Neon (PostgreSQL), despliegue automático desde GitHub.
+  [Rúbrica: Despliegue 10 %, Navegabilidad y seguridad]
+
+------------------------------------------------------------------------------
+2. Página pública y diseño responsivo (1:30 - 3:00) - Oscar
+------------------------------------------------------------------------------
+- Recorrer la página de inicio: portada, indicadores públicos, destinos, preguntas, pie.
+- Reducir el ancho de la ventana (o F12 > modo dispositivo, 390 px) y mostrar cómo
+  se reacomoda; en el panel, mostrar el menú que se vuelve cajón.
+- Señalar la paleta, las tipografías y las fotografías que se repiten en todo el sitio.
+  [Rúbrica: Maquetación 10 %, Aspecto visual 10 %]
+
+------------------------------------------------------------------------------
+3. Inicio de sesión, sesiones y roles (3:00 - 4:30) - Gonzalo Josue
+------------------------------------------------------------------------------
+- Intentar abrir /panel sin sesión: redirige a /login.
+- Iniciar sesión con una contraseña incorrecta: mensaje de error.
+- Entrar como colaborador (colaborador.demo). Escribir a mano /admin/usuarios:
+  aparece "Acceso restringido" (403). Cerrar sesión.
+- Entrar como administrador (admin.demo): el menú muestra Reportes, Usuarios,
+  Configuración y Bitácora.
+  [Rúbrica: Navegabilidad y seguridad 10 %]
+
+------------------------------------------------------------------------------
+4. Manejo del DOM y validación (4:30 - 6:00) - Oscar
+------------------------------------------------------------------------------
+- En Registros: filtrar por tipo y periodo; la tabla cambia sin recargar la página.
+- Nuevo registro: enviarlo vacío o con fecha futura y cantidad negativa; cada campo
+  muestra su error. Registrar un residuo con aprovechado mayor que lo generado: error.
+- Capturar un registro válido: aparece en la tabla y el aviso de confirmación.
+- Tablero: cambiar de mes y mostrar la gráfica de seis meses (SVG hecho con JavaScript).
+  [Rúbrica: Manejo del DOM 10 %]
+
+------------------------------------------------------------------------------
+5. Servicios web y servicio público (6:00 - 7:45) - Gonzalo Josue
+------------------------------------------------------------------------------
+- Abrir /api/docs: los seis servicios REST propios con su documentación OpenAPI.
+- Probar en vivo GET /api/publico/indicadores desde la página de documentación.
+- Calculadora: calcular un escenario de ahorro de electricidad.
+- Bajar a "Recurso solar en León": datos que el servidor obtiene del servicio web
+  público Open-Meteo; cambiar el consumo en kWh y ver los kWp necesarios.
+- Abrir /api/publico/clima para mostrar el JSON.
+  [Rúbrica: Interoperabilidad 5 %]
+
+------------------------------------------------------------------------------
+6. Plan de acciones, residuos y reportes (7:45 - 9:00) - Oscar
+------------------------------------------------------------------------------
+- Residuos: resumen por clase y destinos permitidos.
+- Plan de acciones: actualizar el avance de una acción y agregar una evidencia.
+- Reportes: comparar dos periodos, abrir la versión imprimible, descargar el CSV.
+- Bitácora: aparece lo que se acaba de hacer (Observer).
+
+------------------------------------------------------------------------------
+7. Código: arquitectura, POO, patrones y base de datos (9:00 - 11:00) - Gonzalo Josue
+------------------------------------------------------------------------------
+- Mostrar en el editor la carpeta src: views, routes, controllers, services, models,
+  repositories (capas y MVC).
+- src/models/Entidad.js (clase abstracta) y src/models/Registro.js (herencia).
+- src/patterns: Strategy y Factory de indicadores; EventBus (Observer);
+  src/config/database.js (Singleton); src/repositories (Repository).
+- src/db/schema.sql: las nueve tablas; mostrar el diagrama entidad-relación.
+- Terminal: npm test y el resultado (todas las pruebas pasan), incluidas las de
+  inyección SQL (S07, S08) y las del servicio Open-Meteo (W01 a W06).
+  [Rúbrica: Arquitectura y diseño 15 %, Orientación a objetos 15 %, Persistencia 15 %]
+
+------------------------------------------------------------------------------
+8. Cierre (11:00 - 11:30) - Oscar
+------------------------------------------------------------------------------
+- Resumen: sitio publicado con HTTPS, dos roles, seis servicios propios y uno externo,
+  nueve tablas, documentación y rúbrica con evidencias en la carpeta de entrega.

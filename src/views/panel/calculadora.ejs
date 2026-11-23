@@ -33,6 +33,23 @@
   </section>
 </div>
 
+<section class="ap-caja" aria-labelledby="sol-h" data-solar>
+  <div class="ap-caja__cab"><h2 class="ap-h2" id="sol-h">Recurso solar en León</h2>
+    <p class="ap-nota">Pronóstico de 7 días del servicio web público <a href="https://open-meteo.com" rel="noopener" target="_blank">Open-Meteo</a>, consultado por el servidor en <code>/api/publico/clima</code>.</p></div>
+  <div class="ap-resultado" data-solar-cifras aria-live="polite"><p class="ap-nota">Consultando Open-Meteo…</p></div>
+  <form class="form" data-solar-form novalidate style="margin-top: var(--s-5)">
+    <div class="field"><label for="s-kwh">Consumo eléctrico al mes, en kWh</label>
+      <input id="s-kwh" name="kwh" type="number" min="1" max="1000000" step="any" value="980" required inputmode="decimal" data-error="Escribe un consumo mayor que cero."></div>
+    <p class="form__status" data-solar-estado role="status"></p>
+  </form>
+  <div class="ap-tabla-envoltura" style="margin-top: var(--s-4)">
+    <table class="ap-tabla">
+      <thead><tr><th scope="col">Día</th><th scope="col" class="num">Radiación (kWh/m²)</th><th scope="col" class="num">Máx. °C</th><th scope="col" class="num">Mín. °C</th></tr></thead>
+      <tbody data-solar-dias><tr class="ap-tabla__vacia"><td colspan="4">Sin datos todavía.</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
 <section class="ap-caja" aria-labelledby="comp-h">
   <div class="ap-caja__cab"><h2 class="ap-h2" id="comp-h">Escenarios guardados</h2><p class="ap-nota">Se guardan solo en esta pestaña del navegador.</p></div>
   <div class="ap-tabla-envoltura">
