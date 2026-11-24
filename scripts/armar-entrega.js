@@ -73,8 +73,16 @@ function main() {
 
   // Documentos.
   const docs = path.join(RAIZ, 'docs');
-  copiar(path.join(docs, 'PyME-Verde_Rubrica-con-evidencias.docx'), path.join(DEST, 'Rubrica', 'PyME-Verde_Rubrica-con-evidencias.docx'));
-  for (const f of ['PyME-Verde_Documentacion-tecnica.docx', 'PyME-Verde_Manual-de-usuario.docx', 'PyME-Verde_Reporte-tecnico.docx']) {
+  // Se entrega el PDF (con la portada llenada en Word) cuando existe; si no, el .docx generado.
+  const documento = (base) => {
+    const f = ['.pdf', '.docx'].map((x) => base + x).find((n) => fs.existsSync(path.join(docs, n)));
+    if (!f) throw new Error(`Falta ${base}.pdf o .docx en docs/`);
+    return f;
+  };
+  const rub = documento('PyME-Verde_Rubrica-con-evidencias');
+  copiar(path.join(docs, rub), path.join(DEST, 'Rubrica', rub));
+  for (const base of ['PyME-Verde_Documentacion-tecnica', 'PyME-Verde_Manual-de-usuario', 'PyME-Verde_Reporte-tecnico']) {
+    const f = documento(base);
     copiar(path.join(docs, f), path.join(DEST, 'Documentacion', f));
   }
   copiar(path.join(PRIV, 'Credenciales_de_prueba.docx'), path.join(DEST, 'Documentacion', 'Credenciales_de_prueba.docx'));
