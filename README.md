@@ -88,11 +88,11 @@ Las cuentas son `admin.demo` (administrador) y `colaborador.demo` (colaborador).
 
 | Archivo | Contenido |
 |---|---|
-| `docs/PyME-Verde_Documentacion-tecnica.docx` | Documentación según la guía del proyecto: I Antecedentes, II Análisis del sistema, III Diseño del sitio, IV Desarrollo e implementación. |
-| `docs/PyME-Verde_Rubrica-con-evidencias.docx` | Cada criterio de la rúbrica con el nivel alcanzado y su evidencia en el código, el sitio y las pruebas. |
+| `docs/PyME-Verde_Documentacion-tecnica.pdf` | Documentación según la guía del proyecto: I Antecedentes, II Análisis del sistema, III Diseño del sitio, IV Desarrollo e implementación. |
+| `docs/PyME-Verde_Rubrica-con-evidencias.pdf` | Cada criterio de la rúbrica con el nivel alcanzado y su evidencia en el código, el sitio y las pruebas. |
 | `docs/Guion-del-video.txt` | Guion del video de funcionamiento. |
-| `docs/PyME-Verde_Manual-de-usuario.docx` | Uso por rol con capturas. |
-| `docs/PyME-Verde_Reporte-tecnico.docx` | Contribución a Desarrollo Sustentable, indicadores, resultados del caso de demostración y guion de la demostración. |
+| `docs/PyME-Verde_Manual-de-usuario.pdf` | Uso por rol con capturas. |
+| `docs/PyME-Verde_Reporte-tecnico.pdf` | Contribución a Desarrollo Sustentable, indicadores, resultados del caso de demostración y guion de la demostración. |
 | `docs/diagramas/` | Arquitectura, despliegue, casos de uso, clases, patrones, secuencia, modelo entidad-relación, mapa de navegación, componentes y diagrama de flujo (SVG y PNG). |
 | `docs/capturas/` | Capturas de pantalla usadas en el manual. |
 | `docs/evidencias/` | Salida de las pruebas. |
