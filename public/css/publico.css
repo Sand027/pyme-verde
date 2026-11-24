@@ -323,3 +323,10 @@ svg.pv-serie__bar rect { fill: color-mix(in oklab, var(--accent) 38%, var(--bg))
 
 /* Autoría: última línea de la página */
 #contact .footer__autoria { margin: var(--s-5) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--line, rgba(0,0,0,.08)); font-size: 13px; color: var(--muted); text-align: center; }
+
+/* pantalla ancha pero baja: las secciones crecen (system.css); los bloques .fill dejan de encogerse a
+   cero y toman su alto natural, para que no se salgan sobre la sección siguiente */
+@media (min-width: 1280px) and (max-height: 899px) {
+  #registro > .wrap > .app.fill { flex: none; height: 600px; }
+  main > #destinos > .wrap > .grid.fill, main > #preguntas > .wrap > .grid.fill { flex: none; min-height: auto; }
+}
